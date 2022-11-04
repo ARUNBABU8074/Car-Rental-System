@@ -1,23 +1,23 @@
 <?php
 
 include 'config.php';
-
+session_start();
  
    
-   $mailmsg =$_SESSION['mailsend'];
+  $mailmsg =$_SESSION['mailsend'];
    $fname = $_SESSION['fname'];
    $lname = $_SESSION['lname'];
    $phone = $_SESSION['phone'];
-  /*  $email = $_SESSION["email"];
+    $email = $_SESSION["email"];
    $addresss = $_SESSION["addresss"];
    $place = $_SESSION["place"];
    $usertype = $_SESSION['type'];
    $username = $_SESSION["username"];
-   $passwd = $_SESSION["passwd"]; */
+   $passwd = $_SESSION["passwd"];
 
-   echo $fname;
+ 
 
-/* if(isset($_POST['btn'])){
+ if(isset($_POST['btn'])){
    
     
     
@@ -29,7 +29,22 @@ include 'config.php';
   $cnt=$row['token'];
   if($tokenfrom==$cnt)
   {
+    $check1 = "SELECT * FROM `renter` WHERE `email`='$email'";
+    
+    $rslt1 = mysqli_query($conn, $check1);
+    $rsltcheck1 = mysqli_num_rows($rslt1);
+    $check2 = "SELECT * FROM `customer` WHERE `email`='$email'";
+    
+    $rslt2 = mysqli_query($conn, $check2);
+    $rsltcheck2 = mysqli_num_rows($rslt2);
 
+    if($rsltcheck1 == 0 && $rsltcheck2 == 0 ){
+
+    $check = "SELECT * FROM `login` WHERE `username`='$username'";
+    
+    $rslt = mysqli_query($conn, $check);
+    $rsltcheck = mysqli_num_rows($rslt);
+    if($rsltcheck == 0){
       
         if($usertype == 1){
             
@@ -60,7 +75,7 @@ include 'config.php';
     
         }
     }
-    
+}}
         else{
             echo'<script> alert ("token error");</script>';
             echo'<script>window.location.href="index.php";</script>'; 
@@ -68,16 +83,33 @@ include 'config.php';
         
     
 
-    } */
+    } 
+
+
     
 
 
 ?>
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
+    <head><title>otp</title>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        background-image: url('Two-Factor-Authentication.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 99% 98%;
+    }
+</style>
+</head>
     <body>
 
-<form class="user" method="post" action="demo.php">
+<form  method="post" action="demo.php">
 
                                     <script>
                                         function showerr()
@@ -94,26 +126,15 @@ include 'config.php';
                                             }
                                             setTimeout("hideerr()",3000);
                                     </script>
-                                    <?php 
-
-                                    if($mailmsg) {
-                                        
-                                        echo ' <div class="alert alert-danger 
-                                            alert-dismissible fade show" role="alert" id="time" style="visibility:hidden">'. $mailmsg.'
-
-                                    
-                                    </div> '; 
-                                    
-                                    }
-                                    ?>
-                                        <div class="form-group">
+                                   
+                                        <div  class="form-control" style="width: 80%;">
                                             <input type="text" class="form-control form-control-user" name="otp"
                                                 id="otp" aria-describedby="emailHelp"
                                                 placeholder="Enter your otp...">
                                         </div>
-                                        <input type="submit" class="btn btn-primary btn-user btn-block"  name="btn" value="submit">
+                                      <br>  <input type="submit"   name="btn" value="submit">
                                             
                                     </input>
                                     </form>
                                 </body>
-                                </html>
+                                </html> 

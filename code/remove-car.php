@@ -13,9 +13,9 @@ $sql="UPDATE `car` SET `c_stat`=0 WHERE `car_id`='$car_id'";
 	if ($result == TRUE) {
 		?>
 		<script>
-		if(window.confirm('car added succesfully '))
+		if(window.confirm('car removed succesfully '))
 		{
-			window.location.href='admin-home.php';
+			window.location.href='car.php';
 		};
 		</script>
 		<?php

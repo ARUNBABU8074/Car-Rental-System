@@ -150,8 +150,9 @@ http://www.tooplate.com/view/2078-adventure
                             <thead>
                                 <tr>
                                     
-                                    <th scope="col">CAR ID</th>
-									<th scope="col">RENTER ID</th>
+                                    <th scope="col">NO.</th>
+									<th scope="col">RENTER Name</th>
+                                    <th scope="col">COMPANY</th>
                                     <th scope="col">NAME</th>
                                     <th scope="col">REGISTER N0</th>
                                     <th scope="col">YEAR</th>
@@ -164,6 +165,7 @@ http://www.tooplate.com/view/2078-adventure
                             </thead>
                             <tbody>
 								<?php
+                                $n=1;
 			if ($result3->num_rows > 0) {
 
 				//output data of each row
@@ -172,15 +174,28 @@ http://www.tooplate.com/view/2078-adventure
                     if($row['c_stat']==2){
 		?>
                                 <tr>
-                                <td><b><?php echo $row['car_id']; ?></b></td>
-                                <td><b><?php echo $row['renter_id']; ?></b></td>
-                                    <td><b><?php echo $row['name']; ?></b></td>
-                                    <td><b><?php echo $row['reg_no']; ?></b></td>
+                                <td><b><?php echo $n; ?></b></td>
+                                <td><b><?php
+							$rid=$row['renter_id'];
+							$name1 = "SELECT * FROM renter WHERE renter_id= $rid";
+							$result36 = $conn->query($name1);
+							$row36 = $result36->fetch_assoc();
+							// echo toupper.$row34['model'];
+							echo strtoupper($row36['fname']); ?></b></td>
+                                    <td><b><?php echo strtoupper($row['company']); ?></b></td>
+                                    <td><b><?php echo strtoupper($row['name']); ?></b></td>
+                                    <td><b><?php echo strtoupper($row['reg_no']); ?></b></td>
 									<td><b><?php echo $row['year']; ?></b></td>
-                                    <td><b><?php echo $row['model']; ?></b></td>
+                                    <td><b><?php
+							$mid1=$row['model'];
+							$m1 = "SELECT * FROM model WHERE model_id= $mid1";
+							$result37 = $conn->query($m1);
+							$row37 = $result37->fetch_assoc();
+							// echo toupper.$row34['model'];
+							echo strtoupper($row37['model']); ?></b></td>
                                     <td><b><?php echo $row['mileage']; ?></b></td>
                                     <td><b><?php echo $row['price']; ?></b></td>
-                                    <td><b><img src="<?php echo $row['image']; ?>" width="100%" height="200" class="img-responsive" alt=""></b></td>
+                                    <td><b><img src="images/<?php echo $row['image']; ?>" style="width: 200px; height: 200px;" class="img-responsive" alt=""></b></td>
 									<td>
                                     <a href="approve-car.php?car_id=<?php echo $row['car_id'];?>" >
                         <button>APPROVE</button>
@@ -188,7 +203,10 @@ http://www.tooplate.com/view/2078-adventure
                     </td>
 
                             </tbody>
-											<?php		}
+											<?php	
+                                            $n=$n+1;	}
+                                            
+                                            
 				}
 			}
 		?>
@@ -213,8 +231,9 @@ http://www.tooplate.com/view/2078-adventure
                             <thead>
                                 <tr>
                                     
-                                    <th scope="col">CAR ID</th>
-									<th scope="col">RENTER ID</th>
+                                    <th scope="col">NO.</th>
+									<th scope="col">RENTER Name</th>
+                                    <th scope="col">COMPANY</th>
                                     <th scope="col">NAME</th>
                                     <th scope="col">REGISTER N0</th>
                                     <th scope="col">YEAR</th>
@@ -227,31 +246,50 @@ http://www.tooplate.com/view/2078-adventure
                             </thead>
                             <tbody>
 								<?php
-			if ($result3->num_rows > 0) {
+                                $s=1;
+                                $result4 = $conn->query($sql3);
+			if ($result4->num_rows > 0) {
 
-				//output data of each row
-				while ($row = $result3->fetch_assoc()) {
-
-                    if($row['c_stat']==1){
+               
+				while ($row1 = $result4->fetch_assoc()){
+                    
+                    if($row1['c_stat']==1){
 		?>
                                 <tr>
-                                <td><b><?php echo $row['car_id']; ?></b></td>
-                                <td><b><?php echo $row['renter_id']; ?></b></td>
-                                    <td><b><?php echo $row['name']; ?></b></td>
-                                    <td><b><?php echo $row['reg_no']; ?></b></td>
-									<td><b><?php echo $row['year']; ?></b></td>
-                                    <td><b><?php echo $row['model']; ?></b></td>
-                                    <td><b><?php echo $row['mileage']; ?></b></td>
-                                    <td><b><?php echo $row['price']; ?></b></td>
-                                    <td><b><img src="<?php echo $row['image']; ?>" width="100%" height="200" class="img-responsive" alt=""></b></td>
+                                <td><b><?php echo $s ?></b></td>
+
+                                <td><b><?php
+							$rid=$row1['renter_id'];
+							$name = "SELECT * FROM renter WHERE renter_id= $rid";
+							$result35 = $conn->query($name);
+							$row35 = $result35->fetch_assoc();
+							// echo toupper.$row34['model'];
+							echo strtoupper($row35['fname']); ?></b></td>
+                                    
+                                    <td><b><?php echo strtoupper($row1['company']); ?></b></td>
+                                    <td><b><?php echo strtoupper($row1['name']); ?></b></td>
+                                    <td><b><?php echo strtoupper($row1['reg_no']); ?></b></td>
+									<td><b><?php echo $row1['year']; ?></b></td>
+                                    <td><b><?php
+							$mid=$row1['model'];
+							$m = "SELECT * FROM model WHERE model_id= $mid";
+							$result34 = $conn->query($m);
+							$row34 = $result34->fetch_assoc();
+							// echo toupper.$row34['model'];
+							echo strtoupper($row34['model']); ?></b></td>
+                                    <td><b><?php echo $row1['mileage']; ?></b></td>
+                                    <td><b><?php echo $row1['price']; ?></b></td>
+                                    <td><b><img src="images/<?php echo $row1['image']; ?>" style="width: 200px; height: 200px;" class="img-responsive" alt=""></b></td>
 									<td>
-                                    <a href="remove-car.php?car_id=<?php echo $row['car_id'];?>" >
+                                    <a href="remove-car.php?car_id=<?php echo $row1['car_id'];?>" >
                         <button>REMOVE</button>
                       </a>
                     </td>
 
                             </tbody>
-											<?php		}
+											<?php	
+                                            $s=$s+1;	}
+                                            
 				}
 			}
 		?>

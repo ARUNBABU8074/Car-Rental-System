@@ -148,6 +148,11 @@ http://www.tooplate.com/view/2078-adventure
 </div>
 
 
+
+
+
+
+
 <!-- Work section
 ================================================== -->
 <section id="car" class="parallax-section">
@@ -159,13 +164,11 @@ http://www.tooplate.com/view/2078-adventure
 				
 				<div  class="col-md-8 col-sm-3"  style="width: 60%;">
 					
-					
-					    
-                
+						<input type="text" class="form-control" placeholder="Company" name="company" required><br>
                         <input type="text" class="form-control" placeholder="Name" name="cname" required><br>
 						<input type="int" class="form-control" placeholder="Reg Number" name="reg" required><br>
 			            <lablel>Choose image...</label>
-						<input type="file" class="form-control" placeholder="Image" name="image" required><br>
+						<input type="file" class="form-control" placeholder="Image" name="image" accept=".jpg , .png" required><br>
                         <input type="int" class="form-control" placeholder="mileage" name="mileage" required><br>
 						<input type="int" class="form-control" placeholder="Price" name="price" required><br>
 						<input type="int" class="form-control" placeholder="Year" name="year" required><br>

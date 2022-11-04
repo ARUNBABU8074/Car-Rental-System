@@ -48,18 +48,18 @@ if(isset($_POST['login'])){
 }
 else if($row['statuss'] == 2){
     echo '<script> alert ("please wait for admin approval");</script>';
-	echo'<script>window.location.href="index.html";</script>';
+	echo'<script>window.location.href="index.php";</script>';
 }
 else{
 
 	echo '<script> alert ("you r eliminated by admin");</script>';
-	echo'<script>window.location.href="index.html";</script>';
+	echo'<script>window.location.href="index.php";</script>';
 }
 
 }
 else{
     echo '<script> alert ("Invalid credentials");</script>';
-    echo'<script>window.location.href="index.html";</script>';
+    echo'<script>window.location.href="index.php";</script>';
 }
 }
 ?>

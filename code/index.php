@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
 include "config.php";
-
+session_start();
 $emailerror=false;
 $usrerr=false;
 $showAlert = false; 
@@ -54,10 +54,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['lname']= $lname;
             $_SESSION['phone']= $phone;
             $_SESSION['email']= $email;
-            $_SESSION['address']= $addresss;
+            $_SESSION['addresss']= $addresss;
             $_SESSION['username']= $username;
             $_SESSION['passwd']=$passwd;
             $_SESSION['type']=$usertype;
+			$_SESSION['place']=$place;
 
             
 
@@ -96,7 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         
             $mail->send();
                 $_SESSION['mailsend']="Check Your mail!!!";
-                header('location:demo.php');
+                header('location:demo.php'); 
             }
         
         
@@ -391,16 +392,17 @@ http://www.tooplate.com/view/2078-adventure
 			================================================== -->
 			<center><h1 class="heading color-black">REGISTER HERE</h1></center>
 
-			<script>
+			<script type="text/javascript">
                 function validate()
                 {
+					
 					var f=document.getElementById("fname").value;
 					var l=document.getElementById("lname").value;
 					var s=/^[a-zA-Z]+$/;
 					if(f!="" && s.test(f)==false){
 						
 						document.getElementById('ms').style.display = "block";
-						document.getElementById('ms').innerHTML = "Invalid Fname";
+						document.getElementById('ms').innerHTML = "Invalid Fname . It must be alphabet";
 						return false;
 					}
 					else{
@@ -409,14 +411,15 @@ http://www.tooplate.com/view/2078-adventure
 					if(l!="" && s.test(l)==false){
 						
 						document.getElementById('ms1').style.display = "block";
-						document.getElementById('ms1').innerHTML = "Invalid Lname";
+						document.getElementById('ms1').innerHTML = "Invalid Lname. It must be alphabet";
 						return false;
 					}
 					else{
+
 						document.getElementById('ms1').style.display = "none";
 					}
 						
-					var a=document.getElementById("email").value;
+					var a=document.getElementById("em").value;
 					var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
 					if(a!="" && st.test(a)==false){
 						
@@ -425,12 +428,23 @@ http://www.tooplate.com/view/2078-adventure
 						return false;
 					}
 					else{
-						document.getElementById('message').style.display = "none";
+						jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'em='+$("#em").val(),
+        success:function(response){
+          
+          $("#message").html(response);
+        },
+		error:function (){}
+      }); 
+						//document.getElementById('message').style.display = "none";
 					}
 
 					var ph = document.getElementById("phn").value;
 					var expr = /^[6-9]\d{9}$/;
-					if(expr!="" && expr.test(ph)==false){
+					if(ph!="" && expr.test(ph)==false){
 						document.getElementById('msg2').style.display = "block";
 						document.getElementById('msg2').innerHTML = "Invalid Phone number";
 						return false;
@@ -438,7 +452,27 @@ http://www.tooplate.com/view/2078-adventure
 								else{
 						document.getElementById('msg2').style.display = "none";
 					}
+
+					
+
 							}
+function checkuser(){
+
+	
+	  
+	  
+      jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'uname='+$("#un").val(),
+        success:function(response){
+          
+          $(".error_uname").html(response);
+        },
+		error:function (){}
+      }); 
+    }
                 </script>
 			<form action="index.php" method="POST" name="cusform" class="wow fadeInUp" data-wow-delay="0.6s" onsubmit="return validate()">
 				
@@ -452,19 +486,20 @@ http://www.tooplate.com/view/2078-adventure
 					  </select></label><br><br>
 
 					<div style="width: 60%;">
-			  <input type="text" class="form-control" placeholder="fName" name="fname"  id="fname" onblur="return validate()" onKeyUp="return validate()" required pattern="[A-Za-z_]+"><br>
-			  <label class="message text-danger" id="ms" style="font-size: 16px"></label>
-			<input type="text" class="form-control" placeholder="lName" name="lname"  id="lname" onblur="return validate()" onKeyUp="return validate()"  required pattern="[A-Za-z_]+"><br>
-			<label class="message text-danger" id="ms1"  ></label>
-			<input type="email" class="form-control" placeholder="Email" name="email" id="email" onblur="return validate()" onKeyUp="return validate()"  required><br>
-			<label class="message text-danger" id="message"></label>
-			<input type="int" class="form-control" placeholder="Phone number" name="phone" id="phn" onblur="return validate()" onKeyUp="return validate()" required minlength="10" maxlength="10" required><br>
-			<label class="message text-danger" id="msg2"></label>
+			  <input type="text" class="form-control" placeholder="First Name" name="fname"  id="fname"  onKeyUp="return validate()" required pattern="[A-Za-z_]+">
+			  <span class="message text-danger" id="ms" style="font-size: 16px"></span><br>
+			<input type="text" class="form-control" placeholder="Last Name" name="lname"  id="lname"  onKeyUp="return validate()"  required pattern="[A-Za-z_]+">
+			<span class="message text-danger" id="ms1"  ></span><br>
+			<input type="email" class="form-control" placeholder="Email" name="email" id="em" onblur="return validate()" onKeyUp="return validate()" required>
+			<span class="message text-danger" id="message"></span><br>
+			<input type="int" class="form-control" placeholder="Phone number" name="phone" id="phn"  onblur="return validate()" onKeyUp="return validate()" required minlength="10" maxlength="10" required>
+			<span class="message text-danger" id="msg2"></span><br>
 			<input type="text area" class="form-control" placeholder="Address" name="addresss" required><br> 
 			<input type="text" class="form-control" placeholder="place" name="place" required><br> 
-			<input type="text" class="form-control" placeholder="User name" name="username" required><br>
+			<input type="text" class="form-control checking_uname" placeholder="User name" name="username" id="un" onInput="checkuser()" required>
+			<span class="error_uname"></span><br>
 			<input type="password" class="form-control" placeholder="password" name="passwd" required><br> 
-			<input type="submit" class="form-control" value="submit" name="reg" style="background-color: cyan;">
+			<input type="submit" class="form-control" value="submit" name="reg" id="submit" style="background-color: cyan;">
 				</div></div>
 			</form>
 
@@ -493,6 +528,7 @@ http://www.tooplate.com/view/2078-adventure
 
 <!-- Javascript 
 ================================================== -->
+<script src="js/email.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/smoothscroll.js"></script>
@@ -503,6 +539,7 @@ http://www.tooplate.com/view/2078-adventure
 <script src="js/jquery.parallax.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/custom.js"></script>
+
 
 </body>
 </html>
