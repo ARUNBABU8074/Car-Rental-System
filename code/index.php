@@ -75,13 +75,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'arunbabu2023a@mca.ajce.in';                     //SMTP username
-            $mail->Password   = 'rmca2021#';                               //SMTP password
+            $mail->Username   = 'email';                     //SMTP username
+            $mail->Password   = 'password';                               //SMTP password
             $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
             $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
             //Recipients
-            $mail->setFrom('arunbabu2023a@mca.ajce.in', 'car rental system');
+            $mail->setFrom('email', 'car rental system');
             $mail->addAddress($email);     //Add a recipient
            //
         
