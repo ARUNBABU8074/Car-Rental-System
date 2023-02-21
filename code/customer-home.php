@@ -8,7 +8,7 @@ include("config.php");
 $sql = "SELECT * FROM car";
 $result = $conn->query($sql);
 
-$rid=$_SESSION['log_id'];
+ $rid=$_SESSION['log_id'];
 
 $sql3="SELECT * FROM `message` WHERE `receiver_id`=$rid";
 $result3=$conn->query($sql3);
@@ -75,12 +75,46 @@ http://www.tooplate.com/view/2078-adventure
 	<!-- Google web font
    ================================================== -->
 	<link href='https://fonts.googleapis.com/css?family=Raleway:700' rel='stylesheet' type='text/css'>
+	
 
 	<script>
 		function getId(cid)
 		{
-			
-			document.getElementById("txtcar").innerHTML()=cid;
+            var cid=cid;
+          
+			jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'carc-id='+cid,
+        success:function(response){
+			$(".modal-body #sd").html(response);
+            
+			$('#myModal').modal('show');
+          
+        },
+		error:function (){}
+      });
+		}
+
+
+		function getIdb(cid)
+		{
+            var cid=cid;
+          
+			jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'carc-idb='+cid,
+        success:function(response){
+			$(".modal-body #sd").html(response);
+            
+			$('#bModal').modal('show');
+          
+        },
+		error:function (){}
+      });
 		}
 		</script>
 
@@ -88,7 +122,7 @@ http://www.tooplate.com/view/2078-adventure
 	
 </head>
 
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50" style="background-color:aquamarine;">
 
 
 <!-- Preloader section
@@ -102,31 +136,36 @@ http://www.tooplate.com/view/2078-adventure
 
 <!-- Navigation section
 ================================================== -->
-<section class="navbar navbar-fixed-top custom-navbar" role="navigation">
+<section class="navbar navbar-fixed-top custom-navbar" role="navigation" style="background-color:black;">
 	<div class="container">
 
-		<div class="navbar-header">
+		<div class="navbar-header" >
+		
 			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="icon icon-bar"></span>
 				<span class="icon icon-bar"></span>
 				<span class="icon icon-bar"></span>
 			</button>
+
 			<a href="#home" class="smoothScroll navbar-brand">CAR RENTAL SYSTEM</a>
 		</div>
+		<nav class="navbar navbar-dark bg-dark">
 		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right" >
             
 				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
                 <li><a href="#renter" class="smoothScroll"></a></li>
-				<li><a href="update-cus.php" class="smoothScroll">profile</a></li>
-				<li><a href="#message" class="smoothScroll">message</a></li>
-				<li><a href="#team" class="smoothScroll">cars</a></li>
-				<li><a href="#portfolio" class="smoothScroll"></a></li>
+				<li><a href="update-cus.php" class="smoothScroll">Profile</a></li>
+				<!-- <li><a href="#message" class="smoothScroll">message</a></li> -->
+				<li><a href="#team" class="smoothScroll">Cars</a></li>
+				<li><a href="view-book.php" class="smoothScroll">My Bookings</a></li>
 				<li><a href="#plan" class="smoothScroll"></a></li>
 				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
+				<li></li>
+			
 			</ul>
 		</div>
-
+	</nav>
 	</div>
 </section>
 
@@ -138,7 +177,7 @@ http://www.tooplate.com/view/2078-adventure
         <ul class="bxslider">
 			
             <li>
-                <img src="images/slider/car2.jpg" alt="slider image 2">
+                <!-- <img src="images/slider/car2.jpg" alt="slider image 2"> -->
                 <div class="container caption-wrapper">
                     <div class="slider-caption">
                         <h2></h2>
@@ -147,7 +186,7 @@ http://www.tooplate.com/view/2078-adventure
                 </div>
             </li>
            
-    </div> <!-- /.site-slider -->
+    </div> 
 </div>
 
 <!-- team section
@@ -162,7 +201,19 @@ http://www.tooplate.com/view/2078-adventure
 			if ($result->num_rows > 0) {
 				//output data of each row
 				while ($row = $result->fetch_assoc()) {
-                    if($row['c_stat']==1){
+                    if($row['c_stat']==1 && $row['availability']==1){
+						$day=date("Y-m-d");
+						
+						$car=$row['car_id'];
+						$book="SELECT * FROM `tbl_booking` WHERE `car_id`=$car";
+						$br=$conn->query($book);
+						if ($br->num_rows > 0) {
+						$booked = $br->fetch_assoc();
+						if($booked['stat']==1){
+							
+						if(($day < $booked['book_date'] ) || ($day > $booked['drop_date'])){
+							// echo $booked['book_date'];
+							// echo $booked['drop_date'];
 		?>
                             
 
@@ -172,29 +223,21 @@ http://www.tooplate.com/view/2078-adventure
 						<div class="team-des">
 							<h1><?php echo strtoupper($row['name']); ?></h1>
 							<h2><?php echo $row['price']; ?>Rs</h2>
-							<!-- <ul class="social-icon">
-							<b>	<li>Model: <?php
-							// $mid=$row['model'];
-							// $m = "SELECT * FROM model WHERE model_id= $mid";
-							// $result34 = $conn->query($m);
-							// $row34 = $result34->fetch_assoc();
 							
-							//echo strtoupper($row34['model']); ?></li>
-								<li>Year: <?php //echo $row['year']; ?></li>		
-					</ul>	Register number: <?php //echo strtoupper($row['reg_no']); ?></b><br>
-                    Mileage : <?php //echo $row['mileage']; ?><br> -->
+	 <form action="book.php" method="post">
+					<input type="hidden" value="<?php echo $row['car_id'];?>" name="c">
 
-						<!-- Input field to accept user input -->
-	 
 					
-                    <a href="" class="tm-product-delete-link">
-                        <button>BOOK HERE</button>
-                      </a>
-					  <a href="message.php?receiver_id=<?php echo $row['renter_id'];?>">
+                        <button name="submit"  class="btn btn-primary">BOOK HERE</button>
+						</form>
+                      <!-- </a> -->
+					  <!-- <a href="message.php?receiver_id=<?php echo $row['renter_id'];?>">
                         <button>message</button>
-                      </a>
-					  
-					  <button type="button" value="<?php echo $row['car_id'];?>" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                      </a> -->
+					  <?php
+					// echo $row['car_id'];
+					   ?> 
+					  <button type="button" value="" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
     VIEW
   </button>
 
@@ -206,6 +249,88 @@ http://www.tooplate.com/view/2078-adventure
 
 
 			<?php	
+						}
+			}
+			else{
+				?>
+                            
+
+				<div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+					<div class="team-wrapper">
+						<img src="images/<?php echo $row['image']; ?>" style="width: 400px; height: 400px;" class="img-responsive" alt="team img">
+							<div class="team-des">
+								<h1><?php echo strtoupper($row['name']); ?></h1>
+								<h2><?php echo $row['price']; ?>Rs</h2>
+								
+		 
+						
+								<form action="book.php" method="post">
+					<input type="hidden" value="<?php echo $row['car_id'];?>" name="c">
+
+					
+                        <button name="submit"  class="btn btn-primary">BOOK HERE</button>
+			</form>
+						  <!-- <a href="message.php?receiver_id=<?php echo $row['renter_id'];?>">
+							<button>message</button>
+						  </a> -->
+						  <?php
+						   // echo $row['car_id'];
+						   ?> 
+						  <button type="button" value="" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
+		VIEW
+	  </button>
+
+	  <button type="button" value="" onclick="getIdb(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
+		B
+	  </button>
+	
+	  
+						
+							</div>
+					</div>
+				</div>
+	
+	
+				<?php	
+			}
+
+					}
+					else{
+						?>
+                            
+
+			<div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+				<div class="team-wrapper">
+					<img src="images/<?php echo $row['image']; ?>" style="width: 400px; height: 400px;" class="img-responsive" alt="team img">
+						<div class="team-des">
+							<h1><?php echo strtoupper($row['name']); ?></h1>
+							<h2><?php echo $row['price']; ?>Rs</h2>
+							
+	 
+					
+							<form action="book.php" method="post">
+					<input type="hidden" value="<?php echo $row['car_id'];?>" name="c">
+					
+					
+					<input type="submit" class="btn btn-primary" value="BOOK HERE" name="submit" id="submit">
+					</form>
+					  <!-- <a href="message.php?receiver_id=<?php echo $row['renter_id'];?>">
+                        <button>message</button>
+                      </a> -->
+					 
+					  <button type="button" value="" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
+    VIEW
+  </button>
+
+  
+					
+						</div>
+				</div>
+			</div>
+
+
+			<?php
+					}
             	}
 
 			}
@@ -274,11 +399,7 @@ http://www.tooplate.com/view/2078-adventure
 
 <div class="container mt-3">
   
-  <!-- Button to Open the Modal -->
-  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Open modal
-  </button> -->
-
+ 
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog">
@@ -292,49 +413,12 @@ http://www.tooplate.com/view/2078-adventure
         
         <!-- Modal body -->
         <div class="modal-body">
-			<form>
-				<input type="hidden" id="txtcar" name="txtcar"/>
-		<?php
-		
-		
-		$sql1 = "SELECT * FROM car where car_id=5";
-		$result1 = $conn->query($sql1);
-			if ($result1->num_rows > 0) {
-				//output data of each row
-				while ($row0 = $result1->fetch_assoc()) {
-                    if($row0['c_stat']==1){
-		?>
-                            
-
-			<!-- <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
-				<div class="team-wrapper"> -->
-					<img src="images/<?php echo $row0['image']; ?>" style="width: 400px; height: 400px;" class="img-responsive" alt="team img">
-					<h1><?php echo strtoupper($row0['company']); ?></h1>
-							<h1><?php echo strtoupper($row0['name']); ?></h1>
-							<h2><?php echo $row0['price']; ?>Rs</h2>
-							 <ul class="social-icon">
-							<b>	<li>Model: <?php
-							$mid0=$row0['model'];
-							$m0 = "SELECT * FROM model WHERE model_id= $mid0";
-							$result01 = $conn->query($m0);
-							$row01 = $result01->fetch_assoc();
-							
-							echo strtoupper($row01['model']); ?></li>
-								<li>Year: <?php echo $row0['year']; ?></li>		
-					</ul>	Register number: <?php echo strtoupper($row0['reg_no']); ?></b><br>
-                    Mileage : <?php echo $row0['mileage']; ?><br> 
-                  
-						
-				<!-- </div>
-			</div> -->
-
-
-			<?php	
-            	}
-			}
-        }
-		?>
-		</form>
+			<form >
+				
+				<span id="sd"></span>
+             
+        </form>
+        
         </div>
         
         <!-- Modal footer -->
@@ -345,6 +429,45 @@ http://www.tooplate.com/view/2078-adventure
       </div>
     </div>
   </div>
+
+
+
+
+ <!-- The Modal -->
+ <div class="modal fade" id="bModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">CAR DETAILS</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+			<form >
+				
+				<span id="sd"></span>
+             
+        </form>
+        
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
   
 </div>
 

@@ -76,6 +76,28 @@ http://www.tooplate.com/view/2078-adventure
 	
 </head>
 
+
+<script>
+		function getId(cid)
+		{
+            var cid=cid;
+          
+			jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'paper='+cid,
+        success:function(response){
+			$(".modal-body #sd").html(response);
+            
+			$('#myModal').modal('show');
+          
+        },
+		error:function (){}
+      });
+		}
+		</script>
+
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
 
@@ -109,7 +131,7 @@ http://www.tooplate.com/view/2078-adventure
 				<li><a href="#remove" class="smoothScroll">REMOVE</a></li>
 				<li><a href="#re-add" class="smoothScroll">RE-ADD</a></li>
 				<li><a href="#cars" class="smoothScroll">CARS</a></li>
-				<li><a href="#message" class="smoothScroll">MESSAGE</a></li>
+				<!-- <li><a href="#message" class="smoothScroll">MESSAGE</a></li> -->
 				<li><a href="#plan" class="smoothScroll"></a></li>
 				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
 			</ul>
@@ -151,9 +173,9 @@ http://www.tooplate.com/view/2078-adventure
                                 <tr>
                                     
                                     <th scope="col">NO.</th>
-									<th scope="col">RENTER Name</th>
-                                    <th scope="col">COMPANY</th>
-                                    <th scope="col">NAME</th>
+									<th scope="col">RENTER NAME</th>
+                                    <th scope="col">COMPANY & NAME</th>
+                                    <th scope="col">PAPERS</th>
                                     <th scope="col">REGISTER N0</th>
                                     <th scope="col">YEAR</th>
                                     <th scope="col">MODEL</th>
@@ -182,8 +204,10 @@ http://www.tooplate.com/view/2078-adventure
 							$row36 = $result36->fetch_assoc();
 							// echo toupper.$row34['model'];
 							echo strtoupper($row36['fname']); ?></b></td>
-                                    <td><b><?php echo strtoupper($row['company']); ?></b></td>
-                                    <td><b><?php echo strtoupper($row['name']); ?></b></td>
+                                    <td><b><?php echo strtoupper($row['company']),"<br>",strtoupper($row['name']);?></b></td>
+                                    <td><b><button type="button" value="" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
+    VIEW
+  </button></b></td>
                                     <td><b><?php echo strtoupper($row['reg_no']); ?></b></td>
 									<td><b><?php echo $row['year']; ?></b></td>
                                     <td><b><?php
@@ -194,7 +218,7 @@ http://www.tooplate.com/view/2078-adventure
 							// echo toupper.$row34['model'];
 							echo strtoupper($row37['model']); ?></b></td>
                                     <td><b><?php echo $row['mileage']; ?></b></td>
-                                    <td><b><?php echo $row['price']; ?></b></td>
+                                    <td><b><?php echo "First ".$row['km']."km : ".$row['price']."₹<br> Excess for each km : ".$row['excess']."₹"; ?></b></td>
                                     <td><b><img src="images/<?php echo $row['image']; ?>" style="width: 200px; height: 200px;" class="img-responsive" alt=""></b></td>
 									<td>
                                     <a href="approve-car.php?car_id=<?php echo $row['car_id'];?>" >
@@ -233,8 +257,8 @@ http://www.tooplate.com/view/2078-adventure
                                     
                                     <th scope="col">NO.</th>
 									<th scope="col">RENTER Name</th>
-                                    <th scope="col">COMPANY</th>
-                                    <th scope="col">NAME</th>
+                                    <th scope="col">COMPANY & NAME</th>
+                                    <th scope="col">PAPERS</th>
                                     <th scope="col">REGISTER N0</th>
                                     <th scope="col">YEAR</th>
                                     <th scope="col">MODEL</th>
@@ -278,7 +302,7 @@ http://www.tooplate.com/view/2078-adventure
 							// echo toupper.$row34['model'];
 							echo strtoupper($row34['model']); ?></b></td>
                                     <td><b><?php echo $row1['mileage']; ?></b></td>
-                                    <td><b><?php echo $row1['price']; ?></b></td>
+                                    <td><b><?php echo "First ".$row['km']."km : ".$row['price']."₹<br> Excess for each km : ".$row['excess']."₹"; ?></b></td>
                                     <td><b><img src="images/<?php echo $row1['image']; ?>" style="width: 200px; height: 200px;" class="img-responsive" alt=""></b></td>
 									<td>
                                     <a href="remove-car.php?car_id=<?php echo $row1['car_id'];?>" >
@@ -299,9 +323,36 @@ http://www.tooplate.com/view/2078-adventure
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		</div>
 	</div>
+	 <!-- The Modal -->
+	 <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">CAR DETAILS</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+			<form >
+				
+				
+             <span id ="sd"></span>
+        </form>
+        
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 </section>
-
-
 
 
 

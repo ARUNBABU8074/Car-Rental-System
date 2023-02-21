@@ -70,8 +70,37 @@ http://www.tooplate.com/view/2078-adventure
 	
 </head>
 
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50" style="background-color:aquamarine;">
+<!-- Navigation section
+================================================== -->
+<section class="navbar navbar-fixed-top custom-navbar" role="navigation" style="background-color:black;">
+	<div class="container">
 
+		<div class="navbar-header">
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+			</button>
+			<a href="#home" class="smoothScroll navbar-brand">CAR RENTAL SYSTEM</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+            
+				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
+                <li><a href="#renter" class="smoothScroll"></a></li>
+				<li><a href="update-rent.php" class="smoothScroll">profile</a></li>
+				<li><a href="#message" class="smoothScroll"></a></li>
+				<li><a href="my-cars.php" class="smoothScroll">My Cars</a></li>
+				<li><a href="#car" class="smoothScroll"></a></li>
+				<li><a href="book-accept.php" class="smoothScroll">My Bookings</a></li>
+				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
+
+			</ul>
+		</div>
+
+	</div>
+</section>
 
 <!-- Preloader section
 ================================================== -->
@@ -129,7 +158,7 @@ http://www.tooplate.com/view/2078-adventure
 
 					var ph = document.getElementById("phn").value;
 					var expr = /^[6-9]\d{9}$/;
-					if(expr!="" && expr.test(ph)==false){
+					if(ph!="" && expr.test(ph)==false){
 						document.getElementById('msg2').style.display = "block";
 						document.getElementById('msg2').innerHTML = "Invalid Phone number";
 						return false;
@@ -139,13 +168,14 @@ http://www.tooplate.com/view/2078-adventure
 					}
 							}
                 </script>
+				
 			<form action="update-conn.php" method="POST" name="cusform" class="wow fadeInUp" data-wow-delay="0.6s" onsubmit="return validate()">
 				
 				<div class="col-md-8 col-sm-6">
 					
 				
 
-<label for 
+
 			  <input type="text" class="form-control" placeholder="fName" name="fname"  id="fname" onblur="return validate()" onKeyUp="return validate()" required pattern="[A-Za-z_]+" value="<?php echo $row['fname']; ?>"><br>
 			  <label class="message text-danger" id="ms" style="font-size: 16px"></label>
 			<input type="text" class="form-control" placeholder="lName" name="lname"  id="lname" onblur="return validate()" onKeyUp="return validate()"  required pattern="[A-Za-z_]+" value="<?php echo $row['lname']; ?>"><br>
@@ -159,6 +189,7 @@ http://www.tooplate.com/view/2078-adventure
 			<input type="text" class="form-control" placeholder="User id" name="username" value="<?php echo $row1['username']; ?>" disabled><br>
 			<input type="password" class="form-control" placeholder="password" name="passwd" value="<?php echo $row1['passwd']; ?>" required><br> 
 			<input type="submit" class="form-control" value="change" name="submit">
+			
 				</div>
 			</form>
 
@@ -167,8 +198,7 @@ http://www.tooplate.com/view/2078-adventure
 			================================================== -->
 			
 
-			<a href="customer-home.php" >
-                        <button>back</button></a>
+			
 
 			<br><br><br><br><br><br><br><br>
 

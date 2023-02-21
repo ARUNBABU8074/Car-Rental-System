@@ -4,6 +4,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
 include "config.php";
+session_unset();
 session_start();
 $emailerror=false;
 $usrerr=false;
@@ -27,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
 	$passwd = $_POST["passwd"];
     $usertype = $_POST['type'];
-
+$license=$_POST['cimage'];
    
 
             
@@ -59,6 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['passwd']=$passwd;
             $_SESSION['type']=$usertype;
 			$_SESSION['place']=$place;
+			$_SESSION['license']=$license;
 
             
 
@@ -75,13 +77,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'email';                     //SMTP username
-            $mail->Password   = 'password';                               //SMTP password
+            $mail->Username   = 'arunbabu2023a@mca.ajce.in';                     //SMTP username
+            $mail->Password   = 'rmca2021#';                               //SMTP password
             $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
             $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
             //Recipients
-            $mail->setFrom('email', 'car rental system');
+            $mail->setFrom('arunbabu2023a@mca.ajce.in', 'car rental system');
             $mail->addAddress($email);     //Add a recipient
            //
         
@@ -402,7 +404,7 @@ http://www.tooplate.com/view/2078-adventure
 					if(f!="" && s.test(f)==false){
 						
 						document.getElementById('ms').style.display = "block";
-						document.getElementById('ms').innerHTML = "Invalid Fname . It must be alphabet";
+						document.getElementById('ms').innerHTML = "Invalid First Name . It must be alphabet";
 						return false;
 					}
 					else{
@@ -473,6 +475,37 @@ function checkuser(){
 		error:function (){}
       }); 
     }
+	function validateimage()
+                {
+					
+					var fd = new FormData();
+        var files = $('#limage')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fd.append('file1',files[0]);
+
+           $.ajax({
+              url: 'ajax.php',
+              type: 'post',
+              data: fd,
+              contentType: false,
+              processData: false,
+              success: function(response){
+                // if(response != 0){
+                //     $("#img").attr("src",response); 
+                //     $("#img").show(); // Display image element
+				// }
+				// else{
+					$("#im1").html(response);
+				//}
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+
+				}
                 </script>
 			<form action="index.php" method="POST" name="cusform" class="wow fadeInUp" data-wow-delay="0.6s" onsubmit="return validate()">
 				
@@ -496,6 +529,9 @@ function checkuser(){
 			<span class="message text-danger" id="msg2"></span><br>
 			<input type="text area" class="form-control" placeholder="Address" name="addresss" required><br> 
 			<input type="text" class="form-control" placeholder="place" name="place" required><br> 
+			upload licence...
+            <input type="file" class="form-control" placeholder="Image" name="cimage" accept="image/png, image/gif, image/jpeg"  id="limage" onchange="return validateimage()" required><br>
+                     <span id="im1" style='color:red;'></span>
 			<input type="text" class="form-control checking_uname" placeholder="User name" name="username" id="un" onInput="checkuser()" required>
 			<span class="error_uname"></span><br>
 			<input type="password" class="form-control" placeholder="password" name="passwd" required><br> 

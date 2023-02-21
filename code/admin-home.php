@@ -1,6 +1,6 @@
 
 <?php
-include 'session.php';
+
 error_reporting(E_ERROR | E_PARSE);
 include("config.php");
 $sql = "SELECT * FROM customer";
@@ -106,9 +106,9 @@ http://www.tooplate.com/view/2078-adventure
 				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
                 <li><a href="rent.php" class="smoothScroll">RENTERS</a></li>
 				<li><a href="customer.php" class="smoothScroll">CUSTOMERS</a></li>
-				<li><a href="#message" class="smoothScroll">MESSAGE</a></li>
+				<!-- <li><a href="#message" class="smoothScroll">MESSAGE</a></li> -->
 				<li><a href="car.php" class="smoothScroll">CARS</a></li>
-				<li><a href="#portfolio" class="smoothScroll">BOOKING</a></li>
+				<!-- <li><a href="#portfolio" class="smoothScroll">BOOKING</a></li> -->
 				<li><a href="#model" class="smoothScroll">MODEL</a></li>
 				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
 			</ul>
@@ -151,23 +151,7 @@ http://www.tooplate.com/view/2078-adventure
 	<div class="container">
 		<div class="row">
 		<h2 >ADD MODEL</h2><br>
-		<script>
-                function validatemodel()
-                {
-					var f=document.getElementById("model").value;
-					
-					var s=/^[a-zA-Z]+$/;
-					if(f!="" && s.test(f)==false){
-						
-						document.getElementById('ms').style.display = "block";
-						document.getElementById('ms').innerHTML = "Invalid model";
-						return false;
-					}
-					else{
-						document.getElementById('ms').style.display = "none";
-					}
-				}
-				</script>
+		
 		
 			<form action="add-model.php" method="post" name="modelform" class="wow fadeInUp" data-wow-delay="0.6s" onsubmit="return validatemodel()">
 				
@@ -176,9 +160,9 @@ http://www.tooplate.com/view/2078-adventure
 					
 				
                 
-                        <input type="text" class="form-control" placeholder="Model" name="model" id="model" onblur="return validatemodel()"  required pattern="[A-Za-z_]+" title ="only alphabets"required><br>
-						<label class="message text-danger" id="ms" style="font-size: 16px"></label>
-						<input type="submit" class="form-control" value="submit" name="submit">
+                        <input type="text" class="form-control" placeholder="Model" name="model" id="m" onkeyup="return validate()"  required pattern="[A-Za-z_]+" title ="only alphabets"required><br>
+						<span class="message text-danger" id="ms"></span><br>
+						<input type="submit" class="form-control" value="submit" name="submit" id="submit">
 				</div>
 			</form>
      
@@ -187,7 +171,37 @@ http://www.tooplate.com/view/2078-adventure
 	</div>
 </section>
 
+<script type="text/javascript">
+                function validate()
+				
+                {
+					var l=document.getElementById("m").value;
+					
+					var s=/^[a-zA-Z]+$/;
+					if(l!="" && s.test(l)==false){
+						
+						document.getElementById('ms').style.display = "block";
+						document.getElementById('ms').innerHTML = "Invalid Model Name . It must be alphabet";
+						return false;
+					}
 
+				
+					else{
+						jQuery.ajax({
+					url: "ajax.php",
+					type: "POST",
+					
+					data:'model='+$("#m").val(),
+					success:function(response){
+						
+						$("#ms").html(response);
+					},
+					error:function (){}
+					}); 
+					
+				}
+				}
+				</script>
 
 
 

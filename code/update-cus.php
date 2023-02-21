@@ -70,8 +70,42 @@ http://www.tooplate.com/view/2078-adventure
 	
 </head>
 
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50" style="background-color:aquamarine;">
 
+<!-- Navigation section
+================================================== -->
+<section class="navbar navbar-fixed-top custom-navbar" role="navigation" style="background-color:black;">
+	<div class="container">
+
+		<div class="navbar-header" >
+		
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+			</button>
+
+			<a href="#home" class="smoothScroll navbar-brand">CAR RENTAL SYSTEM</a>
+		</div>
+		<nav class="navbar navbar-dark bg-dark">
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right" >
+            
+				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
+                <li><a href="#renter" class="smoothScroll"></a></li>
+				<li><a href="update-cus.php" class="smoothScroll">Profile</a></li>
+				<!-- <li><a href="#message" class="smoothScroll">message</a></li> -->
+				<li><a href="customer-home.php" class="smoothScroll">Cars</a></li>
+				<li><a href="view-book.php" class="smoothScroll">My Bookings</a></li>
+				<li><a href="#plan" class="smoothScroll"></a></li>
+				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
+				<li></li>
+			
+			</ul>
+		</div>
+	</nav>
+	</div>
+</section>
 
 <!-- Preloader section
 ================================================== -->
@@ -129,7 +163,7 @@ http://www.tooplate.com/view/2078-adventure
 
 					var ph = document.getElementById("phn").value;
 					var expr = /^[6-9]\d{9}$/;
-					if(expr!="" && expr.test(ph)==false){
+					if(ph!="" && expr.test(ph)==false){
 						document.getElementById('msg2').style.display = "block";
 						document.getElementById('msg2').innerHTML = "Invalid Phone number";
 						return false;
@@ -167,8 +201,7 @@ http://www.tooplate.com/view/2078-adventure
 			================================================== -->
 			
 
-			<a href="customer-home.php" >
-                        <button>back</button></a>
+			
 
 			<br><br><br><br><br><br><br><br>
 

@@ -20,7 +20,7 @@ if(isset($_POST['login'])){
 			
             $_SESSION['usertype'] = $row['usertype'];
             
-			header("location: admin-home.php");
+			header("location: admin/ad.php");
 
 	  }
         else if($row['username'] == $user && $row['passwd'] == $password && $row['usertype'] == 1){

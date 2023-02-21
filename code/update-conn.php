@@ -21,11 +21,10 @@ if(isset($_POST['submit'])){
     $fname = $_POST["fname"];
 	$lname = $_POST["lname"];
 	$phone = $_POST["phone"];
-	$email = $_POST["email"];
+	// $email = $_POST["email"];
 	$addresss = $_POST["addresss"];
 	$place = $_POST["place"];
-   
-    $username = $_POST["username"];
+    // $username = $_POST["username"];
 	$passwd = $_POST["passwd"];
    
 
@@ -42,8 +41,9 @@ if(isset($_POST['submit'])){
         if($usertype == 2){
             $up = "UPDATE `login` SET `passwd`='$passwd' where 'log_id'='$log_id'";
             $up_result = $conn->query($up);
-            $user_reg = "UPDATE `renter` SET `fname`='$fname',`lname`='$lname',`email`='$email',`phone`='$phone',`addresss`='$addresss',`place`='$place' WHERE `log_id`='$log_id'";
+            $user_reg = "UPDATE `renter` SET `fname`='$fname',`lname`='$lname',`phone`='$phone',`addresss`='$addresss',`place`='$place' WHERE `log_id`='$log_id'";
             $user_reg_query = $conn->query($user_reg);
+            header("location: renter-home.php");
             }
         
         

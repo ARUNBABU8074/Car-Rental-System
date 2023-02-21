@@ -100,11 +100,12 @@ http://www.tooplate.com/view/2078-adventure
 			<ul class="nav navbar-nav navbar-right">
             
 				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
+				<li><a href="admin-home.php" class="smoothScroll">HOME</a></li>
                 <li><a href="#approve" class="smoothScroll">APPROVE</a></li>
 				<li><a href="#remove" class="smoothScroll">REMOVE</a></li>
 				<li><a href="#re-add" class="smoothScroll">RE-ADD</a></li>
 				<li><a href="car.php" class="smoothScroll">CARS</a></li>
-				<li><a href="#message" class="smoothScroll">MESSAGE</a></li>
+				<!-- <li><a href="#message" class="smoothScroll">MESSAGE</a></li> -->
 				<li><a href="#plan" class="smoothScroll"></a></li>
 				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
 			</ul>

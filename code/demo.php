@@ -14,6 +14,7 @@ session_start();
    $usertype = $_SESSION['type'];
    $username = $_SESSION["username"];
    $passwd = $_SESSION["passwd"];
+   $license=$_SESSION['license'];
 
  
 
@@ -59,13 +60,13 @@ session_start();
         if($reg_query){
 
             if($usertype == 1){
-             $user_reg = "INSERT INTO `customer`(`log_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`) VALUES ('$logid','$fname','$lname','$email','$phone','$addresss', '$place')";
+             $user_reg = "INSERT INTO `customer`(`log_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`,`license`) VALUES ('$logid','$fname','$lname','$email','$phone','$addresss', '$place','$license')";
             $user_reg_query = mysqli_query($conn,$user_reg);
             echo'<script> alert ("Account created");</script>';
             echo'<script>window.location.href="index.php";</script>';  }
             if($usertype == 2){
             
-                $user_reg = "INSERT INTO `renter`(`log_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`) VALUES ('$logid','$fname','$lname','$email','$phone','$addresss', '$place')";
+                $user_reg = "INSERT INTO `renter`(`log_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`,`license`) VALUES ('$logid','$fname','$lname','$email','$phone','$addresss', '$place','$license')";
                $user_reg_query = mysqli_query($conn,$user_reg);
                echo'<script> alert ("Account created");</script>';
                echo'<script>window.location.href="index.php";</script>';  }
@@ -100,7 +101,7 @@ session_start();
         align-items: center;
         flex-direction: column;
         min-height: 100vh;
-        background-image: url('Two-Factor-Authentication.png');
+        /* background-image: url('Two-Factor-Authentication.png'); */
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 99% 98%;

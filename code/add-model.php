@@ -5,9 +5,6 @@ include 'session.php';
 
 
 if(isset($_POST['submit'])){
-
-		
-
  $model= $_POST["model"];
 
 	$sql2 = "INSERT INTO `model`( `model`) VALUES ('$model')";

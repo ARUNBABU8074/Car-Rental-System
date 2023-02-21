@@ -64,6 +64,7 @@ http://www.tooplate.com/view/2078-adventure
    	<!-- Main CSS
    	================================================== -->
 	<link rel="stylesheet" href="css/style.css">
+	
 
 	<!-- Google web font
    ================================================== -->
@@ -298,6 +299,7 @@ $result3 = $conn->query($sql2);
 
 <!-- Javascript 
 ================================================== -->
+
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/smoothscroll.js"></script>

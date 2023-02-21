@@ -104,11 +104,12 @@ http://www.tooplate.com/view/2078-adventure
 				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
                 <li><a href="#renter" class="smoothScroll"></a></li>
 				<li><a href="update-rent.php" class="smoothScroll">profile</a></li>
-				<li><a href="#message" class="smoothScroll">message</a></li>
-				<li><a href="#team" class="smoothScroll"></a></li>
-				<li><a href="#car" class="smoothScroll">ADD CAR</a></li>
-				<li><a href="#plan" class="smoothScroll"></a></li>
+				<li><a href="#message" class="smoothScroll"></a></li>
+				<li><a href="my-cars.php" class="smoothScroll">My Cars</a></li>
+				<li><a href="#car" class="smoothScroll"></a></li>
+				<li><a href="book-accept.php" class="smoothScroll">My Bookings</a></li>
 				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
+
 			</ul>
 		</div>
 
@@ -155,59 +156,10 @@ http://www.tooplate.com/view/2078-adventure
 
 <!-- Work section
 ================================================== -->
-<section id="car" class="parallax-section">
-	<div class="container">
-		<div class="row">
-
-        <center><h1 class="heading color-white">ADD CAR</h1></center><br>
-			<form action="add-car.php" method="post" class="wow fadeInUp" data-wow-delay="0.6s" enctype="multipart/form-data">
-				
-				<div  class="col-md-8 col-sm-3"  style="width: 60%;">
-					
-						<input type="text" class="form-control" placeholder="Company" name="company" required><br>
-                        <input type="text" class="form-control" placeholder="Name" name="cname" required><br>
-						<input type="int" class="form-control" placeholder="Reg Number" name="reg" required><br>
-			            <lablel>Choose image...</label>
-						<input type="file" class="form-control" placeholder="Image" name="image" accept=".jpg , .png" required><br>
-                        <input type="int" class="form-control" placeholder="mileage" name="mileage" required><br>
-						<input type="int" class="form-control" placeholder="Price" name="price" required><br>
-						<input type="int" class="form-control" placeholder="Year" name="year" required><br>
-						<select id="car" class="form-control" name="model" required>
-							<?php
-							$model="SELECT * FROM `model`";
-							$model_result=$conn->query($model);
-							if($model_result->num_rows > 0){
-								while($m= $model_result->fetch_assoc()){
-									?>
-									 <option value="<?php echo $m['model_id'];?>"><?php echo $m['model'];?></option>
-                        
-                        
-
-						<?php
-								}
-							}
-                       
-?>
-	</select><br>
-
-	
-						
-					
-					
-					
-						<input type="submit" class="form-control" value="submit" name="submit">
-				</div>
-			</form>
-     
-
-		</div>
-	</div>
-</section>
-
 
 <!-- Work section
 ================================================== -->
-<section id="message" class="parallax-section">
+<!-- <section id="message" class="parallax-section">
 <div class="container">
 		<div class="row">
 		<center><h1 class="heading color-black"> message </h1></center>
@@ -253,7 +205,7 @@ http://www.tooplate.com/view/2078-adventure
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		</div>
 	</div>
-</section>
+</section> -->
 
 
 
