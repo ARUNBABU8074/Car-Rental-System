@@ -45,6 +45,13 @@ if(isset($_POST['submit'])){
             $user_reg_query = $conn->query($user_reg);
             header("location: renter-home.php");
             }
+            if($usertype == 3){
+                $up = "UPDATE `login` SET `passwd`='$passwd' where 'log_id'='$log_id'";
+                $up_result = $conn->query($up);
+                $user_reg = "UPDATE `driver` SET `fname`='$fname',`lname`='$lname',`phone`='$phone',`addresss`='$addresss',`place`='$place' WHERE `log_id`='$log_id'";
+                $user_reg_query = $conn->query($user_reg);
+                header("location: driver-home.php");
+                }
         
         
    /*      

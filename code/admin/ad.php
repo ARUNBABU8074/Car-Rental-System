@@ -120,6 +120,10 @@ include '../session.php';
                 <i class="fas fa-users"></i>car</a>
             </li>
             <li class="has-sub">
+              <a class="js-arrow" href="driverAD.php">
+                <i class="fas fa-users"></i>Driver</a>
+            </li>
+            <li class="has-sub">
               <a class="js-arrow" href="model.php">
                 <i class="fas fa-users"></i>Model</a>
             </li>

@@ -74,6 +74,10 @@ include '../config.php';
                 <i class="fas fa-users"></i>RENTERS</a>
             </li>
             <li class="has-sub">
+              <a class="js-arrow" href="driverAD.php">
+                <i class="fas fa-users"></i>Driver</a>
+            </li>
+            <li class="has-sub">
               <a class="js-arrow" href="model.php">
                 <i class="fas fa-users"></i>Model</a>
             </li>
@@ -113,6 +117,14 @@ include '../config.php';
             <li class="has-sub">
               <a class="js-arrow" href="car.php">
                 <i class="fas fa-users"></i>CARS</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="driverAD.php">
+                <i class="fas fa-users"></i>Driver</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="model.php">
+                <i class="fas fa-users"></i>Model</a>
             </li>
           </ul>
         </nav>

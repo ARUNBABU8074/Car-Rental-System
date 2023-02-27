@@ -108,7 +108,7 @@ http://www.tooplate.com/view/2078-adventure
         
         data:'carc-idb='+cid,
         success:function(response){
-			$(".modal-body #sd").html(response);
+			$(".modal-body #cd").html(response);
             
 			$('#bModal').modal('show');
           
@@ -159,7 +159,7 @@ http://www.tooplate.com/view/2078-adventure
 				<!-- <li><a href="#message" class="smoothScroll">message</a></li> -->
 				<li><a href="#team" class="smoothScroll">Cars</a></li>
 				<li><a href="view-book.php" class="smoothScroll">My Bookings</a></li>
-				<li><a href="#plan" class="smoothScroll"></a></li>
+				<li><a href="c-dview.php" class="smoothScroll">Drivers</a></li>
 				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
 				<li></li>
 			
@@ -443,14 +443,22 @@ http://www.tooplate.com/view/2078-adventure
           <h4 class="modal-title">CAR DETAILS</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        
         <!-- Modal body -->
         <div class="modal-body">
-			<form >
+		<form>
+			<!-- <span  id="cd"></span> -->
+				<input type="text" name="cd" id="myTextInput"> 
 				
-				<span id="sd"></span>
-             
-        </form>
+            <span>pick up date<span>
+			  <input type="date" class="form-control" name="pdate"  id="pdate"  onchange="check()" required ><br>
+			  <span class="message text-danger" id="ms" style="font-size: 16px"></span><br>
+              <span>drop-off date<span>
+			<input type="date" class="form-control"  name="ddate"  id="ddate" onchange="check1()" required ><br>
+			<span class="message text-danger" id="ms1"  ></span>
+			
+			<input type="submit" class="form-control" value="Book" name="sub" id="sub" >
+				</div>
+			</form>
         
         </div>
         

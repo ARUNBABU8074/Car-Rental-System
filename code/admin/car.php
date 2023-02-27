@@ -133,7 +133,10 @@ $result3 = $conn->query($sql3);
               <a class="js-arrow" href="rent.php">
                 <i class="fas fa-users"></i>RENTERS</a>
             </li>
-            
+            <li class="has-sub">
+              <a class="js-arrow" href="driverAD.php">
+                <i class="fas fa-users"></i>Driver</a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -169,6 +172,10 @@ $result3 = $conn->query($sql3);
             <li class="has-sub">
               <a class="js-arrow" href="car.php">
                 <i class="fas fa-users"></i>CARS</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="driverAD.php">
+                <i class="fas fa-users"></i>Driver</a>
             </li>
           </ul>
         </nav>

@@ -42,7 +42,15 @@ if(isset($_POST['login'])){
 			header("location: renter-home.php");
            
         } 
-    
+        else if($row['username'] == $user && $row['passwd'] == $password && $row['usertype'] == 3){
+            $_SESSION['username'] = $row['username'];
+
+			$_SESSION['usertype'] = $row['usertype'];
+            $_SESSION['log_id'] = $row['log_id'];
+            
+			header("location: driver-home.php");
+           
+        } 
    
 
 }

@@ -124,6 +124,8 @@ $license=$_POST['cimage'];
 <html lang="en">
 <head>
 
+
+
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<title>Adventure Bootstrap Template</title>
@@ -175,6 +177,412 @@ http://www.tooplate.com/view/2078-adventure
 </head>
 
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+   <!--  <script>
+           function dvalidate()
+                {
+					
+					var f=document.getElementById("dfname").value;
+					var l=document.getElementById("dlname").value;
+					var s=/^[a-zA-Z]+$/;
+                    alert(f);
+					if(f!="" && s.test(f)==false){
+						
+						document.getElementById('dms').style.display = "block";
+						document.getElementById('dms').innerHTML = "Invalid First Name . It must be alphabet";
+						return false;
+					}
+					else{
+						document.getElementById('dms').style.display = "none";
+					}
+					if(l!="" && s.test(l)==false){
+						
+						document.getElementById('dms1').style.display = "block";
+						document.getElementById('dms1').innerHTML = "Invalid Lname. It must be alphabet";
+						return false;
+					}
+					else{
+
+						document.getElementById('dms1').style.display = "none";
+					}
+						
+					var a=document.getElementById("dem").value;
+					var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
+					if(a!="" && st.test(a)==false){
+						
+						document.getElementById('dmessage').style.display = "block";
+						document.getElementById('dmessage').innerHTML = "Invalid Email id";
+						return false;
+					}
+					else{
+						jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'em='+$("#dem").val(),
+        success:function(response){
+          
+          $("#dmessage").html(response);
+        },
+		error:function (){}
+      }); 
+						//document.getElementById('message').style.display = "none";
+					}
+
+					var ph = document.getElementById("dphn").value;
+					var expr = /^[6-9]\d{9}$/;
+					if(ph!="" && expr.test(ph)==false){
+						document.getElementById('dmsg2').style.display = "block";
+						document.getElementById('dmsg2').innerHTML = "Invalid Phone number";
+						return false;
+								}
+								else{
+						document.getElementById('dmsg2').style.display = "none";
+					}
+		}
+function dcheckuser(){
+	  
+      jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'uname='+$("#dun").val(),
+        success:function(response){
+          
+          $(".derror_uname").html(response);
+        },
+		error:function (){}
+      }); 
+    }
+	function dvalidateimage()
+                {
+					
+					var fd = new FormData();
+        var files = $('#dlimage')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fd.append('file1',files[0]);
+
+           $.ajax({
+              url: 'ajax.php',
+              type: 'post',
+              data: fd,
+              contentType: false,
+              processData: false,
+              success: function(response){
+               
+					$("#dim1").html(response);
+				//}
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+
+				}
+                
+                function dvalidateimage2()
+                {
+					
+					var fdl = new FormData();
+        var files = $('#dlim')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fdl.append('file',files[0]);
+
+           $.ajax({
+              url: 'ajax.php',
+              type: 'post',
+              data: fdl,
+              contentType: false,
+              processData: false,
+              success: function(response){
+               
+					$("#dim2").html(response);
+				
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+
+				}
+        </script> -->
+
+<script type="text/javascript">
+             
+
+function dvalidate(){
+    var f1=document.getElementById("dfname").value;
+					var l1=document.getElementById("dlname").value;
+					var s1=/^[a-zA-Z]+$/;
+                    
+					if(f1!="" && s.test(f1)==false){
+						
+						document.getElementById('dms').style.display = "block";
+						document.getElementById('dms').innerHTML = "Invalid First Name . It must be alphabet";
+						return false;
+					}
+					else{
+						document.getElementById('dms').style.display = "none";
+					}
+					if(l1!="" && s1.test(l1)==false){
+						
+						document.getElementById('dms1').style.display = "block";
+						document.getElementById('dms1').innerHTML = "Invalid Lname. It must be alphabet";
+						return false;
+					}
+					else{
+
+						document.getElementById('dms1').style.display = "none";
+					}
+}
+
+
+                function validate()
+                {
+					
+
+
+                    var df=document.getElementById("dfname").value;
+                    var dl=document.getElementById("dlname").value;
+					var f=document.getElementById("fname").value;
+					var l=document.getElementById("lname").value;
+					var s=/^[a-zA-Z]+$/;
+					if(f!="" && s.test(f)==false){
+						
+						document.getElementById('ms').style.display = "block";
+						document.getElementById('ms').innerHTML = "Invalid First Name . It must be alphabet";
+						return false;
+					}
+					else{
+						document.getElementById('ms').style.display = "none";
+					}
+                    if(df!="" && s.test(df)==false){
+						
+						document.getElementById('dms').style.display = "block";
+						document.getElementById('dms').innerHTML = "Invalid First Name . It must be alphabet";
+						return false;
+					}
+					else{
+						document.getElementById('dms').style.display = "none";
+					}
+					if(l!="" && s.test(l)==false){
+						
+						document.getElementById('ms1').style.display = "block";
+						document.getElementById('ms1').innerHTML = "Invalid Lname. It must be alphabet";
+						return false;
+					}
+					else{
+
+						document.getElementById('ms1').style.display = "none";
+					}
+                    if(dl!="" && s.test(dl)==false){
+						
+						document.getElementById('dms1').style.display = "block";
+						document.getElementById('dms1').innerHTML = "Invalid Lname. It must be alphabet";
+						return false;
+					}
+					else{
+
+						document.getElementById('dms1').style.display = "none";
+					}
+						
+                    var da=document.getElementById("dem").value;
+					var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
+					if(da!="" && st.test(da)==false){
+						
+						document.getElementById('dmessage').style.display = "block";
+						document.getElementById('dmessage').innerHTML = "Invalid Email id";
+						return false;
+					}
+					else{
+						jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'em='+$("#dem").val(),
+        success:function(response){
+          
+          $("#dmessage").html(response);
+        },
+		error:function (){}
+      }); 
+						
+					}
+
+					var a=document.getElementById("em").value;
+					var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
+					if(a!="" && st.test(a)==false){
+						
+						document.getElementById('message').style.display = "block";
+						document.getElementById('message').innerHTML = "Invalid Email id";
+						return false;
+					}
+					else{
+						jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'em='+$("#em").val(),
+        success:function(response){
+          
+          $("#message").html(response);
+        },
+		error:function (){}
+      }); 
+						
+					}
+
+
+                    var dph = document.getElementById("dphn").value;
+					var expr = /^[6-9]\d{9}$/;
+					if(dph!="" && expr.test(dph)==false){
+						document.getElementById('dmsg2').style.display = "block";
+						document.getElementById('dmsg2').innerHTML = "Invalid Phone number";
+						return false;
+								}
+								else{
+						document.getElementById('dmsg2').style.display = "none";
+					}
+
+					var ph = document.getElementById("phn").value;
+					var expr = /^[6-9]\d{9}$/;
+					if(ph!="" && expr.test(ph)==false){
+						document.getElementById('msg2').style.display = "block";
+						document.getElementById('msg2').innerHTML = "Invalid Phone number";
+						return false;
+								}
+								else{
+						document.getElementById('msg2').style.display = "none";
+					}
+
+					
+							}
+
+                            function dcheckuser(){
+
+	  
+jQuery.ajax({
+  url: "ajax.php",
+  type: "POST",
+  
+  data:'uname='+$("#dun").val(),
+  success:function(response){
+    
+    $(".derror_uname").html(response);
+  },
+  error:function (){}
+}); 
+}
+
+
+function checkuser(){
+
+	  
+      jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'uname='+$("#un").val(),
+        success:function(response){
+          
+          $(".error_uname").html(response);
+        },
+		error:function (){}
+      }); 
+    }
+
+
+    function dvalidateimage()
+                {
+					
+					var fdd = new FormData();
+        var files = $('#dlimage')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fdd.append('file1',files[0]);
+
+           $.ajax({
+              url: 'ajax.php',
+              type: 'post',
+              data: fdd,
+              contentType: false,
+              processData: false,
+              success: function(response){
+               
+					$("#dim1").html(response);
+				//}
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+
+				}
+                
+                function dvalidateimage2()
+                {
+					
+					var fdl = new FormData();
+        var files= $('#dlim')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fdl.append('file',files[0]);
+
+           $.ajax({
+              url: 'ajax.php',
+              type: 'post',
+              data: fdl,
+              contentType: false,
+              processData: false,
+              success: function(response){
+               
+					$("#dim2").html(response);
+				
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+
+				}
+
+
+	function validateimage()
+                {
+					
+					var fd = new FormData();
+        var files = $('#limage')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fd.append('file1',files[0]);
+
+           $.ajax({
+              url: 'ajax.php',
+              type: 'post',
+              data: fd,
+              contentType: false,
+              processData: false,
+              success: function(response){
+               
+					$("#im1").html(response);
+				
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+
+				}
+                </script>
+
+
+
 
 
 <!-- Preloader section
@@ -353,16 +761,81 @@ http://www.tooplate.com/view/2078-adventure
 			<div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8">
 				<div class="section-title">
 					<h5 class="wow bounceIn">ACTIVE PEOPLE</h5>
-					<h1 class="heading color-white">WHO WE ARE</h1>
-					<hr>
-					<p class="color-white"></p>
+
+                    
+                    <div class="col-md-6 col-sm-12">
+				<h3 class="color-black">Join with us</h3>
+			
+				<p class="color-black">We are looking for experienced drivers who has good communication and behaviour.</p>
+				
+			</div>
+            <br><br><br><br>
+                    <button type="button"  data-toggle="modal" data-target="#exampleModalCenter">
+         <img src="images/app1.png" alt="Submit">
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Details please</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      
+        <form  action="driver.php" method="post" enctype="multipart/form-data">
+        <div  class="col-md-8 col-sm-3"  style="width: 60%;">
+					
+        <input type="text" class="form-control" placeholder="First Name" name="dfname"  id="dfname" onKeyUp="return validate()" required pattern="[A-Za-z_]+">
+			  <span class="message text-danger" id="dms" style="font-size: 16px"></span><br>
+			<input type="text" class="form-control" placeholder="Last Name" name="dlname"  id="dlname"  onKeyUp="return validate()"  required pattern="[A-Za-z_]+">
+			<span class="message text-danger" id="dms1"  ></span><br>
+			<input type="email" class="form-control" placeholder="Email" name="demail" id="dem" onblur="return validate()" onKeyUp="return validate()" required>
+			<span class="message text-danger" id="dmessage"></span><br>
+			<input type="int" class="form-control" placeholder="Phone number" name="dphone" id="dphn"  onblur="return validate()" onKeyUp="return validate()" required minlength="10" maxlength="10" required>
+			<span class="message text-danger" id="dmsg2"></span><br>
+			<input type="text area" class="form-control" placeholder="Address" name="daddresss" required><br> 
+			<input type="text" class="form-control" placeholder="place" name="dplace" required><br> 
+			<span style="color:blue">upload licence...</span>
+            <input type="file" class="form-control" placeholder="License" name="dvimage"   id="dlimage" onchange="return dvalidateimage()" required><br>
+                     <span id="dim1" style='color:red;'></span>
+			<input type="text" class="form-control checking_uname" placeholder="User name" name="dusername" id="dun" onInput="dcheckuser()" required>
+			<span class="derror_uname"></span><br>
+			<input type="password" class="form-control" placeholder="password" name="dpasswd" required><br> 
+            <span style="color:blue">upload your image...</span>
+            <input type="file" class="form-control" placeholder="Image" name="dimg"   id="dlim" onchange="return dvalidateimage2()" required><br>
+                     <span id="dim2" style='color:red;'></span>
+			<br>       
+                    <input type="submit" class="form-control" value="submit" name="dsubmit" id="dsubmit">
+            </div>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color:blue">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<br><br>
+
+				
 				</div>
 			</div>
 
 			<div class="col-md-6 col-sm-12">
-				<h3 class="color-white">OUR STORY</h3>
-				<h2>CAR RENTAL</h2>
-				<p class="color-white">This is a website for CAR RENTAL. Here we can book cars for rental purpose and it is only available near by kanjirapally and munadakayam areas.</p>
+				<h3 class="color-black">WHO WE ARE</h3>
+			
+				<p class="color-black">This is a website for CAR RENTAL. Here we can book cars for rental purpose and it is only available near by kanjirapally and munadakayam areas.</p>
 				<p class="color-white"></p>
 			</div>
 
@@ -394,119 +867,8 @@ http://www.tooplate.com/view/2078-adventure
 			================================================== -->
 			<center><h1 class="heading color-black">REGISTER HERE</h1></center>
 
-			<script type="text/javascript">
-                function validate()
-                {
-					
-					var f=document.getElementById("fname").value;
-					var l=document.getElementById("lname").value;
-					var s=/^[a-zA-Z]+$/;
-					if(f!="" && s.test(f)==false){
-						
-						document.getElementById('ms').style.display = "block";
-						document.getElementById('ms').innerHTML = "Invalid First Name . It must be alphabet";
-						return false;
-					}
-					else{
-						document.getElementById('ms').style.display = "none";
-					}
-					if(l!="" && s.test(l)==false){
-						
-						document.getElementById('ms1').style.display = "block";
-						document.getElementById('ms1').innerHTML = "Invalid Lname. It must be alphabet";
-						return false;
-					}
-					else{
 
-						document.getElementById('ms1').style.display = "none";
-					}
-						
-					var a=document.getElementById("em").value;
-					var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
-					if(a!="" && st.test(a)==false){
-						
-						document.getElementById('message').style.display = "block";
-						document.getElementById('message').innerHTML = "Invalid Email id";
-						return false;
-					}
-					else{
-						jQuery.ajax({
-		url: "ajax.php",
-        type: "POST",
-        
-        data:'em='+$("#em").val(),
-        success:function(response){
-          
-          $("#message").html(response);
-        },
-		error:function (){}
-      }); 
-						//document.getElementById('message').style.display = "none";
-					}
-
-					var ph = document.getElementById("phn").value;
-					var expr = /^[6-9]\d{9}$/;
-					if(ph!="" && expr.test(ph)==false){
-						document.getElementById('msg2').style.display = "block";
-						document.getElementById('msg2').innerHTML = "Invalid Phone number";
-						return false;
-								}
-								else{
-						document.getElementById('msg2').style.display = "none";
-					}
-
-					
-
-							}
-function checkuser(){
-
-	
-	  
-	  
-      jQuery.ajax({
-		url: "ajax.php",
-        type: "POST",
-        
-        data:'uname='+$("#un").val(),
-        success:function(response){
-          
-          $(".error_uname").html(response);
-        },
-		error:function (){}
-      }); 
-    }
-	function validateimage()
-                {
-					
-					var fd = new FormData();
-        var files = $('#limage')[0].files;
-        
-        // Check file selected or not
-        if(files.length > 0 ){
-           fd.append('file1',files[0]);
-
-           $.ajax({
-              url: 'ajax.php',
-              type: 'post',
-              data: fd,
-              contentType: false,
-              processData: false,
-              success: function(response){
-                // if(response != 0){
-                //     $("#img").attr("src",response); 
-                //     $("#img").show(); // Display image element
-				// }
-				// else{
-					$("#im1").html(response);
-				//}
-              },
-           });
-        }else{
-           alert("Please select a file.");
-        }
-
-				}
-                </script>
+		
 			<form action="index.php" method="POST" name="cusform" class="wow fadeInUp" data-wow-delay="0.6s" onsubmit="return validate()">
 				
 				<div class="col-md-8 col-sm-6">
@@ -561,7 +923,6 @@ function checkuser(){
 
 
 
-
 <!-- Javascript 
 ================================================== -->
 <script src="js/email.js"></script>
@@ -575,6 +936,7 @@ function checkuser(){
 <script src="js/jquery.parallax.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/custom.js"></script>
+
 
 
 </body>

@@ -65,7 +65,7 @@ include 'config.php';
 if(!empty($_POST['em'])){
     $em= $_POST['em'];
     
-    $check = "SELECT r.email,c.email FROM renter as r,customer as c WHERE r.email='$em' or c.email='$em'";
+    $check = "SELECT r.email,c.email,d.email FROM renter as r,customer as c, driver as d WHERE r.email='$em' or c.email='$em' or d.email='$em'";
     
     $rslt = mysqli_query($conn, $check);
 
@@ -300,7 +300,7 @@ $renter_id=$row0['renter_id'];
 
 if(!empty($_POST['carc-idb'])){
     $car_id= $_POST['carc-idb'];
-   
+   echo $car_id;
 		$sql1 = "SELECT * FROM car where car_id='$car_id'";
 		$result1 = $conn->query($sql1);
 			if ($result1->num_rows > 0) {
@@ -316,7 +316,7 @@ if(!empty($_POST['carc-idb'])){
 					$day=date("Y-m-d");
 					
 					?>
-				<input type="hidden" value="<?php echo $car_id;?>" name="car-id" id="c"> 
+				<?php echo '<input type="hidden" value="<?php echo $car_id;?>" name="car-id" id="c">' ?>
 				
             <span>pick up date<span>
 			  <input type="date" class="form-control" name="pdate"  id="pdate"  onchange="check()" required ><br>

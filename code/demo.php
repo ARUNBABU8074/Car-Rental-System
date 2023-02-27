@@ -2,7 +2,7 @@
 
 include 'config.php';
 session_start();
- 
+
    
   $mailmsg =$_SESSION['mailsend'];
    $fname = $_SESSION['fname'];
@@ -15,7 +15,7 @@ session_start();
    $username = $_SESSION["username"];
    $passwd = $_SESSION["passwd"];
    $license=$_SESSION['license'];
-
+   
  
 
  if(isset($_POST['btn'])){
