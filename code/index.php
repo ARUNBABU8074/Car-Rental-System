@@ -363,10 +363,12 @@ function dvalidate(){
 						
 						document.getElementById('dms').style.display = "block";
 						document.getElementById('dms').innerHTML = "Invalid First Name . It must be alphabet";
+                        document.getElementById('dsubmit').disabled=true;
 						return false;
 					}
 					else{
 						document.getElementById('dms').style.display = "none";
+                        document.getElementById('dsubmit').disabled=false;
 					}
 					if(l!="" && s.test(l)==false){
 						
@@ -382,11 +384,13 @@ function dvalidate(){
 						
 						document.getElementById('dms1').style.display = "block";
 						document.getElementById('dms1').innerHTML = "Invalid Lname. It must be alphabet";
+                        document.getElementById('dsubmit').disabled=true;
 						return false;
 					}
 					else{
 
 						document.getElementById('dms1').style.display = "none";
+                        document.getElementById('dsubmit').disabled=false;
 					}
 						
                     var da=document.getElementById("dem").value;
@@ -395,9 +399,11 @@ function dvalidate(){
 						
 						document.getElementById('dmessage').style.display = "block";
 						document.getElementById('dmessage').innerHTML = "Invalid Email id";
+                        document.getElementById('dsubmit').disabled=true;
 						return false;
 					}
 					else{
+                        document.getElementById('dsubmit').disabled=false;
 						jQuery.ajax({
 		url: "ajax.php",
         type: "POST",
@@ -441,10 +447,12 @@ function dvalidate(){
 					if(dph!="" && expr.test(dph)==false){
 						document.getElementById('dmsg2').style.display = "block";
 						document.getElementById('dmsg2').innerHTML = "Invalid Phone number";
+                        document.getElementById('dsubmit').disabled=true;
 						return false;
 								}
 								else{
 						document.getElementById('dmsg2').style.display = "none";
+                        document.getElementById('dsubmit').disabled=false;
 					}
 
 					var ph = document.getElementById("phn").value;

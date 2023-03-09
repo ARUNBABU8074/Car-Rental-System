@@ -115,6 +115,7 @@ http://www.tooplate.com/view/2078-adventure
 		error:function (){}
       });
 		}
+
 		</script>
 
 
@@ -230,7 +231,7 @@ $result3=$conn->query($sql3);
                             <h4>Email: <?php echo $row['email']; ?></h4>
                             <h4>Location: <?php echo $row['place']; ?></h4>
 							
-	 <form action="book.php" method="post">
+	 <form action="dbook.php" method="post">
 					<input type="hidden" value="<?php echo $row['driver_id'];?>" name="c">
 
 					
@@ -246,6 +247,12 @@ $result3=$conn->query($sql3);
 					  <button type="button" value="" onclick="getId(<?php echo $row['driver_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
     VIEW
   </button>
+
+ 
+
+
+	 
+
 
   
 					
@@ -386,43 +393,7 @@ $result3=$conn->query($sql3);
 
 
 
- <!-- The Modal -->
- <div class="modal fade" id="bModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">CAR DETAILS</h4>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body">
-		<form>
-			<!-- <span  id="cd"></span> -->
-				<input type="text" name="cd" id="myTextInput"> 
-				
-            <span>pick up date<span>
-			  <input type="date" class="form-control" name="pdate"  id="pdate"  onchange="check()" required ><br>
-			  <span class="message text-danger" id="ms" style="font-size: 16px"></span><br>
-              <span>drop-off date<span>
-			<input type="date" class="form-control"  name="ddate"  id="ddate" onchange="check1()" required ><br>
-			<span class="message text-danger" id="ms1"  ></span>
-			
-			<input type="submit" class="form-control" value="Book" name="sub" id="sub" >
-				</div>
-			</form>
-        
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
+ 
 
 
 

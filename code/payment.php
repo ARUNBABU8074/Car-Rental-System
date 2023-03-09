@@ -15,12 +15,13 @@ $fname = $_SESSION['dfname'];
 if(isset($_POST['payment_id']))
 {
     $payment_id=$_POST['payment_id'];
-    $amt=$_POST['amt'];
+    
     $name=$_POST['name'];
-    $payment_status="1";
-    $s=$_SESSION['dphone'];
-    $AD_id = "1";
-    mysqli_query($conn,"INSERT INTO `regpay`(`p_stat`)VALUES('$s')");
+    // $payment_status="1";
+   
+   
+    
+    mysqli_query($conn,"INSERT INTO `regpay`(`name`, `email`, `pay_id`, `amount`) VALUES ('$username','$email','$payment_id','50')");
 
     $check1 = "SELECT * FROM `renter` WHERE `email`='$email'";
     

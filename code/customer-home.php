@@ -160,6 +160,7 @@ http://www.tooplate.com/view/2078-adventure
 				<li><a href="#team" class="smoothScroll">Cars</a></li>
 				<li><a href="view-book.php" class="smoothScroll">My Bookings</a></li>
 				<li><a href="c-dview.php" class="smoothScroll">Drivers</a></li>
+				<li><a href="viewd-book.php" class="smoothScroll">Driver Bookings</a></li>
 				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
 				<li></li>
 			

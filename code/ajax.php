@@ -171,6 +171,40 @@ if(isset($_FILES['file']['name'])){
  }
 }
 
+
+//booking accept section driver
+
+if(!empty($_POST['dbook-id'])){
+    $book_id= $_POST['dbook-id'];
+    $sql="UPDATE `dbook` SET `stat`=1 WHERE `book_id`='$book_id'";
+
+	$result = $conn->query($sql);
+
+    $sql1="SELECT `driver_id` FROM `dbook` WHERE `book_id`='$book_id'";
+    $result = $conn->query($sql1);
+$car=$result->fetch_assoc();
+$d_id=$car['driver_id'];
+$sql3="UPDATE `dbook` SET `stat`=0 WHERE `book_id`!='$book_id' AND `driver_id`='$d_id';";
+$result3 = $conn->query($sql3);
+// $sql2="UPDATE `car` SET `c_stat`=3 WHERE `car_id`='$car_id'";
+
+// 	$result2 = $conn->query($sql2);
+
+}
+
+
+//booking reject section driver
+
+if(!empty($_POST['dbook'])){
+    $book_id= $_POST['dbook'];
+    $sql="UPDATE `dbook` SET `stat`=0 WHERE `book_id`='$book_id'";
+
+	$result = $conn->query($sql);
+
+ 
+
+}
+
 //booking accept section
 
 if(!empty($_POST['book-id'])){
@@ -347,6 +381,10 @@ if(!empty($_POST['car123'])){
 }
 
 
+
+
+
+
 //booking date
 if(!empty($_POST['pdate'])){
     $pdate= $_POST['pdate'];
@@ -411,6 +449,10 @@ if(!empty($_POST['ddate'])){
                     $pd=$row['book_date'];
                     $dd=$row['drop_date'];
                     
+
+
+
+                    
                     if($ddate>=$pd && $ddate<=$dd){
                         echo '<span> car not available in this date</span>';
                         echo "<script>$('#sub').prop('disabled',true);</script>";
@@ -454,6 +496,27 @@ if(!empty($_POST['paper'])){
             	}
 			}
         }
+
+//driver license modal section
+
+if(!empty($_POST['license'])){
+    $d_id= $_POST['license'];
+   
+		$sql1 = "SELECT * FROM driver where driver_id='$d_id'";
+		$result1 = $conn->query($sql1);
+			if ($result1->num_rows > 0) {
+				
+				while ($row10 = $result1->fetch_assoc()) {
+                   
+                       
+                            
+                  
+                            echo '<iframe src="images/'.$row10['license'].'" style="width: 500px; height: 500px;"></iframe>';
+                      
+            	}
+			}
+        }
+		
 		
 //license checking
  
@@ -504,5 +567,21 @@ if(!empty($_POST['license'])){
             	}
 			}
         }
+
+ // driver amount added section
+
+if(!empty($_POST['amtd'])){
+    $amt= $_POST['amtd'];
+    $book_id= $_POST['bo_id'];
+    echo $book_id;
+    echo $amt;
+    $sql="UPDATE `dbook` SET `amount`='$amt' WHERE `book_id`='$book_id'";
+
+	$result = $conn->query($sql);
+
+ 
+
+}
    ?>
+   
    

@@ -4,7 +4,7 @@ include 'session.php';
 include("config.php");
 
 $rid=$_SESSION['log_id'];
-
+$u= $_SESSION['username'];
 
 $sql3="SELECT * FROM `message` WHERE `receiver_id`=$rid;";
 $result3=$conn->query($sql3);
@@ -39,6 +39,7 @@ http://www.tooplate.com/view/2078-adventure
 	<!-- Bootstrap CSS
    ================================================== -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 	<!-- Animate CSS
    ================================================== -->
@@ -103,13 +104,14 @@ http://www.tooplate.com/view/2078-adventure
             
 				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
                 <li><a href="#renter" class="smoothScroll"></a></li>
-				<li><a href="update-driver.php" class="smoothScroll">profile</a></li>
-				<li><a href="#message" class="smoothScroll"></a></li>
-				<li><a href="" class="smoothScroll"></a></li>
-				<li><a href="#car" class="smoothScroll"></a></li>
-				<li><a href=".php" class="smoothScroll">My Bookings</a></li>
+				<li><a href="updateprofile.php" class="smoothScroll">Profile</a></li>
+				<!-- <li><a href="#message" class="smoothScroll"></a></li>
+				<li><a href="" class="smoothScroll"></a></li> -->
+				<li><a href="dacp-view.php" class="smoothScroll">My Bookings</a></li>
+				<li><a href="dbook-acp.php" class="smoothScroll">Requests</a></li>
 				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
-                <li><a href="" class="smoothScroll">Hai</a></li>
+				<li><a href="" class="smoothScroll "><i class="glyphicon glyphicon-user"> <?php echo strtoupper($u);?></i></a></li>
+                <!-- <li><a href="" class="smoothScroll">Hai</a></li> -->
 			</ul>
 		</div>
 

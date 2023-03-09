@@ -93,6 +93,17 @@ http://www.tooplate.com/view/2078-adventure
 	<!-- Google web font
    ================================================== -->
 	<link href='https://fonts.googleapis.com/css?family=Raleway:700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker({ minDate: 0, maxDate: "+10D" });
+  } );
+  </script>
+</head>
 	
 </head>
 
@@ -211,7 +222,7 @@ jQuery.ajax({
 					
 					?>
 				<input type="hidden" value="<?php echo $_POST['c'];?>" name="car-id" id="c">
-				
+				<p>Date: <input type="text" id="datepicker"></p><br>
             <span>pick up date<span>
 			  <input type="date" class="form-control" name="pdate"  id="pdate"  onchange="check()" required ><br>
 			  <span class="message text-danger" id="ms" style="font-size: 16px"></span><br>

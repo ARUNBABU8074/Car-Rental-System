@@ -51,7 +51,15 @@ if(isset($_POST['login'])){
 			header("location: driver-home.php");
            
         } 
-   
+        else if($row['username'] == $user && $row['passwd'] == $password && $row['usertype'] == 4){
+            $_SESSION['username'] = $row['username'];
+
+			$_SESSION['usertype'] = $row['usertype'];
+            $_SESSION['log_id'] = $row['log_id'];
+            
+			header("location: checker/check-home.php");
+           
+        } 
 
 }
 else if($row['statuss'] == 2){

@@ -81,7 +81,26 @@ include '../session.php';
               <a class="js-arrow" href="#">
                 <i class="fas fa-user-alt"></i>Customers</a>
             </li>
-            
+            <li class="has-sub">
+              <a class="js-arrow" href="rent.php">
+                <i class="fas fa-users"></i>renter</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="car.php">
+                <i class="fas fa-users"></i>car</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="driverAD.php">
+                <i class="fas fa-users"></i>Driver</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="model.php">
+                <i class="fas fa-users"></i>Model</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="checker.php">
+                <i class="fas fa-users"></i>checker</a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -116,10 +135,6 @@ include '../session.php';
                 <i class="fas fa-users"></i>renter</a>
             </li>
             <li class="has-sub">
-              <a class="js-arrow" href="car.php">
-                <i class="fas fa-users"></i>car</a>
-            </li>
-            <li class="has-sub">
               <a class="js-arrow" href="driverAD.php">
                 <i class="fas fa-users"></i>Driver</a>
             </li>
@@ -127,6 +142,25 @@ include '../session.php';
               <a class="js-arrow" href="model.php">
                 <i class="fas fa-users"></i>Model</a>
             </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="checker.php">
+                <i class="fas fa-users"></i>checker</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="#">
+                <i class="fas bi-car-front-fill"></i>Cars</a>
+              <ul class="list-unstyled navbar__sub-list js-sub-list">
+                <li>
+                  <a href="assign.php">Assign Car</a>
+                </li>
+                <li>
+                  <a href="review.php">Review of Car</a>
+                </li>
+                <li>
+                  <a href="car.php">Approved Cars</a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </div>
