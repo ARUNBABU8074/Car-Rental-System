@@ -266,11 +266,11 @@ include '../config.php';
                                                 $r=$row['log_id'];
                                                 $s="SELECT statuss from login WHERE log_id='$r'"; 
                                                 $s_run = mysqli_query($conn,$s);
-                                                $row1=mysqli_fetch_array($s_run);
-                                                if($row1['statuss']==0){
+                                                $row18=mysqli_fetch_array($s_run);
+                                                if($row18['statuss']==0){
                                                   echo "blocked";
                                                 } 
-                                                else if($row1['statuss']==1){
+                                                else if($row18['statuss']==1){
                                                   echo "unblocked";
                                                 }
                                                 else{
@@ -280,14 +280,14 @@ include '../config.php';
                                           </td>
                                                 <td>
                                                   <?php
-                                                  if($row1['statuss']==1){?>
+                                                  if($row18['statuss']==1){?>
                                                   <form action="" method="post">
                                                     <input type="hidden" id="cus" name="cus" value="<?php echo $row['driver_id'];?>">
                                                     <button class="btn btn-outline-danger btn-sm" name="block">Block</button><br><br>
                                                   </form>
                                                     <?php
                                                   }
-                                                  else if($row1['statuss']==0){?>
+                                                  else if($row18['statuss']==0){?>
                                                     <form action="" method="post">
                                                     <input type="hidden" id="cus2" name="cus2" value="<?php echo $row['driver_id']; ?>">
                                                     <button class="btn btn-outline-success btn-sm" name="unblock">Unblock</button><br><br>

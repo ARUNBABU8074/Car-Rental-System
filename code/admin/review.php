@@ -8,7 +8,7 @@ $result = $conn->query($sql);
 $sql2 = "SELECT * FROM `renter`";
 $result2 = $conn->query($sql2);
 
-$sql3 = "SELECT * FROM car where c_stat='0' or c_stat='1'";
+$sql3 = "SELECT * FROM car where c_stat='4'";
 $result3 = $conn->query($sql3);
 ?>
 <!DOCTYPE html>
@@ -256,7 +256,7 @@ $result3 = $conn->query($sql3);
 									<th scope="col">RENTER Name</th>
                                     <th scope="col">COMPANY & CAR</th>
                                      
-                                    <th scope="col">REGISTER N0</th>
+                                    <th scope="col">Opinion</th>
                                    
                                     <th scope="col">Papers</th>
                                     <th scope="col">MILEAGE</th>
@@ -280,24 +280,29 @@ $result3 = $conn->query($sql3);
                                 <!-- <td><b><?php echo $s ?></b></td> -->
 
                                 <td><b><?php
+                                $ch=$row1['car_id'];
 							$rid=$row1['renter_id'];
 							$name = "SELECT * FROM renter WHERE renter_id= $rid";
 							$result35 = $conn->query($name);
 							$row35 = $result35->fetch_assoc();
+                            $check = "SELECT * FROM tbl_check WHERE car_id= $ch";
+							$resultch = $conn->query($check);
+							$rowch = $resultch->fetch_assoc();
 							// echo toupper.$row34['model'];
 							echo strtoupper($row35['fname'])." ".strtoupper($row35['lname']); ?></b></td>
                                     
                                     <td><b><?php echo strtoupper($row1['company'])."<br>".strtoupper($row1['name'])."<br>Year: ".$row1['year'];?></b></td>
                                     
-                                    <td><b><?php echo strtoupper($row1['reg_no']); ?></b>
+                                    <td><b><?php echo $rowch['details']; ?></b>
 									
-                                    <b><?php
+                                    <!-- <b><?php
 							$mid=$row1['model'];
 							$m = "SELECT * FROM model WHERE model_id= $mid";
 							$result34 = $conn->query($m);
 							$row34 = $result34->fetch_assoc();
-							// echo toupper.$row34['model'];
-							echo strtoupper($row34['model']); ?></b></td>
+							
+							echo strtoupper($row34['model']); ?></b> -->
+                            </td>
               
                             <td><b><button type="button" value="" onclick="getId(<?php echo $row1['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
     VIEW
@@ -309,27 +314,21 @@ $result3 = $conn->query($sql3);
 									<td>
                                     <?php
                                                   if($row1['c_stat']==1){?>
-                                                  <form action="" method="post">
-                                                    <input type="hidden" id="cus" name="cus" value="<?php echo $row1['car_id'];?>">
-                                                    <button class="btn btn-outline-danger btn-sm" name="block">Block</button><br><br>
-                                                  </form>
+                                                
                                                     <?php
                                                   }
                                                   else if($row1['c_stat']==0){?>
-                                                    <form action="" method="post">
-                                                    <input type="hidden" id="cus2" name="cus2" value="<?php echo $row1['car_id']; ?>">
-                                                    <button class="btn btn-outline-success btn-sm" name="unblock">Unblock</button><br><br>
-                                                  </form>
+                                                   
                                                     <?php }
-                                                    // else{?>
-                                                     <!-- //     <form action="" method="post">
-                                                    //     <input type="hidden" id="rnt" name="rnt" value="<?php echo $row1['car_id']; ?>">
-                                                    //     <button class="btn btn-outline-success btn-sm" name="acpt">Accept</button><br><br>
-                                                    //     <button class="btn btn-outline-danger btn-sm" name="rjt">Reject</button>
-                                                    //     <br><br>
-                                                    //   </form>
-                                                    //       --> <?php
-                                                    // }
+                                                     else{?>
+                                                       <form action="" method="post">
+                                                       <input type="hidden" id="rnt" name="rnt" value="<?php echo $row1['car_id']; ?>">
+                                                       <button class="btn btn-outline-success btn-sm" name="acpt">Accept</button><br><br>
+                                                       <button class="btn btn-outline-danger btn-sm" name="rjt">Reject</button>
+                                                        <br><br>
+                                                     </form>
+                                                          <?php
+                                                    }
                                                     ?>
                     </td>
 
@@ -355,35 +354,21 @@ $result3 = $conn->query($sql3);
   </div>
 
   <?php
-  if(isset($_POST['block'])){
-    $id = $_POST['cus'];
-   
-    $block = "UPDATE `car` SET `c_stat`='0' WHERE `car_id` = '$id'";
-    $block_run = mysqli_query($conn,$block);
-    echo '<script> alert ("Car blocked");</script>';
-	  echo'<script>window.location.href="car.php";</script>';
-  }
-  if(isset($_POST['unblock'])){
-    $id = $_POST['cus2'];
-    $block = "UPDATE `car` SET `c_stat`='1' WHERE `car_id` = '$id'";
-    $block_run = mysqli_query($conn,$block);
-    echo '<script> alert ("Car Unblocked");</script>';
-	  echo'<script>window.location.href="car.php";</script>';
-  }
+
   if(isset($_POST['acpt'])){
     $id = $_POST['rnt'];
    
     $block = "UPDATE `car` SET `c_stat`='1' WHERE `car_id` = '$id'";
     $block_run = mysqli_query($conn,$block);
     echo '<script> alert ("Car Accepted");</script>';
-	  echo'<script>window.location.href="car.php";</script>';
+	  echo'<script>window.location.href="review.php";</script>';
   }
   if(isset($_POST['rjt'])){
     $id = $_POST['rnt'];
-    $block = "UPDATE `car` SET `c_stat`='0' WHERE `car_id` = '$id'";
+    $block = "UPDATE `car` SET `c_stat`='5' WHERE `car_id` = '$id'";
     $block_run = mysqli_query($conn,$block);
     echo '<script> alert ("Car Rejected");</script>';
-	  echo'<script>window.location.href="car.php";</script>';
+	  echo'<script>window.location.href="review.php";</script>';
   }
   ?>
   

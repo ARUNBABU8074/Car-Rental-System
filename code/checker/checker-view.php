@@ -235,7 +235,8 @@ $model=$rowm['model'];
 
         <div class="md-form">
           <i class="fas fa-pencil prefix grey-text"></i>
-          <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
+          <textarea type="text" id="form8" class="md-textarea form-control" rows="4" name="details" required></textarea>
+		  <input type="hidden" value="<?php echo $car_id;?>" name="chid">
           <label data-error="wrong" data-success="right" for="form8">Your Suggestion</label>
         </div>
 
