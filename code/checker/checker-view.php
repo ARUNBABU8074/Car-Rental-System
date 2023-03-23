@@ -418,7 +418,7 @@ $model=$rowm['model'];
 						    <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
 						      <div class="row">
 							   		<div class="col-md-7">
-									   <iframe src='https://www.google.com/maps?q=<?php echo $rowl['lattitude'];?>, <?php echo $rowl['longitude'];?>&h1=es,z=14&output=embed' width="1000" height="500" ></iframe>
+									   <iframe width="1000" height="500" src="https://maps.google.com/maps?q=<?php echo $row1['place']; ?>&output=embed"></iframe>
 							   			<div class="review d-flex">
 									   		<!-- <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
 									   		<div class="desc">

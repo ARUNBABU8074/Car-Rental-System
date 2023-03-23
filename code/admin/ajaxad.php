@@ -37,6 +37,28 @@ if(!empty($_POST['license'])){
 			}
         }
 
+
+        //license view
+if(!empty($_POST['rentli'])){
+    $d_id= $_POST['rentli'];
+   
+		$sql1 = "SELECT * FROM renter where renter_id='$d_id'";
+		$result1 = $conn->query($sql1);
+			if ($result1->num_rows > 0) {
+				//output data of each row
+				while ($row10 = $result1->fetch_assoc()) {
+                   
+                       
+                            
+                  
+                            echo '<iframe src="../images/'.$row10['license'].'" style="width: 500px; height: 500px;"></iframe>';
+                      
+            	}
+			}
+        }
+
+
+
 //model checking
  
 if(!empty($_POST['model'])){

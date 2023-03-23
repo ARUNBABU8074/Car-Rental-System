@@ -158,7 +158,7 @@ $result3 = $conn->query($sql3);
         <nav class="navbar-sidebar">
           <ul class="list-unstyled navbar__list">
             <li class="has-sub">
-              <a class="js-arrow" href="#">
+              <a class="js-arrow" href="ad.php">
                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
             </li>
             <li class="has-sub">
