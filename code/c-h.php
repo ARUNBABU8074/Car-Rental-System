@@ -7,6 +7,12 @@ $log_id=$_SESSION['log_id'];
 $sql34 = "SELECT * FROM customer where log_id='$log_id'";
 $result34 = $conn->query($sql34);
 $row34 = $result34->fetch_assoc();
+
+$day=date("Y-m-d");
+$sqlup = "UPDATE `tbl_booking` SET `stat`='3' WHERE `drop_date`<'$day' and `stat`='1';";
+$resultup = $conn->query($sqlup);
+$sqlup2 = "UPDATE `tbl_booking` SET `stat`='0' WHERE `book_date`>='$day' and `stat`='2';";
+$resultup2 = $conn->query($sqlup2);
 ?>
 
 <!DOCTYPE html>

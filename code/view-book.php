@@ -9,39 +9,40 @@ $sql34 = "SELECT * FROM customer where log_id='$log_id'";
 $result34 = $conn->query($sql34);
 $row34 = $result34->fetch_assoc();
 
+if(isset($_POST['submit'])){
+  $feed= $_POST["feed"];
+  $car= $_POST["car_id"];
+  $cus= $_POST["cus_id"];
+ 
+   $sql2 = "INSERT INTO `tbl_feedback`(`cus_id`, `car_id`, `feedback`) VALUES ('$cus','$car','$feed')";
+  
+   if($conn->query($sql2) === TRUE){
+     ?>
+     <script>
+       if(window.confirm('feedback added'))
+       {
+         window.location.href='view-book.php';
+       };</script>
+     <?php
+   }
+   else{
+     ?>
+     <script>
+       if(window.confirm('Oops!!!!!    failed '))
+       {
+         window.location.href='view-book.php';
+       };</script>
+     <?php
+   } 
+   } 
+   
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-     <!-- The Modal -->
-	 <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">CAR DETAILS</h4>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-			<form >
-				
-				
-             <span id ="sd"></span>
-        </form>
-        
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
+   
  
   <head>
     <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
@@ -69,7 +70,30 @@ $row34 = $result34->fetch_assoc();
     <link rel="stylesheet" href="css2/icomoon.css">
     <link rel="stylesheet" href="css2/style.css">
   </head>
-  
+  <!-- <style>
+#feedback-form-wrapper #floating-icon > button {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: rotate(-90deg) translate(50%, -50%);
+  transform-origin: right;
+}
+
+#feedback-form-wrapper .rating-input-wrapper input[type="radio"] {
+  display: none;
+}
+#feedback-form-wrapper .rating-input-wrapper input[type="radio"] ~ span {
+  cursor: pointer;
+}
+#feedback-form-wrapper .rating-input-wrapper input[type="radio"]:checked ~ span {
+  background-color: #4261dc;
+  color: #fff;
+}
+#feedback-form-wrapper .rating-labels > label{
+  font-size: 14px;
+    color: #777;
+}
+    </style> -->
   <body>
 
    <!-- Topbar Start -->
@@ -175,7 +199,7 @@ $result3 = $conn->query($sql2);
 					
 					
 				
-						if($row['stat'] != 3){
+						if($row['stat'] != 4){
 					$car_id=$row['car_id'];
                     $sql1 = "SELECT * FROM `car` WHERE car_id='$car_id'";
 $result = mysqli_query($conn, $sql1);
@@ -205,15 +229,58 @@ $renter_id=$row2['renter_id'];
                                     else if($row['stat']==1){
                                         echo "<font color='green'>Accepted</font>";
                                     }
-                                    else{
+                                    else if($row['stat']==2){
                                         echo "<font color='blue'>Pending</font>";
-                                    }?></b></td>
+                                    }
+                                    else if($row['stat']==3){
+                                      echo "<font color='blue'>waiting for payment</font>";
+                                  }
+                                    ?></b></td>
 									<td>
                                    
                         <button id="bt2"  onclick="getid2(<?php echo $row['book_id']; ?>);">Delete</button>
                       </a>
                     </td>
+<td>
+<div id="feedback-form-wrapper">
+  <div id="floating-icon">
+    <button type="button" class="btn btn-primary btn-sm rounded-0" onclick="go('<?php echo $row['car_id']; ?>','<?php echo $row['cus_id']; ?>')">
+      Feedback
+    </button>
 
+  </div>
+  <div id="feedback-form-modal">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Feedback Form</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="">
+         
+              <div class="form-group">
+                <label for="input-two">Would you like to say something?</label>
+                <textarea class="form-control" id="input-two" rows="3" name="feed"></textarea>
+                <input type="hidden" id="ws" name="car_id" value="#">
+            <input type="hidden" id="cs" name="cus_id" value="#">
+              </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                                  </td>
                             </tbody>
 											<?php		}
 
@@ -225,6 +292,66 @@ $renter_id=$row2['renter_id'];
 		</div>
 	</div>
 </section>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">CAR DETAILS</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+			<form >
+				
+				
+             <span id ="sd"></span>
+        </form>
+        
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <script>
+    function go(ws,cs){
+
+$('.modal-body #ws').val(ws);
+$('.modal-body #cs').val(cs);
+
+			$('#exampleModal').modal('show');
+    }
+    </script>
+
+  <script>
+		function getId(cid)
+		{
+            var cid=cid;
+          
+			jQuery.ajax({
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'paper='+cid,
+        success:function(response){
+			$(".modal-body #sd").html(response);
+            
+			$('#myModal').modal('show');
+          
+        },
+		error:function (){}
+      });
+		}
+		</script>
 
 <script>
 		
