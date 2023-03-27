@@ -29,7 +29,7 @@ if(isset($_POST['login'])){
 			$_SESSION['usertype'] = $row['usertype'];
             $_SESSION['log_id'] = $row['log_id'];
            
-			header("location: customer-home.php");
+			header("location: c-h.php");
            
         } 
 

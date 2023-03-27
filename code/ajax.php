@@ -396,7 +396,7 @@ if(!empty($_POST['pdate'])){
         echo "<script>$('#sub').prop('disabled',true);</script>";
     }
     else{
-        
+        echo "<script>$('#sub').prop('disabled',false);</script>";
     $sql="SELECT * FROM `tbl_booking` WHERE `car_id`='$car_id' AND `stat`=1;";
     $result2 = $conn->query($sql);
 			if ($result2->num_rows > 0){
@@ -430,9 +430,9 @@ if(!empty($_POST['pdate'])){
 }
 
 //drop-off date
-if(!empty($_POST['ddate'])){
-    $ddate= $_POST['ddate'];
-    $pdate= $_POST['pdate'];
+if(!empty($_POST['dd'])){
+    $ddate= $_POST['dd'];
+    $pdate= $_POST['pd'];
     $car_id= $_POST['c'];
     $day=date("Y-m-d");
 
