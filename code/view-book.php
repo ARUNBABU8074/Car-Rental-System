@@ -13,10 +13,28 @@ if(isset($_POST['submit'])){
   $feed= $_POST["feed"];
   $car= $_POST["car_id"];
   $cus= $_POST["cus_id"];
+  $bs= $_POST["book_id"];
  
-   $sql2 = "INSERT INTO `tbl_feedback`(`cus_id`, `car_id`, `feedback`) VALUES ('$cus','$car','$feed')";
+   $sql2 = "INSERT INTO `tbl_feedback`(`cus_id`, `car_id`,`book_id`, `feedback`,) VALUES ('$cus','$bs','$car','$feed')";
   
    if($conn->query($sql2) === TRUE){
+    // $fid = mysqli_insert_id($conn);
+    // $id[] = $fid;
+    // $feed1[]=$feed;
+    // $url = 'http://127.0.0.1:5000/sentiment';
+    // $data = json_encode(array('feed' => $feed1));
+    // $options = array(
+    //     'http' => array(
+    //         'header'  => "Content-type: application/json\r\n",
+    //         'method'  => 'POST',
+    //         'content' => $data,
+    //     ),
+    // );
+    // $context  = stream_context_create($options);
+    // $resul = file_get_contents($url, false, $context);
+    // $resul = json_decode($resul, true);
+    // $positive = $resul['score'];
+    // echo $positive ;
      ?>
      <script>
        if(window.confirm('feedback added'))
@@ -27,12 +45,12 @@ if(isset($_POST['submit'])){
    }
    else{
      ?>
-     <script>
+      <script>
        if(window.confirm('Oops!!!!!    failed '))
        {
          window.location.href='view-book.php';
        };</script>
-     <?php
+      <?php
    } 
    } 
    
@@ -70,30 +88,7 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="css2/icomoon.css">
     <link rel="stylesheet" href="css2/style.css">
   </head>
-  <!-- <style>
-#feedback-form-wrapper #floating-icon > button {
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: rotate(-90deg) translate(50%, -50%);
-  transform-origin: right;
-}
 
-#feedback-form-wrapper .rating-input-wrapper input[type="radio"] {
-  display: none;
-}
-#feedback-form-wrapper .rating-input-wrapper input[type="radio"] ~ span {
-  cursor: pointer;
-}
-#feedback-form-wrapper .rating-input-wrapper input[type="radio"]:checked ~ span {
-  background-color: #4261dc;
-  color: #fff;
-}
-#feedback-form-wrapper .rating-labels > label{
-  font-size: 14px;
-    color: #777;
-}
-    </style> -->
   <body>
 
    <!-- Topbar Start -->
@@ -119,8 +114,8 @@ if(isset($_POST['submit'])){
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="#" class="nav-item nav-link active">Home</a>
-                        <a href="#" class="nav-item nav-link">Cars</a>
+                        <a href="c-h.php" class="nav-item nav-link active">Home</a>
+                        <a href="c-h.php" class="nav-item nav-link">Cars</a>
                         <a href="cus-driv.php" class="nav-item nav-link">Drivers</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
@@ -136,7 +131,7 @@ if(isset($_POST['submit'])){
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 </svg> <?php echo strtoupper($row34['fname']); ?> </a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="" class="dropdown-item">My profile</a>
+                                <a href="update-cus.php" class="dropdown-item">My profile</a>
                                 <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
                         <!-- </div>
@@ -241,14 +236,24 @@ $renter_id=$row2['renter_id'];
                         <button id="bt2"  onclick="getid2(<?php echo $row['book_id']; ?>);">Delete</button>
                       </a>
                     </td>
-<td>
+<td><?php
+$bid=$row['book_id'];
+$sqlo = "SELECT * FROM `tbl_feedback` WHERE book_id='$bid'";
+$resulto = mysqli_query($conn, $sqlo);
+
+
+if($resulto->num_rows ==0 && $row['stat']==3){
+  ?>
 <div id="feedback-form-wrapper">
   <div id="floating-icon">
-    <button type="button" class="btn btn-primary btn-sm rounded-0" onclick="go('<?php echo $row['car_id']; ?>','<?php echo $row['cus_id']; ?>')">
+    <button type="button" class="btn btn-primary btn-sm rounded-0" onclick="go('<?php echo $row['car_id']; ?>','<?php echo $row['cus_id']; ?>','<?php echo $row['book_id']; ?>')">
       Feedback
     </button>
 
   </div>
+  <?php
+}
+?>
   <div id="feedback-form-modal">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -267,6 +272,7 @@ $renter_id=$row2['renter_id'];
                 <textarea class="form-control" id="input-two" rows="3" name="feed"></textarea>
                 <input type="hidden" id="ws" name="car_id" value="#">
             <input type="hidden" id="cs" name="cus_id" value="#">
+            <input type="hidden" id="bs" name="book_id" value="#">
               </div>
             
           </div>
@@ -323,10 +329,11 @@ $renter_id=$row2['renter_id'];
     </div>
   </div>
   <script>
-    function go(ws,cs){
+    function go(ws,cs,bs){
 
 $('.modal-body #ws').val(ws);
 $('.modal-body #cs').val(cs);
+$('.modal-body #bs').val(bs);
 
 			$('#exampleModal').modal('show');
     }

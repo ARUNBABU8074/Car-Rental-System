@@ -70,14 +70,14 @@ $resul = $conn->query($sq);
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Cars</a>
-                        <a href="service.html" class="nav-item nav-link">Drivers</a>
+                    <a href="c-h.php" class="nav-item nav-link active">Home</a>
+                        <a href="c-h.php" class="nav-item nav-link">Cars</a>
+                        <a href="cus-driv.php" class="nav-item nav-link">Drivers</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="car.html" class="dropdown-item">Car Bookings</a>
-                                <a href="detail.html" class="dropdown-item">Drivers Bookings</a>
+                            <a href="view-book.php" class="dropdown-item">Car Bookings</a>
+                                <a href="viewd-book.php" class="dropdown-item">Drivers Bookings</a>
                                 <!-- <a href="booking.html" class="dropdown-item">Car Booking</a> -->
                             </div>
                         </div>
@@ -87,8 +87,8 @@ $resul = $conn->query($sq);
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 </svg> arun</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="team.html" class="dropdown-item">My profile</a>
-                                <a href="testimonial.html" class="dropdown-item">Logout</a>
+                                <a href="update-cus.php" class="dropdown-item">My profile</a>
+                                <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
                         <!-- </div>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -292,11 +292,11 @@ $resul = $conn->query($sq);
 						      <div class="row">
 							   		<div class="col-md-7">
 									   
-										<?php
+                     <?php
 if ($resul->num_rows > 0) {
     $texts = array();
-    while ($ro = $resul->fetch_assoc()) {
-        $texts[] = $ro["feedback"];
+    while ($row = $resul->fetch_assoc()) {
+        $texts[] = $row["feedback"];
     }
     $url = 'http://127.0.0.1:5000/sentiment';
     $data = json_encode(array('texts' => $texts));
@@ -336,17 +336,19 @@ if ($resul->num_rows > 0) {
   }
   ?>
   <div class="container-fluid">        
-      <h1>Sentiment Analysis </h1>
-      <div class="chart-container" style="margin-left:10%; width: 50%; height: 50%;">
+      <!-- <h1>Sentiment Analysis </h1> -->
+      <div class="chart-container" style="margin-left:10%; width: 50%;
+    height: 50%;">
           <canvas id="sentiment-chart"></canvas>
       </div>
       <div>
-      <p>Positive: <?php echo $pos_accuracy,"%" ; ?></p> <p>Negative: <?php echo $neg_accuracy; ?></p>
-     
+      <p>Positive: <?php echo $pos_accuracy ; ?></p>
+      <p>Negative: <?php echo $neg_accuracy; ?></p>
       <p>Neutral: <?php echo $neutral_accuracy; ?></p>
   </div>
   </div>
-  <script>
+  
+      <script>
           var ctx = document.getElementById('sentiment-chart').getContext('2d');
           var chart = new Chart(ctx, {
               type: 'bar',
