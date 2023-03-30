@@ -9,10 +9,7 @@ $result34 = $conn->query($sql34);
 $row34 = $result34->fetch_assoc();
 
 $day=date("Y-m-d");
-$sqlup = "UPDATE `dbook` SET `stat`='3' WHERE `drop_date`<'$day' and `stat`='1';";
-$resultup = $conn->query($sqlup);
-$sqlup2 = "UPDATE `dbook` SET `stat`='0' WHERE `book_date`<'$day' and `stat`='2';";
-$resultup2 = $conn->query($sqlup2);
+
 
 
 ?>
@@ -79,7 +76,7 @@ $resultup2 = $conn->query($sqlup2);
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="#" class="nav-item nav-link active">Home</a>
+                        <a href="driver-home.php" class="nav-item nav-link active">Home</a>
                         <!-- <a href="#" class="nav-item nav-link">Cars</a>
                         <a href="cus-driv.php" class="nav-item nav-link">Drivers</a> -->
                         <div class="nav-item dropdown">
@@ -125,13 +122,58 @@ $resultup2 = $conn->query($sqlup2);
       </div>
     </section>
 
+<section class="ftco-section bg-light">
+<div class="container">
+    <div class="row">
+
+    <?php
+		$sql = "SELECT * FROM `driver` WHERE log_id='$log_id'";
+        $sql_result = mysqli_query($conn, $sql);
+        
+        $row1 = mysqli_fetch_array($sql_result);
+        $driver_id=$row1['driver_id'];
+        
+        $sql1 = "SELECT * FROM `dbook` WHERE driver_id='$driver_id' and stat=5 ";
+        $sql_result1 = mysqli_query($conn, $sql1);
+        if ($sql_result1->num_rows > 0) {
+        while ($row2 = $sql_result1->fetch_assoc()) {
+            $cus_id=$row2['cus_id'];
+            $dbid=$row2['book_id'];
+                            $sql4 = "SELECT * FROM `customer` WHERE cus_id='$cus_id'";
+                            $result4 = mysqli_query($conn, $sql4);
+                            
+                            $row4 = mysqli_fetch_array($result4);
+                            $sql45 = "SELECT * FROM `driverpay` WHERE dbook_id='$dbid'";
+                            $result45 = mysqli_query($conn, $sql45);
+                            
+                            $row45 = mysqli_fetch_array($result45);
+                    ?>
+    <div class="col-md-4">
+    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+  <div class="card-header">Payment Details</div>
+  <div class="card-body">
+    <h5 class="card-title">Drive to : <?php echo $row2['destination']; ?></h5>
+    <p class="card-text">You got a payment of ₹<?php echo $row2['amount']; ?> from <?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?> with the paymentID: <?php echo $row45['payment_id']; ?>.</p>
+    <form action="pdf.php" method="POST">
+        <input type="hidden" name="dbid" value="<?php echo $row2['book_id'];?>">
+        <button type="submit" class="btn btn-primary hidden-print" name="payid"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+</svg></button>
+</form>
+  </div>
+</div>
+</div>
+
+<?php
+                }
+            }
+            ?>
 
 
-
-
-
-
-
+</div>
+</div>
+</section>
 
 
 
@@ -149,7 +191,6 @@ $resultup2 = $conn->query($sqlup2);
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
   <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -169,10 +210,11 @@ $resultup2 = $conn->query($sqlup2);
       </div>
     </div>
       <div class="modal-footer d-flex justify-content-center">
-       
+        <!-- <div class="signup-section">Not a member yet? <a href="#a" class="text-info"> Sign Up</a>.</div> -->
       </div>
   </div>
 </div>
+
   <script src="js1/jquery.min.js"></script>
   <script src="js1/jquery-migrate-3.0.1.min.js"></script>
   <script src="js1/popper.min.js"></script>

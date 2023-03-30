@@ -184,8 +184,8 @@ if(!empty($_POST['dbook-id'])){
     $result = $conn->query($sql1);
 $car=$result->fetch_assoc();
 $d_id=$car['driver_id'];
-$sql3="UPDATE `dbook` SET `stat`=0 WHERE `book_id`!='$book_id' AND `driver_id`='$d_id';";
-$result3 = $conn->query($sql3);
+// $sql3="UPDATE `dbook` SET `stat`=0 WHERE `book_id`!='$book_id' AND `driver_id`='$d_id';";
+// $result3 = $conn->query($sql3);
 // $sql2="UPDATE `car` SET `c_stat`=3 WHERE `car_id`='$car_id'";
 
 // 	$result2 = $conn->query($sql2);
@@ -243,6 +243,17 @@ if(!empty($_POST['book'])){
 if(!empty($_POST['book1'])){
     $book_id= $_POST['book1'];
     $sql="UPDATE `tbl_booking` SET `stat`=3 WHERE `book_id`='$book_id'";
+
+	$result = $conn->query($sql);
+
+ 
+
+}
+//booking view delete section driver
+
+if(!empty($_POST['book123'])){
+    $book_id= $_POST['book123'];
+    $sql="UPDATE `dbook` SET `stat`=3 WHERE `book_id`='$book_id'";
 
 	$result = $conn->query($sql);
 

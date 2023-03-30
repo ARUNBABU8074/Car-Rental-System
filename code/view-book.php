@@ -15,7 +15,7 @@ if(isset($_POST['submit'])){
   $cus= $_POST["cus_id"];
   $bs= $_POST["book_id"];
  
-   $sql2 = "INSERT INTO `tbl_feedback`(`cus_id`, `car_id`,`book_id`, `feedback`,) VALUES ('$cus','$bs','$car','$feed')";
+   $sql2 = "INSERT INTO `tbl_feedback`(`cus_id`, `car_id` , `book_id` , `feedback`) VALUES ('$cus','$car','$bs','$feed')";
   
    if($conn->query($sql2) === TRUE){
     // $fid = mysqli_insert_id($conn);
@@ -182,7 +182,7 @@ $cus_id=$row1['cus_id'];
 // if ($sql_result1->num_rows > 0) {
 // while ($row2 = $sql_result1->fetch_assoc()) {
 // $car_id=$row2['car_id'];
-$sql2 = "SELECT * FROM `tbl_booking` WHERE cus_id='$cus_id'";
+$sql2 = "SELECT * FROM `tbl_booking` WHERE cus_id='$cus_id' ORDER BY book_id DESC";
 
 
 $result3 = $conn->query($sql2);

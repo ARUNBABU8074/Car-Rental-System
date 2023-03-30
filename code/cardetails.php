@@ -342,9 +342,9 @@ if ($resul->num_rows > 0) {
           <canvas id="sentiment-chart"></canvas>
       </div>
       <div>
-      <p>Positive: <?php echo $pos_accuracy ; ?></p>
-      <p>Negative: <?php echo $neg_accuracy; ?></p>
-      <p>Neutral: <?php echo $neutral_accuracy; ?></p>
+      <p>Positive: <?php echo $pos_accuracy ; ?> %</p>
+      <p>Negative: <?php echo $neg_accuracy; ?> %</p>
+      <p>Neutral: <?php echo $neutral_accuracy; ?>%</p>
   </div>
   </div>
   

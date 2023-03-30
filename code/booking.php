@@ -65,11 +65,39 @@ $cus_id=$row34['cus_id'];
     <link rel="stylesheet" href="css2/flaticon.css">
     <link rel="stylesheet" href="css2/icomoon.css">
     <link rel="stylesheet" href="css2/style.css">
+    <script>
+		window.onload = function() {
+			// Get the input field
+			var input = document.getElementById("pdate");
 
-  </head>
-  <script>
-				
-				function check(){
+			// Get the current date
+			var currentDate = new Date();
+
+			// Set the minimum date of the input field to the current date
+			input.setAttribute("min", currentDate.toISOString().slice(0,10));
+
+      // Add an onchange event to the input field
+			input.onchange = function() {
+				// Call another function
+				doSomething();
+			};
+		}
+
+		function doSomething() {
+			// Perform additional actions here
+     
+      var input1 = document.getElementById("ddate");
+			var userDate = document.getElementById("pdate");
+
+			// Get the user-defined date
+			var userDateValue = new Date(userDate.value);
+
+			// Set the minimum date of the input field to the user-defined date
+			input1.setAttribute("min", userDateValue.toISOString().slice(0,10));
+		}
+		
+
+    function check(){
 					alert("pdate");
 			 var pdate=document.getElementById("pdate").value;
 			 // document.getElementById("ms").innerHTML = pdate;
@@ -78,19 +106,25 @@ $cus_id=$row34['cus_id'];
 			 var data = "pdate="+ pdate + "&c=" + c+"&ddate="+ ddate;
 			 
 			 
- jQuery.ajax({
-   url: "ajax.php",
-   type: "POST",
+//  jQuery.ajax({
+//    url: "ajax.php",
+//    type: "POST",
    
-   data:data,
-   success:function(response){
+//    data:data,
+//    success:function(response){
 	 
-	 $("#ms").html(response);
-   },
-   error:function (){}
- }); 
+// 	 $("#ms").html(response);
+//    },
+//    error:function (){}
+//  }); 
  
  }
+	</script>
+  </head>
+  <script>
+	
+
+			
  
  function check1(){
 			 var pdate=document.getElementById("pdate").value;
@@ -210,7 +244,7 @@ $cus_id=$row34['cus_id'];
 			    				<div class="d-flex">
 			    					<div class="form-group">
 			                <label for="" class="label">Pick-up date</label>
-			                <input type="date" class="form-control" placeholder="Date" name="pdate" id="pdate" onchange="check()" required>
+			                <input type="date" class="form-control" placeholder="Date" name="pdate" id="pdate"  required>
 							<span class="message text-danger" id="ms" style="font-size: 16px"></span><br>
 			              </div>
 			              <div class="form-group">
@@ -220,7 +254,9 @@ $cus_id=$row34['cus_id'];
 			              </div>
 						  
 		              </div>
-					  
+                  <!-- <input type="date" id="myDate" name="myDate" min="<?php echo $minDate; ?>" onclick> -->
+
+
 		              <!-- <div class="form-group">
 		                <label for="" class="label">Pick-up time</label>
 		                <input type="text" class="form-control" id="time_pick" placeholder="Time">

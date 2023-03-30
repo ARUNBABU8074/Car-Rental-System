@@ -198,7 +198,7 @@ $result3 = $conn->query($sql2);
 					
 					
 				
-						if($row['stat'] != 3){
+						if($row['stat'] != 3 && $row['stat'] != 5){
 					$d_id=$row['driver_id'];
                     $sql1 = "SELECT * FROM `driver` WHERE driver_id='$d_id'";
 $result = mysqli_query($conn, $sql1);
@@ -228,20 +228,28 @@ $row2 = mysqli_fetch_array($result);
                                     else if($row['stat']==1){
                                         echo "<font color='green'>Accepted</font>";
                                     }
-                                    else{
+                                    else if($row['stat']==2){
                                         echo "<font color='blue'>Pending</font>";
-                                    }?></b></td>
+                                    }
+                                    else if($row['stat']==4){
+                                        echo "<font color='blue'>Waiting for payment</font>";
+                                    }
+                                    ?></b></td>
 									<td>
                                    
-                        <button id="bt2"  onclick="getid2(<?php echo $row['book_id']; ?>);">Delete</button>
-                      </a>
+                        <!-- <button id="bt2"  onclick="getid2(<?php echo $row['book_id']; ?>);">Delete</button>
+                      </a><br> -->
                     </td>
 
                     <?php 
                     if($row['amount']>0){ ?>
                     <td>
-                                   
-                    <input type="button" class="btn" name="Pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
+                        <?php
+                    echo "Starting KM: ".$row['start_km']."Km <br>";
+                        echo "Ending KM: ".$row['end_km']."Km <br>";
+                        echo "Total KM travelled : ".$row['end_km']-$row['start_km']."Km";    
+                        ?>
+                    <input type="button" class="btn btn-primary" name="Pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
                            <input type="hidden" value="<?php echo  $row['amount'];?>" id="amt" name="amt">    
                            <input type="hidden" value="<?php echo  $row['book_id'];?>" id="bid" name="bid">   
                            <input type="hidden" value="<?php echo  $row2['fname'];?>" id="dname" name="dname">
@@ -271,7 +279,7 @@ $row2 = mysqli_fetch_array($result);
 		url: "ajax.php",
         type: "POST",
         
-        data:'book1='+book1,
+        data:'book123='+book1,
         success:function(response){
             
           location.reload();

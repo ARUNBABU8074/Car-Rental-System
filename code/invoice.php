@@ -139,7 +139,7 @@ function sizeOfText( $texte, $largeur )
 function addSociete( $nom, $adresse )
 {
 	$x1 = 10;
-	$y1 = 8;
+	$y1 = 40;
 	//Positionnement en bas
 	$this->SetXY( $x1, $y1 );
 	$this->SetFont('Arial','B',12);
@@ -417,39 +417,39 @@ function addRemarque($remarque)
 	$this->Cell($length,4, "Remarque : " . $remarque);
 }
 
-function addCadreTVAs()
-{
-	$this->SetFont( "Arial", "B", 8);
-	$r1  = 10;
-	$r2  = $r1 + 120;
-	$y1  = $this->h - 40;
-	$y2  = $y1+20;
-	$this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2-$y1), 2.5, 'D');
-	$this->Line( $r1, $y1+4, $r2, $y1+4);
-	$this->Line( $r1+5,  $y1+4, $r1+5, $y2); // avant BASES HT
-	$this->Line( $r1+27, $y1, $r1+27, $y2);  // avant REMISE
-	$this->Line( $r1+43, $y1, $r1+43, $y2);  // avant MT TVA
-	$this->Line( $r1+63, $y1, $r1+63, $y2);  // avant % TVA
-	$this->Line( $r1+75, $y1, $r1+75, $y2);  // avant PORT
-	$this->Line( $r1+91, $y1, $r1+91, $y2);  // avant TOTAUX
-	$this->SetXY( $r1+9, $y1);
-	$this->Cell(10,4, "BASES HT");
-	$this->SetX( $r1+29 );
-	$this->Cell(10,4, "REMISE");
-	$this->SetX( $r1+48 );
-	$this->Cell(10,4, "MT TVA");
-	$this->SetX( $r1+63 );
-	$this->Cell(10,4, "% TVA");
-	$this->SetX( $r1+78 );
-	$this->Cell(10,4, "PORT");
-	$this->SetX( $r1+100 );
-	$this->Cell(10,4, "TOTAUX");
-	$this->SetFont( "Arial", "B", 6);
-	$this->SetXY( $r1+93, $y2 - 8 );
-	$this->Cell(6,0, "H.T.   :");
-	$this->SetXY( $r1+93, $y2 - 3 );
-	$this->Cell(6,0, "T.V.A. :");
-}
+// function addCadreTVAs()
+// {
+// 	$this->SetFont( "Arial", "B", 8);
+// 	$r1  = 10;
+// 	$r2  = $r1 + 120;
+// 	$y1  = $this->h - 40;
+// 	$y2  = $y1+20;
+// 	$this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2-$y1), 2.5, 'D');
+// 	$this->Line( $r1, $y1+4, $r2, $y1+4);
+// 	$this->Line( $r1+5,  $y1+4, $r1+5, $y2); // avant BASES HT
+// 	$this->Line( $r1+27, $y1, $r1+27, $y2);  // avant REMISE
+// 	$this->Line( $r1+43, $y1, $r1+43, $y2);  // avant MT TVA
+// 	$this->Line( $r1+63, $y1, $r1+63, $y2);  // avant % TVA
+// 	$this->Line( $r1+75, $y1, $r1+75, $y2);  // avant PORT
+// 	$this->Line( $r1+91, $y1, $r1+91, $y2);  // avant TOTAUX
+// 	$this->SetXY( $r1+9, $y1);
+// 	$this->Cell(10,4, "BASES HT");
+// 	$this->SetX( $r1+29 );
+// 	$this->Cell(10,4, "REMISE");
+// 	$this->SetX( $r1+48 );
+// 	$this->Cell(10,4, "MT TVA");
+// 	$this->SetX( $r1+63 );
+// 	$this->Cell(10,4, "% TVA");
+// 	$this->SetX( $r1+78 );
+// 	$this->Cell(10,4, "PORT");
+// 	$this->SetX( $r1+100 );
+// 	$this->Cell(10,4, "TOTAUX");
+// 	$this->SetFont( "Arial", "B", 6);
+// 	$this->SetXY( $r1+93, $y2 - 8 );
+// 	$this->Cell(6,0, "H.T.   :");
+// 	$this->SetXY( $r1+93, $y2 - 3 );
+// 	$this->Cell(6,0, "T.V.A. :");
+// }
 
 function addCadreEurosFrancs()
 {
