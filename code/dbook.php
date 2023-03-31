@@ -4,7 +4,7 @@ include "config.php";
 include 'session.php';
 
 $log_id= $_SESSION['log_id'];
-$c=$_POST['c'];
+$c=$_POST['cid'];
 
 $sql = "SELECT * FROM `customer` WHERE log_id='$log_id'";
 	$sql_result = mysqli_query($conn, $sql);
@@ -250,7 +250,7 @@ tr:nth-child(even) {
           <br><br>
         <h3>BOOK DRIVER</h3>
         
-        <input type="hidden" value="<?php echo $_POST['c'];?>" name="d-id" id="d">
+        <input type="hidden" value="<?php echo $_POST['cid'];?>" name="d-id" id="d">
         <span>pick up date<span>
 			  <input type="date" class="form-control" name="pdate"  id="pdate"  onchange="return check()" required ><br>
 			  <span class="message text-danger" id="ms" style="font-size: 16px"></span><br>

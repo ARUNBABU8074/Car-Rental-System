@@ -279,7 +279,7 @@ $row2 = mysqli_fetch_array($result);
 		url: "ajax.php",
         type: "POST",
         
-        data:'book123='+book1,
+        data:'book1='+book1,
         success:function(response){
             
           location.reload();

@@ -91,6 +91,10 @@ $cus_id=$row34['cus_id'];
 
 			// Get the user-defined date
 			var userDateValue = new Date(userDate.value);
+			// alert(userDate.value);
+			// if(userDate.value < input1.value){
+			// 	document.getElementById('ms').innerHTML = "Invalid Email id";
+			// }
 
 			// Set the minimum date of the input field to the user-defined date
 			input1.setAttribute("min", userDateValue.toISOString().slice(0,10));
@@ -161,8 +165,8 @@ $cus_id=$row34['cus_id'];
     </div>
     <!-- Topbar End -->
 
-    <!-- Navbar Start -->
-    <div class="container-fluid position-relative nav-bar p-0">
+ <!-- Navbar Start -->
+ <div class="container-fluid position-relative nav-bar p-0">
         <div class="position-relative px-lg-6" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
                 <a href="" class="navbar-brand">
@@ -173,14 +177,14 @@ $cus_id=$row34['cus_id'];
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Cars</a>
-                        <a href="service.html" class="nav-item nav-link">Drivers</a>
+                        <a href="#" class="nav-item nav-link active">Home</a>
+                        <a href="#" class="nav-item nav-link">Cars</a>
+                        <a href="cus-driv.php" class="nav-item nav-link">Drivers</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="car.html" class="dropdown-item">Car Bookings</a>
-                                <a href="detail.html" class="dropdown-item">Drivers Bookings</a>
+                                <a href="view-book.php" class="dropdown-item">Car Bookings</a>
+                                <a href="viewd-book.php" class="dropdown-item">Drivers Bookings</a>
                                 <!-- <a href="booking.html" class="dropdown-item">Car Booking</a> -->
                             </div>
                         </div>
@@ -190,7 +194,7 @@ $cus_id=$row34['cus_id'];
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 </svg> <?php echo strtoupper($row34['fname']); ?> </a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="team.html" class="dropdown-item">My profile</a>
+                                <a href="update-cus.php" class="dropdown-item">My profile</a>
                                 <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
                         <!-- </div>
@@ -237,10 +241,10 @@ $cus_id=$row34['cus_id'];
 			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
 			    				</div> -->
 								<input type="hidden" value="<?php echo $_POST['cid'];?>" name="car-id" id="c">
-			    				<div class="form-group">
+			    				<!-- <div class="form-group">
 			    					<label for="" class="label">Destination</label>
 			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
-			    				</div>
+			    				</div> -->
 			    				<div class="d-flex">
 			    					<div class="form-group">
 			                <label for="" class="label">Pick-up date</label>

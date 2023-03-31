@@ -240,8 +240,8 @@ if(!empty($_POST['book'])){
 
 //booking view delete section
 
-if(!empty($_POST['book1'])){
-    $book_id= $_POST['book1'];
+if(!empty($_POST['book1v'])){
+    $book_id= $_POST['book1v'];
     $sql="UPDATE `tbl_booking` SET `stat`=3 WHERE `book_id`='$book_id'";
 
 	$result = $conn->query($sql);

@@ -181,36 +181,7 @@ $resul = $conn->query($sq);
               </div>
             </div>      
           </div>
-          <!-- <div class="col-md d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services">
-              <div class="media-body py-md-4">
-              	<div class="d-flex mb-3 align-items-center">
-	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-backpack"></span></div>
-	              	<div class="text">
-		                <h3 class="heading mb-0 pl-3">
-		                	Price for First <?php echo $row['km'];?>
-		                	<span><?php echo $row['price'];?></span>
-		                </h3>
-	                </div>
-                </div>
-              </div>
-            </div>      
-          </div> -->
-          <!-- <div class="col-md d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services">
-              <div class="media-body py-md-4">
-              	<div class="d-flex mb-3 align-items-center">
-	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-diesel"></span></div>
-	              	<div class="text">
-		                <h3 class="heading mb-0 pl-3">
-		                	Excess Price per KM
-		                	<span><?php echo $row['excess'];?></span>
-		                </h3>
-	                </div>
-                </div>
-              </div>
-            </div>      
-          </div>-->
+    
       	</div> 
 		  <div class="row">
       		<div class="col-md-12 pills">
@@ -232,23 +203,15 @@ $resul = $conn->query($sq);
 								<li class="nav-item">
 							      <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-expanded="true">Review Graph</a>
 							    </li>
+                  <li class="nav-item">
+							      <a class="nav-link" id="pills-feedback-tab" data-toggle="pill" href="#pills-feedback" role="tab" aria-controls="pills-feedback" aria-expanded="true">Reviews</a>
+							    </li>
 							  </ul>
 							</div>
 
 						  <div class="tab-content" id="pills-tabContent">
 
-						  <!-- <div class="tab-pane fade show active" id="pills-car" role="tabpanel" aria-labelledby="pills-car-tab">
-						    	<div class="row">
-						    		<div class="col-md-4">
-						    			<ul class="features">
-										<li class="check"><span class="ion-ios-checkmark"></span>Registration Number: <?php echo $row['reg_no'];?></li>
-										<li class="check"><span class="ion-ios-checkmark"></span>Papers: </li>
-										<iframe src="../papers/<?php $row['papers']?>" style="width: 1000px; height: 500px;"></iframe>
-						    			</ul>
-						    		</div>
-						    	
-						    	</div>
-						    </div> -->
+					
 
 
 						    <div class="tab-pane fade" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
@@ -278,9 +241,52 @@ $resul = $conn->query($sq);
 						    			</ul>
 						    		</div>
 						    </div>
-<?php
+                <?php
 }
 ?>
+                <div class="tab-pane fade" id="pills-feedback" role="tabpanel" aria-labelledby="pills-feedback-tab">
+						    	<div class="row">
+						    		<div class="col-md-4">
+                    <?php   
+                    $sqff = "SELECT * FROM `tbl_feedback` WHERE car_id='$car_id'";
+                    $resulff = $conn->query($sqff);
+                    if ($resulff->num_rows > 0) {
+    while ($rof = $resulff->fetch_assoc()) {
+      $cus=$rof['cus_id'];
+      $sqlcus = "SELECT * FROM customer where cus_id='$cus'";
+$res = $conn->query($sqlcus);
+$rocus = $res->fetch_assoc();
+      ?>
+                    <div class="review d-flex">
+									   	
+									   		<div class="desc">
+									   			<h4>
+									   				<span class="text-left"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-check" viewBox="0 0 16 16">
+  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+  <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+</svg><?php echo $rocus['fname']." ".$rocus['lname'];?></span>
+									   			</h4>
+									   		
+									   			<p><?php echo $rof['feedback'];?></p>
+									   		</div>
+									   	</div> 
+                       <span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+								   					</span>
+                       <?php
+    }
+  }
+  ?>
+									   	 
+       
+						    		</div>
+						    	</div>
+						    </div>
+
    <div class="tab-pane fade" id="pills-location" role="tabpanel" aria-labelledby="pills-location-tab">
 							<div class="col-md-7">
 							<iframe width="1000" height="500" src="https://maps.google.com/maps?q=<?php echo $row1['place']; ?>&output=embed"></iframe>
@@ -406,6 +412,7 @@ if ($resul->num_rows > 0) {
 									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
 									   		</div>
 									   	</div> 
+
 									   	 <div class="review d-flex">
 									   		<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
 									   		<div class="desc">
@@ -426,6 +433,7 @@ if ($resul->num_rows > 0) {
 									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
 									   		</div>
 									   	</div>
+
 									   	<div class="review d-flex">
 									   		<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
 									   		<div class="desc">
@@ -447,7 +455,33 @@ if ($resul->num_rows > 0) {
 									   		</div>
 									   	</div>
 
-							   		</div> -->
+							   		</div> 
+                  
+                  
+                  
+                     <?php   
+                    if ($resul->num_rows > 0) {
+    while ($rof = $resul->fetch_assoc()) {
+      $cus=$rof['cus_id'];
+      $sqlcus = "SELECT * FROM customer where cus_id='$cus'";
+$res = $conn->query($sqlcus);
+$rocus = $res->fetch_assoc();
+      ?>
+                    <div class="review d-flex">	
+									   		<div class="desc">
+									   			<h4>
+									   				<span class="text-left"><?php echo $rocus['fname'];?></span>
+									   			</h4>
+									   			<p><?php echo $rof['feedback'];?></p>
+									   		</div>
+									   	</div> 
+                      <?php
+    }
+  }
+  ?>
+  -->
+                   
+
 							   		<div class="col-md-5">
 							   			<div class="rating-wrap">
 								   			

@@ -138,10 +138,11 @@ $row34 = $result34->fetch_assoc();
 	    						<!-- <span class="cat"><?php echo strtoupper($row['company']); ?></span> -->
 	    						<p class="price ml-auto"><?php echo ""; ?>Rs <span>/day</span></p>
     						</div>
-    						<p class="d-flex mb-0 d-block">
-                <a href="cardetails.php" class="btn btn-primary py-2 mr-1">Book now</a><form method="post"action="cardetails.php"><input type="submit" value="Details" class="btn btn-secondary py-2 ml-1" name="submit">
+                <p class="d-flex mb-0 d-block">
+        <form method="post" action="dbook.php"><input type="submit" class="btn btn-primary py-2 mr-1" name="submit"  value="Book Now">
                 <input type="hidden" name="cid" value="<?php echo $row['driver_id']?>"></form></p>
-                        </form>
+                <p class="d-flex mb-0 d-block"> <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
+                <input type="hidden" name="cid" value="<?php echo $row['driver_id']?>"></form></p>
                             <!-- <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p> -->
                         </div>
     				</div>
@@ -166,12 +167,11 @@ $row34 = $result34->fetch_assoc();
 	    						<p class="price ml-auto"><?php echo ""; ?>Rs <span>/day</span></p>
                               
     						</div>
-    						<p class="d-flex mb-0 d-block"><form method="post" action="cardetails.php">
-                  <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+    						<p class="d-flex mb-0 d-block">
+        <form method="post" action="dbook.php"><input type="submit" class="btn btn-primary py-2 mr-1" name="submit"  value="Book Now">
                 <input type="hidden" name="cid" value="<?php echo $row['driver_id']?>"></form></p>
-              <p class="d-flex mb-0 d-block">  <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
-                <input type="hidden" name="cid" value="<?php echo $row['driver_id']?>"></form>
-              </p>
+                <p class="d-flex mb-0 d-block"> <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
+                <input type="hidden" name="cid" value="<?php echo $row['driver_id']?>"></form></p>
                
               
               </div>
@@ -196,10 +196,10 @@ $row34 = $result34->fetch_assoc();
 	    						<p class="price ml-auto"><?php echo "100"; ?>Rs <span>/day</span></p>
                                 <!-- <?php echo $row['car_id']?> -->
     						</div>
-    		<p class="d-flex mb-0 d-block">
-        <form method="post" action="booking.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Book">
-                <input type="hidden" name="cid" value="<?php echo $row['driver_id']?>"></form>
-        <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
+                <p class="d-flex mb-0 d-block">
+        <form method="post" action="dbook.php"><input type="submit" class="btn btn-primary py-2 mr-1" name="submit"  value="Book Now">
+                <input type="hidden" name="cid" value="<?php echo $row['driver_id']?>"></form></p>
+                <p class="d-flex mb-0 d-block"> <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
                 <input type="hidden" name="cid" value="<?php echo $row['driver_id']?>"></form></p>
                
               

@@ -10,31 +10,30 @@ $result34 = $conn->query($sql34);
 $row34 = $result34->fetch_assoc();
 
 if(isset($_POST['submit'])){
-  $feed= $_POST["feed"];
+ $feedback= $_POST["feed"];
   $car= $_POST["car_id"];
   $cus= $_POST["cus_id"];
   $bs= $_POST["book_id"];
+
+  // $feedback = "This is a great product! I love it!";
+  $feedback_escaped = escapeshellarg($feedback);
+  $command = "python get_sentiment_score.py $feedback_escaped";
+  $sentiment_score = shell_exec($command);
+  // echo "oke:".$sentiment_score;
+// if ($sentiment_score > 0.5) {
+//     echo "Positive feedback!";
+// } elseif ($sentiment_score < -0.5) {
+
+//     echo "Negative feedback!";
+// } else {
+//     echo "Neutral feedback.";
+// }
+
  
-   $sql2 = "INSERT INTO `tbl_feedback`(`cus_id`, `car_id` , `book_id` , `feedback`) VALUES ('$cus','$car','$bs','$feed')";
+   $sql2 = "INSERT INTO `tbl_feedback`(`cus_id`, `car_id` , `book_id` , `feedback`, `score`) VALUES ('$cus','$car','$bs','$feedback','$sentiment_score')";
   
    if($conn->query($sql2) === TRUE){
-    // $fid = mysqli_insert_id($conn);
-    // $id[] = $fid;
-    // $feed1[]=$feed;
-    // $url = 'http://127.0.0.1:5000/sentiment';
-    // $data = json_encode(array('feed' => $feed1));
-    // $options = array(
-    //     'http' => array(
-    //         'header'  => "Content-type: application/json\r\n",
-    //         'method'  => 'POST',
-    //         'content' => $data,
-    //     ),
-    // );
-    // $context  = stream_context_create($options);
-    // $resul = file_get_contents($url, false, $context);
-    // $resul = json_decode($resul, true);
-    // $positive = $resul['score'];
-    // echo $positive ;
+   
      ?>
      <script>
        if(window.confirm('feedback added'))
@@ -194,7 +193,7 @@ $result3 = $conn->query($sql2);
 					
 					
 				
-						if($row['stat'] != 4){
+						if($row['stat'] != 3){
 					$car_id=$row['car_id'];
                     $sql1 = "SELECT * FROM `car` WHERE car_id='$car_id'";
 $result = mysqli_query($conn, $sql1);
@@ -242,7 +241,7 @@ $sqlo = "SELECT * FROM `tbl_feedback` WHERE book_id='$bid'";
 $resulto = mysqli_query($conn, $sqlo);
 
 
-if($resulto->num_rows ==0 && $row['stat']==3){
+if($resulto->num_rows ==0 && $row['stat']==4){
   ?>
 <div id="feedback-form-wrapper">
   <div id="floating-icon">
@@ -371,7 +370,7 @@ $('.modal-body #bs').val(bs);
 		url: "ajax.php",
         type: "POST",
         
-        data:'book1='+book1,
+        data:'book1v='+book1,
         success:function(response){
             
           location.reload();

@@ -6,6 +6,7 @@ include 'session.php';
 
 $log_id= $_SESSION['log_id'];
 $f=0;
+$u=$_SESSION['username'];
 // if(isset($_POST['submit'])){
     
 // }
@@ -13,8 +14,36 @@ $f=0;
 
 <!DOCTYPE html>
 <html lang="en">
-  <!-- The Modal -->
-  <div class="modal fade" id="myModal">
+
+  <head>
+    <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css2/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css2/animate.css">
+    
+    <link rel="stylesheet" href="css2/owl.carousel.min.css">
+    <link rel="stylesheet" href="css2/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css2/magnific-popup.css">
+
+    <link rel="stylesheet" href="css2/aos.css">
+
+    <link rel="stylesheet" href="css2/ionicons.min.css">
+
+    <link rel="stylesheet" href="css2/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css2/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css2/flaticon.css">
+    <link rel="stylesheet" href="css2/icomoon.css">
+    <link rel="stylesheet" href="css2/style.css">
+
+  </head>
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -42,59 +71,6 @@ $f=0;
       </div>
     </div>
   </div>
-<head>
-
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<title>Adventure Bootstrap Template</title>
-	<meta name="keywords" content="">
-	<meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--
-
-Template 2078 Adventure
-
-http://www.tooplate.com/view/2078-adventure
-
--->
-	<!-- Bootstrap CSS
-   ================================================== -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-
-	<!-- Animate CSS
-   ================================================== -->
-	<link rel="stylesheet" href="css/animate.min.css">
-
-	<!-- Font Icons
-   ================================================== -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/et-line-font.css">
-
-	<!-- Nivo Lightbox CSS
-   ================================================== -->
-	<link rel="stylesheet" href="css/nivo-lightbox.css">
-	<link rel="stylesheet" href="css/nivo_themes/default/default.css">
-
-	<!-- Owl Carousel CSS
-   ================================================== -->
-   	<link rel="stylesheet" href="css/owl.theme.css">
-	<link rel="stylesheet" href="css/owl.carousel.css">
-
-	<!-- BxSlider CSS
-   ================================================== -->
-   	<link rel="stylesheet" href="css/bxslider.css">
-
-   	<!-- Main CSS
-   	================================================== -->
-	<link rel="stylesheet" href="css/style.css">
-
-	<!-- Google web font
-   ================================================== -->
-	<link href='https://fonts.googleapis.com/css?family=Raleway:700' rel='stylesheet' type='text/css'>
-
-  
-	
-</head>
 <script>
 		function getId(cid)
 		{
@@ -116,86 +92,66 @@ http://www.tooplate.com/view/2078-adventure
 		}
 		</script>
 
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
-<!-- <form action="" method="post">
-<input type="checkbox" id="f" name="id1" value="1">
-<label for="id1">Rejected</label>
-<input type="checkbox" id="f" name="id2" value="2">
-<label for="id2">Available</label>
-<input type="checkbox" id="f" name="id3" value="3">
-<label for="id3">Pending</label>
-<input type="submit" id="submit" value="search">
-</form> -->
-<!-- <script>
-    
- 
-        </script> -->
+<body>
 
-
-<!-- Navigation section
-================================================== -->
-<section class="navbar navbar-fixed-top custom-navbar" role="navigation">
-	<div class="container">
-
-		<div class="navbar-header">
-			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon icon-bar"></span>
-				<span class="icon icon-bar"></span>
-				<span class="icon icon-bar"></span>
-			</button>
-			<a href="#home" class="smoothScroll navbar-brand">CAR RENTAL SYSTEM</a>
-		</div>
-		<div class="collapse navbar-collapse">
-    <div style="background-image: url('images/slider/im.jpeg');">
-			<ul class="nav navbar-nav navbar-right" style="background-image: url('images/slider/im.jpg');">
-            
-				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
-                <li><a href="#renter" class="smoothScroll"></a></li>
-				<li><a href="update-rent.php" class="smoothScroll">profile</a></li>
-				<!-- <li><a href="#message" class="smoothScroll"></a><?php echo $_SESSION['username'] ?></li> -->
-				<li><a href="my-cars.php" class="smoothScroll">My Cars</a></li>
-				
-				<li><a href="book-accept.php" class="smoothScroll">My Bookings</a></li>
-				<li><a href="logout.php" class="smoothScroll">LOGOUT</a></li>
-        &nbsp; 
-        <li><a href="" class="smoothScroll">   &ensp;    &ensp;    &ensp; <?php echo $_SESSION['username'] ?></a></li>
+   <!-- Topbar Start -->
+   <div class="container-fluid bg-dark py-3 px-lg-5 d-none d-lg-block">
+        <div class="row">
+            <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+               
+            </div>
        
-			</ul>
-      
-      <div>
-		</div>
+        </div>
+    </div>
+    <!-- Topbar End -->
 
-	</div>
-</section>
-
-<div id="home">
-	<div class="site-slider">
-        <ul class="bxslider">
-			<li>
-                <img src="images/slider/im.jpeg" alt="slider image 1">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="slider-caption">
-                                <h2>Plan your trip</h2>
-                                <p class="color-white"></p>
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0">
+        <div class="position-relative px-lg-6" style="z-index: 9;">
+            <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
+                <a href="" class="navbar-brand">
+                    <h1 class="text-uppercase text-primary mb-1">Car Rental</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto py-0">
+                        <a href="#" class="nav-item nav-link active">Home</a>
+						<a href="my-cars.php" class="nav-item nav-link active">My Cars</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="book-accept.php" class="dropdown-item">Requests</a>
+                                <!-- <a href="dacp-view.php" class="dropdown-item">Accepted Bookings</a> -->
+                                
                             </div>
                         </div>
-                    </div>
+                      
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg> <?php echo strtoupper($u); ?> </a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="update-rent.php" class="dropdown-item">My profile</a>
+                                <a href="logout.php" class="dropdown-item">Logout</a>
+                            </div>
+                        <!-- </div>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div> -->
                 </div>
-            </li>
-            <li>
-                <img src="images/slider/2.jpg" alt="slider image 2">
-                <div class="container caption-wrapper">
-                    <div class="slider-caption">
-                        <h2></h2>
-                        <p class="color-white"></p>
-                    </div>
-                </div>
-            </li>
+            </nav>
+        </div>
+    </div>
 
-    </div> 
-</div>
+	<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/slider/im.JPEG');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <divclass="col-md-9 ftco-animate pb-5">
+        
+        </div>
+      </div>
+    </section>
 
 <!-- Preloader section
 ================================================== -->
@@ -205,7 +161,14 @@ http://www.tooplate.com/view/2078-adventure
 	<div class="container">
 		<div class="row">
 		<center><h1 class="heading color-black"> Car details</h1></center>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
         <i class="fa fa-plus"></i>&nbsp; Add Car
 </button>
 <!-- Modal -->
@@ -775,16 +738,35 @@ else{?>
 					
 		  </script>
 
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/smoothscroll.js"></script>
-<script src="js/nivo-lightbox.min.js"></script>
-<script src="js/jquery.easing-1.3.js"></script>
-<script src="js/plugins.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.parallax.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/custom.js"></script>
+<div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
+        <p class="mb-2 text-center text-body">&copy; <a href="#">CAR RENTAL SYSTEM</a></p>
+       
+    </div>
+    <!-- Footer End -->
+    
+  
 
-</body>
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+  
+  <script src="js1/jquery.min.js"></script>
+  <script src="js1/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js1/popper.min.js"></script>
+  <script src="js1/bootstrap.min.js"></script>
+  <script src="js1/jquery.easing.1.3.js"></script>
+  <script src="js1/jquery.waypoints.min.js"></script>
+  <script src="js1/jquery.stellar.min.js"></script>
+  <script src="js1/owl.carousel.min.js"></script>
+  <script src="js1/jquery.magnific-popup.min.js"></script>
+  <script src="js1/aos.js"></script>
+  <script src="js1/jquery.animateNumber.min.js"></script>
+  <script src="js1/bootstrap-datepicker.js"></script>
+  <script src="js1/jquery.timepicker.min.js"></script>
+  <script src="js1/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="js1/google-map.js"></script>
+  <script src="js1/main.js"></script>
+    
+  </body>
 </html>

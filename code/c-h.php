@@ -159,9 +159,10 @@ $resultup2 = $conn->query($sqlup2);
 	    						<p class="price ml-auto"><?php echo $row['price']; ?>Rs <span>/day</span></p>
     						</div>
     						<p class="d-flex mb-0 d-block">
-                <a href="cardetails.php" class="btn btn-primary py-2 mr-1">Book now</a><form method="post"action="cardetails.php"><input type="submit" value="Details" class="btn btn-secondary py-2 ml-1" name="submit">
+        <form method="post" action="booking.php"><input type="submit" class="btn btn-primary py-2 mr-1" name="submit"  value="Book Now">
                 <input type="hidden" name="cid" value="<?php echo $row['car_id']?>"></form></p>
-                        </form>
+                <p class="d-flex mb-0 d-block"> <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
+                <input type="hidden" name="cid" value="<?php echo $row['car_id']?>"></form></p>
                             <!-- <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p> -->
                         </div>
     				</div>
@@ -186,12 +187,11 @@ $resultup2 = $conn->query($sqlup2);
 	    						<p class="price ml-auto"><?php echo $row['price']; ?>Rs <span>/day</span></p>
                               
     						</div>
-    						<p class="d-flex mb-0 d-block"><form method="post" action="cardetails.php">
-                  <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+    						<p class="d-flex mb-0 d-block">
+        <form method="post" action="booking.php"><input type="submit" class="btn btn-primary py-2 mr-1" name="submit"  value="Book Now">
                 <input type="hidden" name="cid" value="<?php echo $row['car_id']?>"></form></p>
-              <p class="d-flex mb-0 d-block">  <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
-                <input type="hidden" name="cid" value="<?php echo $row['car_id']?>"></form>
-              </p>
+                <p class="d-flex mb-0 d-block"> <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
+                <input type="hidden" name="cid" value="<?php echo $row['car_id']?>"></form></p>
                
               
               </div>
@@ -217,9 +217,9 @@ $resultup2 = $conn->query($sqlup2);
                                 <!-- <?php echo $row['car_id']?> -->
     						</div>
     		<p class="d-flex mb-0 d-block">
-        <form method="post" action="booking.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Book">
-                <input type="hidden" name="cid" value="<?php echo $row['car_id']?>"></form>
-        <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
+        <form method="post" action="booking.php"><input type="submit" class="btn btn-primary py-2 mr-1" name="submit"  value="Book Now">
+                <input type="hidden" name="cid" value="<?php echo $row['car_id']?>"></form></p>
+                <p class="d-flex mb-0 d-block"> <form method="post" action="cardetails.php"><input type="submit" class="btn btn-secondary py-2 ml-1" name="submit"  value="Details">
                 <input type="hidden" name="cid" value="<?php echo $row['car_id']?>"></form></p>
                
               
