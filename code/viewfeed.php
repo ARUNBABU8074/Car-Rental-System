@@ -1,8 +1,9 @@
 <?php
 include("config.php");
 include("session.php");
-if(isset($_POST['submit'])){
-$car_id=$_POST['cid'];
+$u=$_SESSION['username'];
+if(isset($_POST['feedview'])){
+$car_id=$_POST['carid'];
 
 $sql = "SELECT * FROM car where car_id='$car_id'";
 $result = $conn->query($sql);
@@ -58,8 +59,8 @@ $resul = $conn->query($sq);
     </div>
     <!-- Topbar End -->
 
-    <!-- Navbar Start -->
-    <div class="container-fluid position-relative nav-bar p-0">
+      <!-- Navbar Start -->
+      <div class="container-fluid position-relative nav-bar p-0">
         <div class="position-relative px-lg-6" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
                 <a href="" class="navbar-brand">
@@ -70,24 +71,24 @@ $resul = $conn->query($sq);
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                    <a href="c-h.php" class="nav-item nav-link active">Home</a>
-                        <a href="c-h.php" class="nav-item nav-link">Cars</a>
-                        <a href="cus-driv.php" class="nav-item nav-link">Drivers</a>
+                        <a href="#" class="nav-item nav-link active">Home</a>
+						<a href="my-cars.php" class="nav-item nav-link active">My Cars</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                            <a href="view-book.php" class="dropdown-item">Car Bookings</a>
-                                <a href="viewd-book.php" class="dropdown-item">Drivers Bookings</a>
-                                <!-- <a href="booking.html" class="dropdown-item">Car Booking</a> -->
+                                <a href="book-accept.php" class="dropdown-item">Requests</a>
+                                <!-- <a href="dacp-view.php" class="dropdown-item">Accepted Bookings</a> -->
+                                
                             </div>
                         </div>
+                      
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-</svg> arun</a>
+</svg> <?php echo strtoupper($u); ?> </a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="update-cus.php" class="dropdown-item">My profile</a>
+                                <a href="update-rent.php" class="dropdown-item">My profile</a>
                                 <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
                         <!-- </div>
@@ -191,14 +192,14 @@ $resul = $conn->query($sq);
 							  <!-- <li class="nav-item">
 							      <a class="nav-link active" id="pills-car-tab" data-toggle="pill" href="#pills-car" role="tab" aria-controls="pills-car" aria-expanded="true">Car</a>
 							    </li> -->
-							    <li class="nav-item">
+							    <!-- <li class="nav-item">
 							      <a class="nav-link" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Price</a>
 							    </li>
 							    <li class="nav-item">
 							      <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Renter</a>
 							    </li>
 							    <li class="nav-item">
-							      <a class="nav-link" id="pills-location-tab" data-toggle="pill" href="#pills-location" role="tab" aria-controls="pills-location" aria-expanded="true">Location</a>
+							      <a class="nav-link" id="pills-location-tab" data-toggle="pill" href="#pills-location" role="tab" aria-controls="pills-location" aria-expanded="true">Location</a> -->
 							    </li>
 								<li class="nav-item">
 							      <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-expanded="true">Review Graph</a>
@@ -392,95 +393,6 @@ if ($resul->num_rows > 0) {
               }
           });
       </script>
-							   			<!-- <div class="review d-flex">
-											
-									   		<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-									   		<div class="desc">
-									   			<h4>
-									   				<span class="text-left">Jacob Webb</span>
-									   				<span class="text-right">14 March 2018</span>
-									   			</h4>
-									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-								   					</span>
-								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-									   			</p>
-									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-									   		</div>
-									   	</div> 
-
-									   	 <div class="review d-flex">
-									   		<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-									   		<div class="desc">
-									   			<h4>
-									   				<span class="text-left">Jacob Webb</span>
-									   				<span class="text-right">14 March 2018</span>
-									   			</h4>
-									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-								   					</span>
-								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-									   			</p>
-									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-									   		</div>
-									   	</div>
-
-									   	<div class="review d-flex">
-									   		<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-									   		<div class="desc">
-									   			<h4>
-									   				<span class="text-left">Jacob Webb</span>
-									   				<span class="text-right">14 March 2018</span>
-									   			</h4>
-									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-								   					</span>
-								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-									   			</p>
-									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-									   		</div>
-									   	</div>
-
-							   		</div> 
-                  
-                  
-                  
-                     <?php   
-                    if ($resul->num_rows > 0) {
-    while ($rof = $resul->fetch_assoc()) {
-      $cus=$rof['cus_id'];
-      $sqlcus = "SELECT * FROM customer where cus_id='$cus'";
-$res = $conn->query($sqlcus);
-$rocus = $res->fetch_assoc();
-      ?>
-                    <div class="review d-flex">	
-									   		<div class="desc">
-									   			<h4>
-									   				<span class="text-left"><?php echo $rocus['fname'];?></span>
-									   			</h4>
-									   			<p><?php echo $rof['feedback'];?></p>
-									   		</div>
-									   	</div> 
-                      <?php
-    }
-  }
-  ?>
-  -->
                    
 
 							   		<div class="col-md-5">

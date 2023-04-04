@@ -283,8 +283,11 @@ while ($row2 = $sql_result1->fetch_assoc()) {
                                 <tr>
                                    
                                     <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"></b></td>
-									<td><b><?php echo strtoupper($row2['reg_no']);  ?></b></td>
-                                    
+									<td><b><?php echo strtoupper($row2['reg_no']);  ?></b>
+                  <form action="viewfeed.php" method="post">
+                                                  <input type="hidden" value="<?php echo $row2['car_id']; ?>" name="carid">
+                                                  <button name="feedview" type="submit">view feedback</button>
+                            </form></td>
                                     <td><b><?php echo strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
                                    
                                     <td><b><button type="button" value="" onclick="getId(<?php echo $row2['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
@@ -350,7 +353,12 @@ else{?>
                                             <tr>
                                                
                                                 <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"></b></td>
-                                                <td><b><?php echo strtoupper($row2['reg_no']);  ?></b></td>
+                                                <td><b><?php echo strtoupper($row2['reg_no']);  ?></b><br>
+                                                <form action="viewfeed.php" method="post">
+                                                  <input type="hidden" value="<?php echo $row2['car_id']; ?>" name="carid">
+                                                  <button name="feedview" type="submit">view feedback</button>
+                            </form>
+                                                </td>
                                                 
                                                 <td><b><?php echo strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
                                                 <td><b><?php echo "First: "?></b></td>
@@ -411,7 +419,13 @@ else{?>
                                                         <tr>
                                                            
                                                             <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"></b></td>
-                                                            <td><b><?php echo strtoupper($row2['reg_no']);  ?></b></td>
+                                                            <td><b><?php echo strtoupper($row2['reg_no']);  ?></b>
+                                                            <form action="viewfeed.php" method="post">
+                                                  <input type="hidden" value="<?php echo $row2['car_id']; ?>" name="carid">
+                                                  <button name="feedview" type="submit">view feedback</button>
+                            </form>
+                                       
+                                                            </td>
                                                             
                                                             <td><b><?php echo strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
                                                             <td><b><?php echo "First: "?></b></td>
