@@ -242,7 +242,7 @@ $row34 = $result34->fetch_assoc();
 
     <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
         <p class="mb-2 text-center text-body">&copy; <a href="#">CAR RENTAL SYSTEM</a></p>
-        <!-- <p class="m-0 text-center text-body">Designed by <a href="https://htmlcodex.com">HTML Codex</a></p> -->
+        
     </div>
     <!-- Footer End -->
     
