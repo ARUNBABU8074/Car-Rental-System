@@ -80,8 +80,7 @@ $resultup2 = $conn->query($sqlup2);
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="#" class="nav-item nav-link active">Home</a>
-                        <!-- <a href="#" class="nav-item nav-link">Cars</a>
-                        <a href="cus-driv.php" class="nav-item nav-link">Drivers</a> -->
+                      
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
@@ -109,9 +108,7 @@ $resultup2 = $conn->query($sqlup2);
                                 <a href="updateprofile.php" class="dropdown-item">My profile</a>
                                 <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
-                        <!-- </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div> -->
+                       
                 </div>
             </nav>
         </div>
