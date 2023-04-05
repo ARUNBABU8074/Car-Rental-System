@@ -90,9 +90,7 @@ $resul = $conn->query($sq);
                                 <a href="update-cus.php" class="dropdown-item">My profile</a>
                                 <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
-                        <!-- </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div> -->
+                      
                 </div>
             </nav>
         </div>
@@ -222,7 +220,7 @@ $resul = $conn->query($sq);
 						    				<li class="check"><span class=""></span>After <?php echo $row['km'];?>km there will be an excess amount.</li>
 						    				<li class="check"><span class="ion-ios-checkmark"></span>The excess amount is <?php echo $row['excess'];?>.RS for each km.</li>
 						    				<li class="check"><span class="ion-ios-checkmark"></span>This price section is only for one day.</li>
-						    				<!-- <li class="check"><span class="ion-ios-checkmark"></span>Music</li> -->
+						    			
 						    			</ul>
 						    		</div>
 						    		
@@ -236,7 +234,7 @@ $resul = $conn->query($sq);
 						    				<li class="check"><span class="ion-ios-checkmark"></span>Email: <?php echo $row1['email'];?></li>
 						    				<li class="check"><span class="ion-ios-checkmark"></span>Phone: <?php echo $row1['phone'];?></li>
 						    				<li class="check"><span class="ion-ios-checkmark"></span>Address: <?php echo $row1['addresss'],'(h)<br>',$row1['place'],'<br>',$row1['district'],'<br>Pincode: ',$row1['pincode'];?></li>
-						    				<!-- <li class="check"><span class="ion-ios-checkmark"></span>Climate control</li> -->
+						    				
 											
 						    			</ul>
 						    		</div>
