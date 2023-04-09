@@ -160,8 +160,7 @@ if(isset($_FILES['file']['name'])){
     /* Check file extension */
     if(in_array(strtolower($imageFileType), $valid_extensions)) {
         if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
-            // $response = $location;
-            // echo "<span style='color:red;'>".$response."</span>";
+           
         echo "<script>$('#submit').prop('disabled',false);</script>";
         }
  }

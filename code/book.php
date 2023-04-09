@@ -130,7 +130,7 @@ http://www.tooplate.com/view/2078-adventure
 				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
                 <li><a href="#renter" class="smoothScroll"></a></li>
 				<li><a href="update-cus.php" class="smoothScroll">Profile</a></li>
-				<!-- <li><a href="#message" class="smoothScroll">message</a></li> -->
+				
 				<li><a href="customer-home.php" class="smoothScroll">Cars</a></li>
 				<li><a href="view-book.php" class="smoothScroll">My Bookings</a></li>
 				<li><a href="#plan" class="smoothScroll"></a></li>

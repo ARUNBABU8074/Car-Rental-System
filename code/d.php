@@ -23,8 +23,7 @@ session_start();
 <?php
  if(isset($_POST['btn'])){
    
-    
-    
+
         $tokenfrom=$_POST['otp'];
   $user= $_SESSION['demail'];
   $tok="select token from temp where email='$user'";
@@ -919,9 +918,9 @@ section {
 }
 
 @media (max-width: 450px) {
-  html {
+  /* html {
     font-size: 50%;
-  }
+  } */
 }
 </style>
 </head>
@@ -949,8 +948,12 @@ section {
        <input type="submit" class="btn" name="btn"  value="Verify OTP">
       </form>
 </div>
+
+
 </body>
 </html>
+
+
  <!-- <!DOCTYPE html>
 <html lang="en">
     <head><title>otp</title>

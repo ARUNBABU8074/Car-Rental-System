@@ -137,9 +137,7 @@ $u=$_SESSION['username'];
                                 <a href="update-rent.php" class="dropdown-item">My profile</a>
                                 <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
-                        <!-- </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div> -->
+                        
                 </div>
             </nav>
         </div>
