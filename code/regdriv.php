@@ -1,23 +1,26 @@
 <?php
-
 include("config.php");
-session_start();
-
-   
-  $mailmsg =$_SESSION['dmailsend'];
-   $fname = $_SESSION['dfname'];
-   $lname = $_SESSION['dlname'];
-   $phone = $_SESSION['dphone'];
-    $email = $_SESSION["demail"];
-   $addresss = $_SESSION["daddresss"];
-   $place = $_SESSION["dplace"];
-   $usertype = 3;
-   $username = $_SESSION["dusername"];
-   $passwd = $_SESSION["dpasswd"];
-   $license=$_SESSION['dlicense'];
-   $dlim=$_SESSION['dlim'];
-   
+include("session.php");
+if(isset($_POST['submit'])){
+$_SESSION['fname'] = $_POST["dfname"];
+$_SESSION['renid'] = $_POST["rnid"];
+$_SESSION['lname'] = $_POST["dlname"];
+$_SESSION['phone'] = $_POST["dphone"];
+$_SESSION['email'] = $_POST["demail"];
+$_SESSION['addresss'] = $_POST["daddresss"];
+$_SESSION['pincode'] = $_POST["pincode"];
+$_SESSION['district'] = $_POST["district"];
+$_SESSION['place'] = $_POST["post-office"];
+$_SESSION['username'] = $_POST["dusername"];
+$_SESSION['passwd'] = $_POST["dpasswd"];
+// $_SESSION['usertype'] = $_POST['dtype'];
+$_SESSION['license']=$_FILES['dvimage']['name'];
+}
 ?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -888,8 +891,8 @@ section {
             url:'payment.php',
             data:"payment_id="+response.razorpay_payment_id,
             success:function(result){
-                alert("Account created");
-                window.location.href="index.php";
+                alert("Account created. Please wait for admin approval.");
+                window.location.href="my-driver.php";
             }
 
         })

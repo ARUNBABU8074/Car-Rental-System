@@ -1,6 +1,17 @@
 <?php
 include '../session.php';
 include '../config.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+require 'vendor/autoload.php';
+
+$emailerror=false;
+$usrerr=false;
+$showAlert = false; 
+$showError = false; 
+$exists=false;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -349,25 +360,100 @@ include '../config.php';
   }
   if(isset($_POST['acpt'])){
     $id = $_POST['rnt'];
-    $select_user = "SELECT `log_id` FROM `driver` WHERE `driver_id` = '$id'";
+    $select_user = "SELECT * FROM `driver` WHERE `driver_id` = '$id'";
     $select_user_result = mysqli_query($conn,$select_user);
     $user = mysqli_fetch_array($select_user_result);
     $logid = $user['log_id'];
+    $fname = $user['fname'];
+    $lname = $user['lname'];
+    $email = $user['email'];
     $block = "UPDATE `login` SET `statuss`='1' WHERE `log_id` = '$logid'";
     $block_run = mysqli_query($conn,$block);
+
+    $g_user = "SELECT * FROM `login` WHERE `log_id` = '$logid'";
+    $g_user_result = mysqli_query($conn,$g_user);
+    $userg = mysqli_fetch_array($g_user_result);
+    $username = $userg['username'];
+    $passwd = $userg['passwd'];
+
+    $mail = new PHPMailer(true);
+
+    
+    //Server settings
+   // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'arunbabu2023a@mca.ajce.in';                     //SMTP username
+    $mail->Password   = 'rmca2021#';                               //SMTP password
+    $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('arunbabu2023a@mca.ajce.in', 'car rental system');
+    $mail->addAddress($email);     //Add a recipient
+   //
+
+    //Attachments
+   // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+   // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Hi '.$fname.' '.$lname.' This is your User Name and Password for your Login.';
+    $mail->Body    = ' Your driver registration is completed. Please login to our site and enjoy the ride.<br> <h1> User Name: '.$username.'<br> Password: '.$passwd.'<h1> <br> <strong>Use this for Login.</strong>';
+   // $mail->AltBody = 'copy this token ';
+
+    $mail->send();
+
     echo '<script> alert ("Account accepted");</script>';
     echo'<script>window.location.href="driverAD.php";</script>';
   }
   if(isset($_POST['rjt'])){
     $id = $_POST['rnt'];
-    $select_user = "SELECT `log_id` FROM `driver` WHERE `driver_id` = '$id'";
+    $select_user = "SELECT * FROM `driver` WHERE `driver_id` = '$id'";
     $select_user_result = mysqli_query($conn,$select_user);
     $user = mysqli_fetch_array($select_user_result);
     $logid = $user['log_id'];
+    $fname = $user['fname'];
+    $lname = $user['lname'];
+    $email = $user['email'];
     $block = "UPDATE `login` SET `statuss`='0' WHERE `log_id` = '$logid'";
     $block_run = mysqli_query($conn,$block);
-    echo '<script> alert ("Account rejected");</script>';
-	  echo'<script>window.location.href="driverAD.php";</script>';
+    
+
+    $mail = new PHPMailer(true);
+
+    
+    //Server settings
+   // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'arunbabu2023a@mca.ajce.in';                     //SMTP username
+    $mail->Password   = 'rmca2021#';                               //SMTP password
+    $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('arunbabu2023a@mca.ajce.in', 'car rental system');
+    $mail->addAddress($email);     //Add a recipient
+   //
+
+    //Attachments
+   // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+   // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Hi '.$fname.' '.$lname.' ';
+    $mail->Body    = ' Your driver registration is incompleted. It is due to some incorrect informations you provided.';
+   // $mail->AltBody = 'copy this token ';
+
+    $mail->send();
+
+    echo '<script> alert ("Account Rejected");</script>';
+    echo'<script>window.location.href="driverAD.php";</script>';
   }
   ?>
   <!-- Jquery JS-->

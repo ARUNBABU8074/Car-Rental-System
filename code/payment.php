@@ -1,17 +1,20 @@
 <?php
 include("config.php");
 session_start();
-$fname = $_SESSION['dfname'];
-   $lname = $_SESSION['dlname'];
-   $phone = $_SESSION['dphone'];
-    $email = $_SESSION["demail"];
-   $addresss = $_SESSION["daddresss"];
-   $place = $_SESSION["dplace"];
+$fname = $_SESSION['fname'];
+   $lname = $_SESSION['lname'];
+   $phone = $_SESSION['phone'];
+    $email = $_SESSION["email"];
+    $renter = $_SESSION["renid"];
+   $addresss = $_SESSION["addresss"];
+   $pincode = $_SESSION["pincode"];
+   $place = $_SESSION["place"];
+   $district = $_SESSION["district"];
    $usertype = 3;
-   $username = $_SESSION["dusername"];
-   $passwd = $_SESSION["dpasswd"];
-   $license=$_SESSION['dlicense'];
-   $dlim=$_SESSION['dlim'];
+   $username = $_SESSION["username"];
+   $passwd = $_SESSION["passwd"];
+   $license=$_SESSION['license'];
+//    $dlim=$_SESSION['dlim'];
 if(isset($_POST['payment_id']))
 {
     $payment_id=$_POST['payment_id'];
@@ -57,10 +60,10 @@ if(isset($_POST['payment_id']))
        
             
             
-                $user_reg = "INSERT INTO `driver`(`log_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`,`license`,`dim`) VALUES ('$logid','$fname','$lname','$email','$phone','$addresss', '$place','$license','$dlim')";
+                $user_reg = "INSERT INTO `driver`(`log_id`,`renter_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`, `pincode`, `district`,`license`) VALUES ('$logid','$renter','$fname','$lname','$email','$phone','$addresss', '$place','$pincode','$district','$license')";
                $user_reg_query = mysqli_query($conn,$user_reg);
-               echo'<script> alert ("Account created");</script>';
-               echo'<script>window.location.href="index.php";</script>';  
+               echo'<script> alert ("Account created. Wait for Admin approval");</script>';
+               echo'<script>window.location.href="my-driver.php";</script>';  
 
 
      

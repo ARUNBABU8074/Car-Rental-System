@@ -10,6 +10,11 @@ $u=$_SESSION['username'];
 // if(isset($_POST['submit'])){
     
 // }
+$sql = "SELECT * FROM `renter` WHERE log_id='$log_id'";
+$sql_result = mysqli_query($conn, $sql);
+
+$row1 = mysqli_fetch_array($sql_result);
+$renter_id=$row1['renter_id'];
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +45,35 @@ $u=$_SESSION['username'];
     <link rel="stylesheet" href="css2/flaticon.css">
     <link rel="stylesheet" href="css2/icomoon.css">
     <link rel="stylesheet" href="css2/style.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#pincode').on('input', function(){
+				var pincode = $(this).val();
+        
+				$.ajax({
+					url: 'get.php',
+					method: 'POST',
+					dataType: 'json',
+					data: {pincode: pincode},
+					success: function(data){
+						$('#post-office').empty();
+            $.each(data, function(index, value){
+    if(index !== 'dis') {
+        $('#post-office').append($('<option>', {
+            value: value,
+            text: value
+        }));
+    } else {
+        $('#district').val(value);
+    }
+});
+					}
+				});
+			});
+		});
+	</script>
+ 
   </head>
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
@@ -80,7 +113,7 @@ $u=$_SESSION['username'];
 		url: "ajax.php",
         type: "POST",
         
-        data:'paper='+cid,
+        data:'li='+cid,
         success:function(response){
 			$(".modal-body #sd").html(response);
             
@@ -90,6 +123,8 @@ $u=$_SESSION['username'];
 		error:function (){}
       });
 		}
+
+
 		</script>
 
 <body>
@@ -118,8 +153,8 @@ $u=$_SESSION['username'];
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="renter-home.php" class="nav-item nav-link">Home</a>
-						<a href="my-cars.php" class="nav-item nav-link active">My Cars</a>
-            <a href="my-driver.php" class="nav-item nav-link">My Drivers</a>
+						<a href="my-cars.php" class="nav-item nav-link ">My Cars</a>
+                        <a href="my-driver.php" class="nav-item nav-link active">My Drivers</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
@@ -159,7 +194,7 @@ $u=$_SESSION['username'];
 <section id="remove" class="parallax-section">
 	<div class="container">
 		<div class="row">
-		<center><h1 class="heading color-black"> Car details</h1></center>
+		<center><h1 class="heading color-black"> Driver details</h1></center>
        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -167,15 +202,73 @@ $u=$_SESSION['username'];
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-        <i class="fa fa-plus"></i>&nbsp; Add Car
+       <!-- <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">
+        &nbsp; +Add Car
+</button> -->
+
+<button type="button" class="btn btn-light" data-toggle="modal" data-target="#myModal12">
+        &nbsp; +Add Driver
 </button>
+
+<div class="modal" id="myModal12">
+	<div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Terms And Conditions</h4>    
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div><div class="container"></div>
+        <div class="modal-body">
+<b>*</b>Age requirement: The driver must be at least 21 years old and have a valid driver's license.<br>
+
+<b>*</b>Driving history: The driver must have a clean driving record with no recent accidents or violations.<br>
+
+<b>*</b>Additional driver fee: A fee will be charged for adding an additional driver to the rental agreement.It will be 50₹ per driver.<br>
+
+<b>*</b>Authorized use: The driver is only authorized to use the rental vehicle for the purposes specified in the rental agreement.<br>
+
+<b>*</b>Prohibited use: The driver is not allowed to use the rental vehicle for illegal purposes or in a manner that violates any laws or regulations.<br>
+
+<b>*</b>Both the renter and the driver share equal responsibility for any issues that may arise from the customer during the rental period.<br>
+ 
+<b>*</b>The person who is driving a rental vehicle is responsible for any accidents or violations that occur while they are driving the vehicle.
+ However, in some cases, the rental company may also share some responsibility if they were negligent in renting the vehicle to an unsuitable driver or if they failed to properly maintain the vehicle.<br>
+
+<b>*</b>The payment system for the drivers is fixed at Rs. 800 per day for up to 150 km, and for every kilometer beyond 150 km, an additional Rs. 5 is provided.<br>
+
+<b>*</b>Violation of terms and conditions: Violation of any of the terms and conditions may result in additional fees or termination of the rental agreement.<br>
+
+<input type="checkbox" id="myCheckbox">
+<label for="myCheckbox">I agree to the terms and conditions.</label>
+        </div>
+        <div class="modal-footer">
+        <button type="button" id="myButton" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter" disabled>
+        &nbsp; +Add Driver
+</button>
+<script>
+    const checkbox = document.querySelector('#myCheckbox');
+    const button = document.querySelector('#myButton');
+
+    function checkCheckbox() {
+      if (checkbox.checked) {
+        button.disabled = false;
+      } else {
+        button.disabled = true;
+      }
+    }
+
+    checkbox.addEventListener('click', checkCheckbox);
+  </script>
+          <a href="#" data-dismiss="modal" class="btn btn-outline-danger">Close</a>
+        </div>
+      </div>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog  modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Car details please</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Details please</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -183,58 +276,45 @@ $u=$_SESSION['username'];
       <div class="modal-body">
 
       
-        <form  action="add-car.php" method="post" enctype="multipart/form-data">
+        <form  action="regdriv.php" method="post" enctype="multipart/form-data">
         <div  class="col-md-8 col-sm-3"  style="width: 60%;">
 					
-                    <input type="text" class="form-control" placeholder="Company Name" name="company" id="company" onkeyup="return validate()"  required><br>
-                    <span id="cms" style='color:red;'></span>
-                    <input type="text" class="form-control" placeholder="Car Name" name="cname" id="cname"required><br>
-                    <span id="cms1" style='color:red;'></span>
-                    <input type="int" class="form-control" placeholder="Reg Number" name="reg" id="reg" onkeyup="return validate()" required><br>
-                    <span id="regval" style='color:red;'></span>
-                    <lablel>Choose image...</label>
-                    <input type="file" class="form-control" placeholder="Image" name="cimage" accept="image/png, image/gif, image/jpeg"  id="cimage" onchange="return validateimage()" required><br>
-                     <span id="im1" style='color:red;'></span>
-                     <!-- <img src="images/noimg.jpg" id="img"> -->
-                     <lablel>Choose Car papers in pdf(polution,book,insurance)...</label>
-                     <input type="file" class="form-control" placeholder="Car papers in pdf(polution,book,insurance)" name="papers"  id="papers" onchange="return validateimage()" required><br>
-                     <span id="im2" style='color:red;'></span>
-                    <input type="int" class="form-control" placeholder="Mileage per Liter" name="mileage" id="mil" onkeyup="return validate()" required><br>
-                    <span id="msg2" style='color:red;'></span>
-                    <input type="int" class="form-control" placeholder="Price" name="price" id="price" onkeyup="return validate()" required><br>
-                    <span id="msg3" style='color:red;'></span>
-                    <input type="int" class="form-control" placeholder="Above mentioned price is for how many KM" name="km" id="km" onkeyup="return validate()" required><br>
-                    <span id="msg-km" style='color:red;'></span>
-                    <input type="int" class="form-control" placeholder="Excess Price for each KM" name="excess" id="excess" onkeyup="return validate()" required><br>
-                    <span id="msg-ex" style='color:red;'></span>
-                    <input type="int" class="form-control" placeholder="Year of Purchase" name="year" id="year" onkeyup="return validate()" required><br>
-                    <span id="msg4" style='color:red;'></span>
-                    <select id="car" class="form-control" name="model" required>
+        <input type="text" class="form-control" placeholder="First Name" name="dfname"  id="dfname" onKeyUp="return validate()" required pattern="[A-Za-z_]+">
+			  <span class="message text-danger" id="dms" style="font-size: 16px"></span><br>
+			<input type="text" class="form-control" placeholder="Last Name" name="dlname"  id="dlname"  onKeyUp="return validate()"  required pattern="[A-Za-z_]+">
+			<span class="message text-danger" id="dms1"  ></span><br>
+			<input type="email" class="form-control" placeholder="Email" name="demail" id="dem" onblur="return validate()" onKeyUp="return validate()" required>
+			<span class="message text-danger" id="dmessage"></span><br>
+			<input type="int" class="form-control" placeholder="Phone number" name="dphone" id="dphn"  onblur="return validate()" onKeyUp="return validate()" required minlength="10" maxlength="10" required>
+			<span class="message text-danger" id="dmsg2"></span><br>
+			<input type="text area" class="form-control" placeholder="Address" name="daddresss" required><br> 
+      <input type="text" class="form-control" placeholder="Pincode" name="pincode" id="pincode"   required><br>
+			<!-- <input type="text" class="form-control" placeholder="place" name="dplace" id="place" required><br>  -->
+      <select id="post-office" name="post-office" class="form-control">
+		<option value="">Select Post Office</option>
+	</select>
+      <br><input type="text" class="form-control" placeholder="district" name="district" id="district" required><br>
+			<span style="color:blue">upload licence...</span>
+            <input type="file" class="form-control" placeholder="License" name="dvimage"   id="dlimage" onchange="return dvalidateimage()" required><br>
+                     <span id="dim1" style='color:red;'></span>
+			<input type="text" class="form-control checking_uname" placeholder="User name" name="dusername" id="dun" onInput="dcheckuser()" required>
+			<span class="derror_uname"></span><br>
+			<input type="password" class="form-control" placeholder="password" name="dpasswd" required><br> 
+            <!-- <span style="color:blue">upload your image...</span>
+            <input type="file" class="form-control" placeholder="Image" name="dimg"   id="dlim" onchange="return dvalidateimage2()" required><br>
+                     <span id="dim2" style='color:red;'></span> -->
+                     <input type="hidden" name="rnid" value="<?php echo $renter_id ;?>">
+			<br>       
                     
-                        <?php
-                        $model="SELECT * FROM `model`";
-                        $model_result=$conn->query($model);
-                        if($model_result->num_rows > 0){
-                            while($m= $model_result->fetch_assoc()){
-                                ?>
-                                 <option value="<?php echo $m['model_id'];?>"><?php echo $m['model'];?></option>
-                    
-                    
-
-                    <?php
-                            }
-                        }
-                   
-?>
-</select> <br>       
-                    <input type="submit" class="form-control" value="submit" name="submit" id="submit">
             </div>
-</form>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <input type="submit" class="btn btn-outline-primary" value="submit" name="submit" id="submit">
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="color:blue">Close</button>
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -242,14 +322,14 @@ $u=$_SESSION['username'];
                             <thead>
                                 <tr>
                                     
-                                    <th scope="col">Car</th>
+                                    <th scope="col">Driver</th>
 
-									<th scope="col">Reg-Number</th>
+									<th scope="col">Contact</th>
                                     
                                     
-                                    <th scope="col">Company & Model</th>
-                                    <th scope="col">Papers</th>
-                                    <th scope="col">Price</th>
+                                    <th scope="col">Address</Address></th>
+                                    <th scope="col">License</th>
+                                    <!-- <th scope="col">Price</th> -->
                                     <th scope="col">Status</th>
                                     <th scope="col">Availability</th>
                                     <th scope="col">Action</th>
@@ -259,44 +339,48 @@ $u=$_SESSION['username'];
 								<?php
 
 
-$sql = "SELECT * FROM `renter` WHERE log_id='$log_id'";
-$sql_result = mysqli_query($conn, $sql);
 
-$row1 = mysqli_fetch_array($sql_result);
-$renter_id=$row1['renter_id'];
 
-$sql1 = "SELECT * FROM `car` WHERE renter_id='$renter_id'";
+$sql1 = "SELECT * FROM `driver` WHERE renter_id='$renter_id'";
 $sql_result1 = mysqli_query($conn, $sql1);
 if ($sql_result1->num_rows > 0) {
 while ($row2 = $sql_result1->fetch_assoc()) {
 
 					if($f==0){
-
+            $logid=$row2['log_id'];
+            $g_user = "SELECT * FROM `login` WHERE `log_id` = '$logid'";
+            $g_user_result = mysqli_query($conn,$g_user);
+            $userg = mysqli_fetch_array($g_user_result);
                     
 					
 				
-				if($row2['c_stat']!=3){
+				if($userg['statuss']!=3){
                             
                             
 		?>
                                 <tr>
                                    
-                                    <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"></b></td>
-									<td><b><?php echo strtoupper($row2['reg_no']);  ?></b>
-                  <form action="viewfeed.php" method="post">
-                                                  <input type="hidden" value="<?php echo $row2['car_id']; ?>" name="carid">
-                                                  <button name="feedview" type="submit">view feedback</button>
-                            </form></td>
-                                    <td><b><?php echo strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
+                                    <td>
+                                      <!-- <b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"></b> -->
+                                   <b> <?php echo strtoupper($row2['fname']),"<br>",strtoupper($row2['lname']); ?></td><b>
+									<td><b><?php echo "Email: ",$row2['email'],"<br>Phone: ",$row2['phone'];  ?></b>
+                  
+                                    <td><b> <?php echo $row2['addresss'],"(h) <br>",$row2['place'],"<br>",$row2['district'],"<br> Pincode: ",$row2['pincode']; ?></b></td>
                                    
-                                    <td><b><button type="button" value="" onclick="getId(<?php echo $row2['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
-    VIEW
+                                    <td><b><button type="button" value="" onclick="getId(<?php echo $row2['driver_id'];?>)" name="v" id="v" class="btn btn-outline-success" data-toggle="modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+</svg>
   </button></b></td>
-                                    <td><b> <?php echo "First ",$row2['km'],"KM: Rs ",$row2['price'],"<br>Excess for each km: Rs ",$row2['excess']; ?></b></td>
-                                    <td><b><?php if($row2['c_stat']==0){
+                                    <!-- <td></td> -->
+                                    <td><b><?php 
+                                   
+                                    
+                                    if($userg['statuss']==0){
                                         echo "<font color='red'>Rejected</font>";
                                     } 
-                                    else if($row2['c_stat']==1){
+                                    else if($userg['statuss']==1){
                                         echo "<font color='green'>Accepted</font>";
                                     }
                                     else{
@@ -309,30 +393,30 @@ while ($row2 = $sql_result1->fetch_assoc()) {
                                         echo "<font color='green'>Available</font>";
                                     }
                                     ?></b></td>
-									<td><button id="bt1"  onclick="getid(<?php echo $row2['car_id']; ?>);">Delete</button> 
+									<td><button id="bt1"  onclick="getid(<?php echo $row2['driver_id']; ?>);" class="btn btn-outline-danger">Delete</button> 
                                     <?php
-if($row2['c_stat']==1){
+if($userg['statuss']==1){
 
                       ?>  
                   
                         <!-- <button id="bt2" value="" onclick="getid2(<?php echo $row2['car_id']; ?>);" data-toggle="modal" class="btn btn-primary">Edit</button> -->
 
                  
-                      <?php
+                      <!-- <?php
 if($row2['availability']==1){
 
                       ?>
                       <br><br>
-                      <button id="bt2"  onclick="getid3(<?php echo $row2['car_id']; ?>);">set-not available</button>
+                      <button id="bt2"  onclick="getid3(<?php echo $row2['driver_id']; ?>);">set-not available</button>
     
                       <?php
 }
 else{?>
 <br><br>
-    <button id="bt2"  onclick="getid4(<?php echo $row2['car_id']; ?>);">available</button>
+    <button id="bt2"  onclick="getid4(<?php echo $row2['driver_id']; ?>);">available</button>
 <?php
 }}
-                ?>
+                ?> -->
                     </td>
 
                             </tbody>
@@ -345,7 +429,7 @@ else{?>
                     
 					
 				
-                            if($row2['c_stat']!=3 && $row2['c_stat']==0){
+                            if($userg['statuss']!=3 && $userg['statuss']==0){
                                         
                                         
                     ?>
@@ -362,10 +446,10 @@ else{?>
                                                 <td><b><?php echo strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
                                                 <td><b><?php echo "First: "?></b></td>
                                                 <td><b> <?php echo "First ",$row2['km'],"KM: Rs ",$row2['price'],"<br>Excess for each km: Rs ",$row2['excess']; ?></b></td>
-                                                <td><b><?php if($row2['c_stat']==0){
+                                                <td><b><?php if($userg['statuss']==0){
                                                     echo "<font color='red'>Rejected</font>";
                                                 } 
-                                                else if($row2['c_stat']==1){
+                                                else if($userg['statuss']==1){
                                                     echo "<font color='green'>Accepted</font>";
                                                 }
                                                 else{
@@ -380,7 +464,7 @@ else{?>
                                                 ?></b></td>
                                                 <td><button id="bt1"  onclick="getid(<?php echo $row2['car_id']; ?>);">Delete</button> 
                                                 <?php
-            if($row2['c_stat']==1){
+            if($userg['statuss']==1){
             
                                   ?>  
                                                 
@@ -411,7 +495,7 @@ else{?>
                     
 					
 				
-                                        if($row2['c_stat']!=3 && $row2['c_stat']==1){
+                                        if($userg['statuss']!=3 && $userg['statuss']==1){
                                                     
                                                     
                                 ?>
@@ -429,10 +513,10 @@ else{?>
                                                             <td><b><?php echo strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
                                                             <td><b><?php echo "First: "?></b></td>
                                                             <td><b> <?php echo "First ",$row2['km'],"KM: Rs ",$row2['price'],"<br>Excess for each km: Rs ",$row2['excess']; ?></b></td>
-                                                            <td><b><?php if($row2['c_stat']==0){
+                                                            <td><b><?php if($userg['statuss']==0){
                                                                 echo "<font color='red'>Rejected</font>";
                                                             } 
-                                                            else if($row2['c_stat']==1){
+                                                            else if($userg['statuss']==1){
                                                                 echo "<font color='green'>Accepted</font>";
                                                             }
                                                             else{
@@ -447,7 +531,7 @@ else{?>
                                                             ?></b></td>
                                                             <td><button id="bt1"  onclick="getid(<?php echo $row2['car_id']; ?>);">Delete</button> 
                                                             <?php
-                        if($row2['c_stat']==1){
+                        if($userg['statuss']==1){
                         
                                               ?>  
                                                             
@@ -514,6 +598,8 @@ else{?>
   
 
 <script>
+
+
 		function getid(carid)
 		{
             var carid = carid;
@@ -584,144 +670,155 @@ else{?>
         }
         </script>
         <script type="text/javascript">
-                function validate()
+                
+        function validate()
                 {
-					var cn=document.getElementById("company").value;
-					var can=document.getElementById("cname").value;
-					var sn=/^[a-zA-Z]+$/;
-					if(cn!="" && sn.test(cn)==false){
+
+                    var df=document.getElementById("dfname").value;
+                    var dl=document.getElementById("dlname").value;
+                    var dph = document.getElementById("dphn").value;
+                    var da=document.getElementById("dem").value;
+					var s=/^[a-zA-Z]+$/;
+					// if(df=="" || dl=="" || da=="" || dph==""){
+          //   document.getElementById('submit').disabled=true; 
+          // }
+          // else{
+          //   document.getElementById('submit').disabled=false;
+          // }
+                    if(df!="" && s.test(df)==false){
 						
-						document.getElementById('cms').style.display = "block";
-						document.getElementById('cms').innerHTML = "Invalid Company name . It must be alphabet";
+						document.getElementById('dms').style.display = "block";
+						document.getElementById('dms').innerHTML = "Invalid First Name . It must be alphabet";
+                        document.getElementById('submit').disabled=true;
 						return false;
 					}
 					else{
-						document.getElementById('cms').style.display = "none";
+						document.getElementById('dms').style.display = "none";
+                        document.getElementById('submit').disabled=false;
 					}
-					if(can!="" && sn.test(can)==false){
-						
-						document.getElementById('cms1').style.display = "block";
-						document.getElementById('cms1').innerHTML = "Invalid Lname. It must be alphabet";
-						return false;
-					}
-					else{
-
-						document.getElementById('cms1').style.display = "none";
-					}
-
-
-					var f=document.getElementById("reg").value;
 					
-					var s=/^[A-Z]{2}\s?[0-9]{1,2}\s?[A-Z]{0,3}\s?[0-9]{4}$/;
-					if(f!="" && s.test(f)==false){
+                    if(dl!="" && s.test(dl)==false){
 						
-						document.getElementById('regval').style.display = "block";
-						document.getElementById('regval').innerHTML = "Invalid Register number";
+						document.getElementById('dms1').style.display = "block";
+						document.getElementById('dms1').innerHTML = "Invalid Lname. It must be alphabet";
+                        document.getElementById('submit').disabled=true;
 						return false;
 					}
 					else{
+
+						document.getElementById('dms1').style.display = "none";
+                        document.getElementById('submit').disabled=false;
+					}
+						
+                    
+					var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
+					if(da!="" && st.test(da)==false){
+						
+						document.getElementById('dmessage').style.display = "block";
+						document.getElementById('dmessage').innerHTML = "Invalid Email id";
+                        document.getElementById('submit').disabled=true;
+						return false;
+					}
+					else{
+                        document.getElementById('submit').disabled=false;
 						jQuery.ajax({
-					url: "ajax.php",
-					type: "POST",
-					
-					data:'reg='+$("#reg").val(),
-					success:function(response){
+		url: "ajax.php",
+        type: "POST",
+        
+        data:'em='+$("#dem").val(),
+        success:function(response){
+          
+          $("#dmessage").html(response);
+        },
+		error:function (){}
+      }); 
 						
-						$("#regval").html(response);
-					},
-					error:function (){}
-					}); 
 					}
-					var ph = document.getElementById("mil").value;
-					var expr = /^[0-9]{1,2}$/;
-					if(ph!="" && expr.test(ph)==false){
-						document.getElementById('msg2').style.display = "block";
-						document.getElementById('msg2').innerHTML = "Invalid mileage";
+
+				
+
+
+                    
+					var expr = /^[6-9]\d{9}$/;
+					if(dph!="" && expr.test(dph)==false){
+						document.getElementById('dmsg2').style.display = "block";
+						document.getElementById('dmsg2').innerHTML = "Invalid Phone number";
+                        document.getElementById('submit').disabled=true;
 						return false;
 								}
 								else{
-						document.getElementById('msg2').style.display = "none";
+						document.getElementById('dmsg2').style.display = "none";
+                        document.getElementById('submit').disabled=false;
 					}
-					var pr = document.getElementById("price").value;
-					var exp = /^[0-9]{3,4}$/;
-					if(pr!="" && exp.test(pr)==false){
-						document.getElementById('msg3').style.display = "block";
-						document.getElementById('msg3').innerHTML = "Invalid Price";
-						return false;
-								}
-								else{
-						document.getElementById('msg3').style.display = "none";
-					}
-					var km = document.getElementById("km").value;
-					var expk = /^[0-9]{3}$/;
-					if(km!="" && expk.test(km)==false){
-						document.getElementById('msg-km').style.display = "block";
-						document.getElementById('msg-km').innerHTML = "Invalid KM";
-						return false;
-								}
-								else{
-						document.getElementById('msg-km').style.display = "none";
-					}
-					var excess = document.getElementById("excess").value;
-					var expex = /^[0-9]{1,2}$/;
-					if(excess!="" && expex.test(excess)==false){
-						document.getElementById('msg-ex').style.display = "block";
-						document.getElementById('msg-ex').innerHTML = "Invalid Excess Price";
-						return false;
-								}
-								else{
-						document.getElementById('msg-ex').style.display = "none";
-					}
-					var y = document.getElementById("year").value;
-					var yr = /^[0-9]+$/;
-					var current_year=new Date().getFullYear();
-					if(y!="" && yr.test(y)==false){
-						
-						document.getElementById('msg4').style.display = "block";
-						document.getElementById('msg4').innerHTML = "Invalid year";
-						return false;
-								}
-								else{ 
-									if(y!="" && ((y < 1990) || (y > current_year)))
-									{
-									document.getElementById('msg4').style.display = "block";
-						document.getElementById('msg4').innerHTML = "Invalid year";
-						return false;
-					}
-					else{
-						document.getElementById('msg4').style.display = "none";
-					}
-					
-				}
+
 				
 					
-				}
+							}
 
+function dcheckuser(){
+
+	  
+jQuery.ajax({
+  url: "ajax.php",
+  type: "POST",
+  
+  data:'uname='+$("#dun").val(),
+  success:function(response){
+    
+    $(".derror_uname").html(response);
+  },
+  error:function (){}
+}); 
+}
 					
-				function validateimage()
+function dvalidateimage()
                 {
 					
-					var fd = new FormData();
-        var files = $('#cimage')[0].files;
+					var fdd = new FormData();
+        var files = $('#dlimage')[0].files;
         
         // Check file selected or not
         if(files.length > 0 ){
-           fd.append('file',files[0]);
+           fdd.append('file1',files[0]);
 
            $.ajax({
               url: 'ajax.php',
               type: 'post',
-              data: fd,
+              data: fdd,
               contentType: false,
               processData: false,
               success: function(response){
-                // if(response != 0){
-                //     $("#img").attr("src",response); 
-                //     $("#img").show(); // Display image element
-				// }
-				// else{
-					$("#im1").html(response);
+               
+					$("#dim1").html(response);
 				//}
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+
+				}
+                
+                function dvalidateimage2()
+                {
+					
+					var fdl = new FormData();
+        var files= $('#dlim')[0].files;
+        
+        // Check file selected or not
+        if(files.length > 0 ){
+           fdl.append('file',files[0]);
+
+           $.ajax({
+              url: 'ajax.php',
+              type: 'post',
+              data: fdl,
+              contentType: false,
+              processData: false,
+              success: function(response){
+               
+					$("#dim2").html(response);
+				
               },
            });
         }else{

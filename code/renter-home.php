@@ -65,6 +65,7 @@ $u=$_SESSION['username'];
                     <div class="navbar-nav ml-auto py-0">
                         <a href="#" class="nav-item nav-link active">Home</a>
 						<a href="my-cars.php" class="nav-item nav-link">My Cars</a>
+                        <a href="my-driver.php" class="nav-item nav-link">My Drivers</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">

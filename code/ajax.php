@@ -578,6 +578,26 @@ if(!empty($_POST['license'])){
 			}
         }
 
+//driver license view by renter modal section
+
+if(!empty($_POST['li'])){
+    $cus_id= $_POST['li'];
+   
+		$sql1 = "SELECT * FROM driver where driver_id='$cus_id'";
+		$result1 = $conn->query($sql1);
+			if ($result1->num_rows > 0) {
+				//output data of each row
+				while ($row10 = $result1->fetch_assoc()) {
+                   
+                       
+                            
+                  
+                            echo '<iframe src="images/'.$row10['license'].'" style="width: 500px; height: 500px;"></iframe>';
+                      
+            	}
+			}
+        }
+
  // driver amount added section
 
 if(!empty($_POST['amtd'])){
