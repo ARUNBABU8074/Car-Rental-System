@@ -208,7 +208,8 @@ if(!empty($_POST['dbook'])){
 
 if(!empty($_POST['book-id'])){
     $book_id= $_POST['book-id'];
-    $sql="UPDATE `tbl_booking` SET `stat`=1 WHERE `book_id`='$book_id'";
+    $drv= $_POST['drv'];
+    $sql="UPDATE `tbl_booking` SET `driver_id`='$drv',`stat`=1 WHERE `book_id`='$book_id'";
 
 	$result = $conn->query($sql);
 
@@ -216,6 +217,7 @@ if(!empty($_POST['book-id'])){
     $result = $conn->query($sql1);
 $car=$result->fetch_assoc();
 $car_id=$car['car_id'];
+
 $sql3="UPDATE `tbl_booking` SET `stat`=0 WHERE `book_id`!='$book_id' AND `car_id`='$car_id';";
 $result3 = $conn->query($sql3);
 // $sql2="UPDATE `car` SET `c_stat`=3 WHERE `car_id`='$car_id'";

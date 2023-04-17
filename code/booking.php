@@ -16,14 +16,25 @@ $cus_id=$row34['cus_id'];
 	 $pdate=$_POST['pdate'];
          $ddate=$_POST['ddate']; 
         $stat=2;
-        $sql1 = "INSERT INTO `tbl_booking`(`cus_id`, `car_id`, `book_date`, `drop_date`, `stat`) VALUES('$cus_id','$car_id','$pdate','$ddate','$stat')";
+		
+		$selectd="SELECT * FROM `car`,`driver` WHERE car_id='$car_id' AND car.renter_id=driver.renter_id and driver.availability=1";
+		$sqdc=$conn->query($selectd);
+		if($sqdc->num_rows>0){
+
+			$did=$_POST['driver'];
+		}
+		else{
+			$did=0;
+		}
+
+        $sql1 = "INSERT INTO `tbl_booking`(`cus_id`, `car_id`,`driver_id`, `book_date`, `drop_date`, `stat`, `drive_stat`) VALUES('$cus_id','$car_id','0','$pdate','$ddate','$stat','$did')";
         	
 	if($conn->query($sql1) === TRUE){
 		?>
 		<script>
 			if(window.confirm('your booking will confirm after checking'))
 			{
-				window.location.href='customer-home.php';
+				window.location.href='c-h.php';
 			};</script>
 		<?php
 	}
@@ -32,7 +43,7 @@ $cus_id=$row34['cus_id'];
 		<script>
 			if(window.confirm('Oops!!!!!    failed '))
 			{
-				window.location.href='customer-home.php';
+				window.location.href='c-h.php';
 			};</script>
 		<?php
 	} 
@@ -89,12 +100,9 @@ $cus_id=$row34['cus_id'];
       var input1 = document.getElementById("ddate");
 			var userDate = document.getElementById("pdate");
 
-			// Get the user-defined date
+			
 			var userDateValue = new Date(userDate.value);
-			// alert(userDate.value);
-			// if(userDate.value < input1.value){
-			// 	document.getElementById('ms').innerHTML = "Invalid Email id";
-			// }
+			
 
 			// Set the minimum date of the input field to the user-defined date
 			input1.setAttribute("min", userDateValue.toISOString().slice(0,10));
@@ -259,12 +267,26 @@ $cus_id=$row34['cus_id'];
 						  
 		              </div>
                   <!-- <input type="date" id="myDate" name="myDate" min="<?php echo $minDate; ?>" onclick> -->
+				  <?php
+				   $car_id= $_POST['cid'];
+				   $selectc="SELECT * FROM `car`,`driver` WHERE car_id='$car_id' AND car.renter_id=driver.renter_id and driver.availability=1";
+				   $sqd=$conn->query($selectc);
+				   if($sqd->num_rows>0){
+				//    $sq=$sqd->fetch_assoc();
 
+				  ?>
 
-		              <!-- <div class="form-group">
-		                <label for="" class="label">Pick-up time</label>
-		                <input type="text" class="form-control" id="time_pick" placeholder="Time">
-		              </div> -->
+		              <div class="form-group">
+					  Do you need driver
+					  <input type="radio" id="age1" name="driver" value="1">
+  <label for="age1">Yes</label>
+  <input type="radio" id="age2" name="driver" value="0">
+  <label for="age2">No</label><br>  
+		              </div>
+
+					  <?php
+				   }
+				   ?>
 			            <div class="form-group">
 			              <input type="submit" value="Rent A Car Now" name="sub" id="sub" class="btn btn-secondary py-3 px-4">
 			            </div>

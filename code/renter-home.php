@@ -71,6 +71,7 @@ $u=$_SESSION['username'];
                             <div class="dropdown-menu rounded-0 m-0">
 								
                                 <a href="book-accept.php" class="dropdown-item">Requests</a>
+                                <a href="upcoming.php" class="dropdown-item">Upcoming</a>
                                 <!-- <a href="dacp-view.php" class="dropdown-item">Accepted Bookings</a> -->
                                 
                             </div>

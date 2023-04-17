@@ -84,8 +84,8 @@ $resultup2 = $conn->query($sqlup2);
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="dbook-acp.php" class="dropdown-item">Requests</a>
-                                <a href="dacp-view.php" class="dropdown-item">Accepted Bookings</a>
+                                <!-- <a href="dbook-acp.php" class="dropdown-item">Requests</a> -->
+                                <a href="dacp-view.php" class="dropdown-item">Upcoming Bookings</a>
                                 
                             </div>
                         </div>

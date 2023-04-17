@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2023 at 05:40 PM
+-- Generation Time: Apr 17, 2023 at 04:39 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -50,9 +50,9 @@ CREATE TABLE `car` (
 --
 
 INSERT INTO `car` (`car_id`, `renter_id`, `company`, `name`, `year`, `model`, `image`, `papers`, `reg_no`, `price`, `km`, `excess`, `mileage`, `c_stat`, `availability`) VALUES
-(5, 1, 'Toyota', 'innovva', 2000, 2, 'car1.jpg', 'assignment_ML1.pdf', 'KL05AS1752', 750, 150, 10, 1, 0, 1),
+(5, 1, 'Toyota', 'innovva', 2000, 2, 'car1.jpg', 'assignment_ML1.pdf', 'KL05AS1752', 750, 150, 10, 1, 1, 1),
 (6, 2, 'maruti', 'maruti 800', 2010, 3, '800.jpg', 'assignment_ML1.pdf', 'kl34e4567', 600, 150, 10, 17, 1, 1),
-(7, 3, 'Mahindra', 'xuv 500', 2020, 1, 'xuv 500.jpg', 'assignment_ML1.pdf', 'kl05as1756', 780, 150, 10, 6, 1, 1),
+(7, 3, 'Mahindra', 'xuv 500', 2020, 1, 'xuv500.jpg', 'assignment_ML1.pdf', 'kl05as1756', 780, 150, 10, 6, 1, 1),
 (8, 3, 'Renault', 'Triber', 2010, 2, 'Renault-Triber-PNG-Photos.png', 'assignment_ML1.pdf', 'kl05as1759', 780, 140, 9, 10, 1, 1),
 (10, 5, 'Suzuki', 'dzire', 2020, 3, 'dzire.png', 'assignment_ML1.pdf', 'kl05as3752', 600, 150, 10, 12, 3, 1),
 (11, 9, 'renalt', 'duster', 2010, 1, 'Renault-Triber-PNG-Photos.png', 'assignment_ML1.pdf', 'kl05as1754', 750, 150, 10, 12, 1, 1),
@@ -83,11 +83,11 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`cus_id`, `log_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`, `license`) VALUES
-(2, 4, 'alen', 'philip', 'alan@gmail.com', 9447017345, 'kottayam', 'kerala', 'Arun_ Sem 1 Grade Card.pdf\r\n'),
-(4, 12, 'babu', 'suresh', 'babu@gmail.com', 9888888888, 'koplantharachirayil', 'punchavayal', 'Arun_ Sem 1 Grade Card.pdf\r\n'),
-(5, 14, 'akshay', 'kumar', 'arunbabu8074@gmail.com', 9878654334, 'house', 'punchavayal', 'Arun_ Sem 1 Grade Card.pdf\r\n'),
-(6, 16, 'bindhu', 'babu', 'arunbabu202a@mca.ajce.in', 9888888889, 'house', 'punchavayal', 'Arun_ Sem 1 Grade Card.pdf\r\n'),
-(7, 18, 'bilu', 'amsu', 'arunbabu023a@mca.ajce.in', 9888888877, 'house', 'mundakayam', 'Arun_ Sem 1 Grade Card.pdf\r\n');
+(2, 4, 'alen', 'philip', 'alan@gmail.com', 9447017345, 'kottayam', 'kerala', 'license.pdf'),
+(4, 12, 'babu', 'suresh', 'babu@gmail.com', 9888888888, 'koplantharachirayil', 'punchavayal', 'license.pdf'),
+(5, 14, 'akshay', 'kumar', 'arunbabu8074@gmail.com', 9878654334, 'house', 'punchavayal', 'license.pdf'),
+(6, 16, 'bindhu', 'babu', 'arunbabu202a@mca.ajce.in', 9888888889, 'house', 'punchavayal', 'license.pdf'),
+(7, 18, 'bilu', 'amsu', 'arunbabu023a@mca.ajce.in', 9888888877, 'house', 'mundakayam', 'license.pdf');
 
 -- --------------------------------------------------------
 
@@ -127,12 +127,15 @@ INSERT INTO `dbook` (`book_id`, `cus_id`, `driver_id`, `book_date`, `drop_date`,
 CREATE TABLE `driver` (
   `driver_id` int(11) NOT NULL,
   `log_id` int(11) NOT NULL,
+  `renter_id` int(11) NOT NULL,
   `fname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` bigint(20) NOT NULL,
   `addresss` varchar(100) NOT NULL,
   `place` varchar(50) NOT NULL,
+  `pincode` bigint(20) NOT NULL,
+  `district` varchar(50) NOT NULL,
   `license` varchar(200) NOT NULL,
   `dim` varchar(100) NOT NULL,
   `availability` int(11) NOT NULL
@@ -142,13 +145,8 @@ CREATE TABLE `driver` (
 -- Dumping data for table `driver`
 --
 
-INSERT INTO `driver` (`driver_id`, `log_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`, `license`, `dim`, `availability`) VALUES
-(3, 25, 'baby', 'baby', 'paleren479@iucake.com', 8975645345, 'vhcgj', 'gjgjghj', 'arun.pdf', 'v.jpg', 1),
-(5, 27, 'Paul', 'Walker', 'pivajo5261@pubpng.com', 9447017805, 'Fast', 'Speed', 'arun.pdf', '1663021326_gettyimages-85408674.jpg', 1),
-(8, 30, 'add', 'baby', 'gijoki2435@pubpng.com', 8975645345, 'vhcgj', 'Speed', 'IMG_20230217_185543.pdf', 'pngtree-apply-now-button-with-checklist-icon-png-png-image_5941324.png', 1),
-(10, 32, 'alex', 'reji', 'paranex439@v2ssr.com', 8975645367, 'alex', 'kattapana', 'RegisteredStudentBillReport (Generated on 14_02_2023 11_18 AM).pdf', 'pngtree-apply-now-button-with-checklist-icon-png-png-image_5941324.png', 1),
-(11, 33, 'akersh', 'bhaskar', 'kegep72753@pubpng.com', 6754321234, 'home', 'kattapana', 'arun.pdf', 'akersh.jpg', 1),
-(12, 34, 'dfg', 'ffgg', 'docago1795@vootin.com', 8975645345, 'Fast', 'Speed', 'arun.pdf', 'pngtree-apply-now-button-with-checklist-icon-png-png-image_5941324.png', 1);
+INSERT INTO `driver` (`driver_id`, `log_id`, `renter_id`, `fname`, `lname`, `email`, `phone`, `addresss`, `place`, `pincode`, `district`, `license`, `dim`, `availability`) VALUES
+(14, 39, 3, 'Remo', 'Vikram', 'golejeb908@dogemn.com', 8975645345, 'muthotil', 'Karinilam', 686513, 'Kottayam', 'license.pdf', '', 1);
 
 -- --------------------------------------------------------
 
@@ -214,7 +212,8 @@ INSERT INTO `login` (`log_id`, `username`, `passwd`, `usertype`, `statuss`) VALU
 (33, 'akersh', 'akersh@123', 3, 1),
 (34, 'sd', '123234', 3, 2),
 (36, 'shijo', 'shijo', 4, 1),
-(37, 'arjun', 'arjun', 4, 1);
+(37, 'arjun', 'arjun', 4, 1),
+(39, 'remo', 'remo', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -284,8 +283,7 @@ CREATE TABLE `regpay` (
 --
 
 INSERT INTO `regpay` (`rpay_id`, `name`, `email`, `pay_id`, `amount`) VALUES
-(1, 'akersh', 'kegep72753@pubpng.com', 'pay_LLV2fvNZ8z05A2', 50),
-(2, 'sd', 'docago1795@vootin.com', 'pay_LMEImN6ML2EzS0', 50);
+(4, 'remo', 'golejeb908@dogemn.com', 'pay_LcOTRdUrPvVSPN', 50);
 
 -- --------------------------------------------------------
 
@@ -333,22 +331,26 @@ CREATE TABLE `tbl_booking` (
   `book_id` int(11) NOT NULL,
   `cus_id` int(11) NOT NULL,
   `car_id` int(11) NOT NULL,
+  `driver_id` int(11) NOT NULL,
   `book_date` date NOT NULL,
   `drop_date` date NOT NULL,
-  `stat` int(11) NOT NULL
+  `stat` int(11) NOT NULL,
+  `drive_stat` int(11) NOT NULL,
+  `start_km` bigint(20) NOT NULL,
+  `end_km` bigint(20) NOT NULL,
+  `amount` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_booking`
 --
 
-INSERT INTO `tbl_booking` (`book_id`, `cus_id`, `car_id`, `book_date`, `drop_date`, `stat`) VALUES
-(11, 4, 13, '2022-11-30', '2022-12-01', 3),
-(12, 4, 20, '2022-11-26', '2022-11-19', 3),
-(14, 4, 5, '2022-11-22', '2022-11-23', 3),
-(18, 6, 20, '2022-11-24', '2022-11-26', 3),
-(19, 4, 13, '2022-11-24', '2022-11-26', 3),
-(20, 4, 11, '2023-03-24', '2023-03-29', 3);
+INSERT INTO `tbl_booking` (`book_id`, `cus_id`, `car_id`, `driver_id`, `book_date`, `drop_date`, `stat`, `drive_stat`, `start_km`, `end_km`, `amount`) VALUES
+(11, 4, 13, 0, '2022-11-30', '2022-12-01', 3, 0, 0, 0, 0),
+(12, 4, 20, 0, '2022-11-26', '2022-11-19', 3, 0, 0, 0, 0),
+(18, 6, 20, 0, '2022-11-24', '2022-11-26', 3, 0, 0, 0, 0),
+(19, 4, 13, 0, '2022-11-24', '2022-11-26', 3, 0, 0, 0, 0),
+(20, 4, 11, 0, '2023-03-24', '2023-03-29', 3, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -411,7 +413,7 @@ CREATE TABLE `tbl_feedback` (
   `car_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `feedback` varchar(200) NOT NULL,
-  `score` float(10,0) NOT NULL
+  `score` decimal(10,3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -419,13 +421,13 @@ CREATE TABLE `tbl_feedback` (
 --
 
 INSERT INTO `tbl_feedback` (`fid`, `cus_id`, `car_id`, `book_id`, `feedback`, `score`) VALUES
-(1, 5, 8, 0, 'its really good', 1),
-(2, 5, 8, 0, 'its bad', 1),
-(3, 4, 11, 0, 'i think its a perfect option for your drive', 0),
-(4, 4, 13, 19, 'its really good', 0),
-(6, 4, 5, 14, 'bad experience', 0),
-(20, 4, 20, 18, 'good', 0),
-(22, 4, 20, 12, 'nice', 0);
+(1, 5, 8, 0, 'its really good', '1.000'),
+(2, 5, 8, 0, 'its bad', '1.000'),
+(25, 4, 11, 20, 'its a very good option for your drive', '0.910'),
+(26, 4, 13, 19, 'very bad experience', '-0.910'),
+(27, 4, 5, 14, 'amazing', '0.600'),
+(28, 4, 20, 12, 'good for price', '0.700'),
+(29, 4, 13, 11, 'its good for price', '0.700');
 
 -- --------------------------------------------------------
 
@@ -597,7 +599,7 @@ ALTER TABLE `dbook`
 -- AUTO_INCREMENT for table `driver`
 --
 ALTER TABLE `driver`
-  MODIFY `driver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `driver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `driverpay`
@@ -609,7 +611,7 @@ ALTER TABLE `driverpay`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -627,7 +629,7 @@ ALTER TABLE `model`
 -- AUTO_INCREMENT for table `regpay`
 --
 ALTER TABLE `regpay`
-  MODIFY `rpay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `rpay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `renter`
@@ -639,7 +641,7 @@ ALTER TABLE `renter`
 -- AUTO_INCREMENT for table `tbl_booking`
 --
 ALTER TABLE `tbl_booking`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_check`
@@ -657,7 +659,7 @@ ALTER TABLE `tbl_checker`
 -- AUTO_INCREMENT for table `tbl_feedback`
 --
 ALTER TABLE `tbl_feedback`
-  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_location`

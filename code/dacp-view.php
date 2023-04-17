@@ -150,7 +150,7 @@ $('#endModal').modal('show');
                      <div class="nav-item dropdown">
                          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                          <div class="dropdown-menu rounded-0 m-0">
-                             <a href="dbook-acp.php" class="dropdown-item">Requests</a>
+                             <!-- <a href="dbook-acp.php" class="dropdown-item">Requests</a> -->
                              <a href="dacp-view.php" class="dropdown-item">Accepted Bookings</a>
                             
                          </div>
@@ -206,11 +206,11 @@ $('#endModal').modal('show');
                                     
                                     
                                     <th scope="col">ADDRESS</th>
-                                    <th scope="col">Driving Licence </th>
+                                    <th scope="col">Location </th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Location of car</th>
-                                    <th scope="col">Destination</th>
-                                    <th scope="col">KM details</th>
+                                    <th scope="col">Renter address</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -223,7 +223,7 @@ $sql_result = mysqli_query($conn, $sql);
 $row1 = mysqli_fetch_array($sql_result);
 $driver_id=$row1['driver_id'];
 
-$sql1 = "SELECT * FROM `dbook` WHERE driver_id='$driver_id'";
+$sql1 = "SELECT * FROM `tbl_booking` WHERE driver_id='$driver_id'";
 $sql_result1 = mysqli_query($conn, $sql1);
 if ($sql_result1->num_rows > 0) {
 while ($row2 = $sql_result1->fetch_assoc()) {
@@ -243,10 +243,15 @@ while ($row2 = $sql_result1->fetch_assoc()) {
                     
 						if($row2['stat'] == 1){
 					$cus_id=$row2['cus_id'];
+          $ren_id=$row2['car_id'];
                             $sql4 = "SELECT * FROM `customer` WHERE cus_id='$cus_id'";
                             $result4 = mysqli_query($conn, $sql4);
                             
                             $row4 = mysqli_fetch_array($result4);
+                            $sql46 = "SELECT * FROM `renter`,`car` WHERE car.car_id='$ren_id' and car.renter_id=renter.renter_id";
+                            $result46 = mysqli_query($conn, $sql46);
+                            
+                            $row46 = mysqli_fetch_array($result46);
                             
                             
 		?>
@@ -256,56 +261,22 @@ while ($row2 = $sql_result1->fetch_assoc()) {
 									<td><b><?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?></b></td>
                                     
                                     <td><b><?php echo $row4['addresss'],"(h)<br>",$row4['place'],"<br>Phone: ",$row4['phone']; ?></b></td>
-                                    <td><b><button type="button" value="" onclick="getId(<?php echo $row4['cus_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
-    VIEW
-  </button></b></td>
+                                    <td><b><iframe width="200" height="200" src="https://maps.google.com/maps?q=<?php echo $row4['place']; ?>&output=embed"></iframe></td>
                                     <td><b><?php echo "From: ",$row2['book_date'],"<br>To: ",$row2['drop_date']; ?></b></td>
 									<td>
-                                    <b><?php echo $row2['location']; ?></b>
+                                    <b><iframe width="200" height="200" src="https://maps.google.com/maps?q=<?php echo $row46['place']; ?>&output=embed"></iframe></b>
                     </td>
                     <td>
-                                    <b><?php echo $row2['destination']; ?></b>
+                                    <b>
+                                    <?php echo $row46['addresss'],"(h)<br>",$row46['place'],"<br>Phone: ",$row46['phone']; ?>
+                                    
+                                    </b>
                     </td>
-                    <td><?php 
-                    if($row2['start_km'] == 0 && $row2['end_km'] == 0 && $row2['book_date']==$day){
-                     ?>
-                     <!-- <input type="text" name="amt" id="amt" placeholder="Enter the amount after booking closed"><br><br>
-                     <button type="button" value="Add" onclick="amt(<?php echo $row2['book_id'];?>)" name="b" id="b" class="btn btn-primary">ADD</button> -->
-                     <!-- Button trigger modal -->
-                     Starting KM:
-<button type="button" class="btn" onclick="go('<?php echo $row2['book_id']; ?>')" >
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
-  <path d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-</svg>
-</button>
+                    <td>
+                      <?php 
+             
 
-
-										 	<?php	
-                    	}
-                     else if($row2['start_km'] != 0 && $row2['end_km'] == 0){
-                     echo "Starting KM: ".$row2['start_km']."KM";
-                     if($row2['drop_date']==$day){
-                      ?>
-                    <br>  KM Afeter drive:
-<button type="button" class="btn" onclick="go1('<?php echo $row2['book_id']; ?>')" >
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
-  <path d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-</svg>
-</button>
-<?php
-                     }
-                      }
-                      else if($row2['start_km'] != 0 && $row2['end_km'] != 0){
-                        echo "Starting KM: ".$row2['start_km']."Km <br>";
-                        echo "Ending KM: ".$row2['end_km']."Km <br>";
-                        echo "Total KM travelled : ".$row2['end_km']-$row2['start_km']."Km";
-                      }
-
-                      else { echo "Enter the details in the booking start date";
-
-                      }
-
-		// 				}
+		
   }
 
 

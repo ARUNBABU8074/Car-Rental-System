@@ -6,17 +6,52 @@ include 'session.php';
 
 $log_id= $_SESSION['log_id'];
 $u=$_SESSION['username'];
-
-if(isset($_POST['assign'])){
-
-		
-  $driver= $_POST["driver"];
-$book= $_POST["book"];
-
-  $sql22 = "UPDATE `tbl_booking` SET `driver_id`='$driver','drive_stat'='2' WHERE `book_id`='$book'";
-
-$s=$conn->query($sql22);
-}
+$day=date("Y-m-d");
+if(isset($_POST['substart'])){
+    $skm= $_POST["skm"];
+    $bid= $_POST["bid"];
+  
+    $sql2 = "UPDATE `tbl_booking` SET `start_km`='$skm' WHERE `book_id`='$bid'";
+   
+    if($conn->query($sql2) === TRUE){
+   
+    
+ 
+    }
+   }
+   if(isset($_POST['subend'])){
+     
+     $ekm= $_POST["ekm"];
+     $bid= $_POST["bd"];
+   
+     $sql3 = "UPDATE `tbl_booking` SET `end_km`='$ekm',`stat`='4' WHERE `book_id`='$bid'";
+    
+     if($conn->query($sql3) === TRUE){
+       $sqlb = "SELECT * FROM `tbl_booking`,`car`  WHERE tbl_booking.book_id='$bid' and tbl_booking.car_id=car.car_id";
+     $r1=$conn->query($sqlb);
+     $r = $r1->fetch_assoc();
+     $km=$r['end_km']-$r['start_km'];
+     
+     $date1 = new DateTime($r['book_date']);
+ $date2 = new DateTime($r['drop_date']);
+ $diff = $date1->diff($date2);
+ $days = $diff->days;
+ $d=$days+1;
+ $ex=$r['excess'];
+ $mkm=$r['km'];
+ $p=$r['price'];
+     $max=$d*$mkm;
+ $total=$km-$max;
+ if($total<=0){
+   $amount=$d*$p;
+ }
+ else{
+   $amount=($d*$p)+($total*$ex);
+ }
+ $sqlamt = "UPDATE `tbl_booking` SET `amount`='$amount' WHERE `book_id`='$bid'";
+ $ramt=$conn->query($sqlamt);
+     }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +113,17 @@ $s=$conn->query($sql22);
   </div>
   </head>
 <script>
+      function go(bid){
+
+$('.modal-body #bid').val(bid);
+$('#exampleModal').modal('show');
+    }
+
+    function go1(bid){
+
+$('.modal-body #bd').val(bid);
+$('#endModal').modal('show');
+    }
 		function getId(cid)
 		{
             var cid=cid;
@@ -129,7 +175,7 @@ $s=$conn->query($sql22);
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="book-accept.php" class="dropdown-item">Requests</a>
-                                <a href="upcoming.php" class="dropdown-item">Upcoming</a>
+                                <a href="#" class="dropdown-item">Upcoming</a>
                                 <!-- <a href="" class="dropdown-item">Paid</a> -->
                                 
                             </div>
@@ -209,7 +255,7 @@ $result3 = $conn->query($sql2);
 					
 					
 				
-						if($row['stat'] == 2){
+						if($row['stat'] == 1){
 					$cus_id=$row['cus_id'];
                             $sql4 = "SELECT * FROM `customer` WHERE cus_id='$cus_id'";
                             $result4 = mysqli_query($conn, $sql4);
@@ -230,48 +276,124 @@ $result3 = $conn->query($sql2);
                                     <td><b><?php echo "From: ",$row['book_date'],"<br>To: ",$row['drop_date']; ?></b></td>
                                     <td><b><?php 
                                     if($row['drive_stat']==1){
-                                      ?>
-<!-- <form action="" method="post"> -->
-    <input type="hidden" name="book" value="<?php echo $row['book_id'];?>">
-                                    <select  id="driver" name="driver" class="form-control h-30 w-500" required>
-                                    <option value="" hidden>-Select-</option>
-                                    <?php
-                                    // $dis=$row35['district'];
-                        $check="SELECT * FROM driver where renter_id='$renter_id'";
+                                      
+                                        $driver_id=$row['driver_id'];
+                        $check="SELECT * FROM driver where driver_id='$driver_id'";
                         $check_result=$conn->query($check);
                         if($check_result->num_rows > 0){
-                            while($m= $check_result->fetch_assoc()){
-                                ?>
-                                 <option value="<?php echo $m['driver_id'];?>"><?php echo $m['fname'],' ',$m['lname'];?></option>
-                    
-                    
+                            $m= $check_result->fetch_assoc();
+                            echo $m['fname']," ",$m['lname'];
 
-                    <?php
-                            }
+                            
                         }
-                   
-?>
-                       
-                      </select><br>
-                      <!-- <button type="submit" class="btn btn-outline-success" name='assign'>Assign</button> -->
-                                 
-                <!-- </form> -->
-                                      <?php
+ 
                                     }
                                     else{
                                       echo "No";
                                     }
                                     ?></b></td>
 									<td>
-                                    <button id="bt1"  onclick="getid(<?php echo $row['book_id']; ?>);">ACCEPT</button> 
-                        <button id="bt2"  onclick="getid2(<?php echo $row['book_id']; ?>);">REJECT</button>
-                      </a>
+                               
+<?php
+if($row['start_km'] == 0 && $row['end_km'] == 0 && $row['book_date']==$day){
+                     ?>
+                   
+                     Starting KM:
+<button type="button" class="btn" onclick="go('<?php echo $row['book_id']; ?>')" >
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
+  <path d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+</svg>
+</button>
+
+
+										 	<?php	
+                    	}
+                     else if($row['start_km'] != 0 && $row['end_km'] == 0){
+                     echo "Starting KM: ".$row['start_km']."KM";
+                     if($row['drop_date']==$day){
+                      ?>
+                    <br>  KM Afeter drive:
+<button type="button" class="btn" onclick="go1('<?php echo $row['book_id']; ?>')" >
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
+  <path d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+</svg>
+</button>
+<?php
+                     }
+                      }
+                      else if($row['start_km'] != 0 && $row['end_km'] != 0){
+                        echo "Starting KM: ".$row['start_km']."Km <br>";
+                        echo "Ending KM: ".$row['end_km']."Km <br>";
+                        echo "Total KM travelled : ".$row['end_km']-$row['start_km']."Km";
+                      }
+
+                      else { echo "Enter the details in the booking start date";
+
+                      }
+                    
+                      ?>
                     </td>
+                    
 
                             </tbody>
-											<?php		}
+											<?php	
+                        }	
+?>
+<td>
+    <?php
+    	if($row['stat'] == 4){
+            $cus_id=$row['cus_id'];
+                    $sql4 = "SELECT * FROM `customer` WHERE cus_id='$cus_id'";
+                    $result4 = mysqli_query($conn, $sql4);
+                    
+                    $row4 = mysqli_fetch_array($result4);
+                    
+                    
+?>
+                        <tr>
+                           
+                            <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"><?php echo "<br>",strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
+                            <td><b><?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?></b></td>
+                            
+                            <td><b><?php echo $row4['addresss'],"(h)<br>",$row4['place'],"<br>Phone: ",$row4['phone']; ?></b></td>
+                            <td><b><button type="button" value="" onclick="getId(<?php echo $row4['cus_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
+VIEW
+</button></b></td>
+                            <td><b><?php echo "From: ",$row['book_date'],"<br>To: ",$row['drop_date']; ?></b></td>
+                            <td><b><?php 
+                            if($row['drive_stat']==1){
+                              
+                                $driver_id=$row['driver_id'];
+                $check="SELECT * FROM driver where driver_id='$driver_id'";
+                $check_result=$conn->query($check);
+                if($check_result->num_rows > 0){
+                    $m= $check_result->fetch_assoc();
+                    echo $m['fname']," ",$m['lname'];
 
-						}}
+                    
+                }
+
+                            }
+                            else{
+                              echo "No";
+                            }
+                            ?></b></td>
+                            <td>
+                       
+<?php
+
+echo "Waiting for payment <br>";
+echo "Starting KM: ".$row['start_km']."Km <br>";
+echo "Ending KM: ".$row['end_km']."Km <br>";
+echo "Total KM travelled : ".$row['end_km']-$row['start_km']."Km <br>";
+echo "Total Amount : ₹".$row['amount'];
+           
+            }
+              ?>
+            </td>
+<?php
+						}
+                    }
 			}
         }
 		?>
@@ -330,6 +452,54 @@ $result3 = $conn->query($sql2);
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-right">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter the correct KM as in the Meter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="">
+          <input type="hidden" name="bid" value="#" id="bid">
+          <input type="number" name="skm" id="skm" placeholder="enter the starting km" required>
+                    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="sub" name="substart">Save changes</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="endModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-right">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter the correct KM as in the Meter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="">
+          <input type="hidden" name="bd" value="#" id="bd">
+          <input type="number" name="ekm" id="ekm" placeholder="enter the Ending km" required>
+                    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="subend" name="subend">Save changes</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
   
   <script src="js1/jquery.min.js"></script>
   <script src="js1/jquery-migrate-3.0.1.min.js"></script>
