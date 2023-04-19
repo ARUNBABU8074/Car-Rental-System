@@ -120,12 +120,12 @@ $row34 = $result34->fetch_assoc();
                  <div class="navbar-nav ml-auto py-0">
                      <a href="c-h.php" class="nav-item nav-link active">Home</a>
                      <a href="c-h.php" class="nav-item nav-link">Cars</a>
-                     <a href="cus-driv.php" class="nav-item nav-link">Drivers</a>
+                     <!-- <a href="cus-driv.php" class="nav-item nav-link">Drivers</a> -->
                      <div class="nav-item dropdown">
                          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                          <div class="dropdown-menu rounded-0 m-0">
                              <a href="view-book.php" class="dropdown-item">Car Bookings</a>
-                             <a href="viewd-book.php" class="dropdown-item">Drivers Bookings</a>
+                             <!-- <a href="viewd-book.php" class="dropdown-item">Drivers Bookings</a> -->
                              <!-- <a href="booking.html" class="dropdown-item">Car Booking</a> -->
                          </div>
                      </div>

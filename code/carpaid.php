@@ -62,6 +62,8 @@ if(isset($_POST['submit'])){
    
  
   <head>
+  <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -161,10 +163,10 @@ if(isset($_POST['submit'])){
 									<th scope="col">Renter</th>
                                     
                                     
-                                    <th scope="col">ADDRESS</th>
+                                    <!-- <th scope="col">ADDRESS</th> -->
                                     <th scope="col">Car Papers</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Km details</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -194,7 +196,7 @@ $result3 = $conn->query($sql2);
 					
 					
 				
-						if($row['stat'] != 3 && $row['stat'] != 5){
+						if($row['stat'] == 5){
 					$car_id=$row['car_id'];
                     $sql1 = "SELECT * FROM `car` WHERE car_id='$car_id'";
 $result = mysqli_query($conn, $sql1);
@@ -210,39 +212,15 @@ $renter_id=$row2['renter_id'];
 		?>
                                 <tr>
                                    
-                                    <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"><?php echo "<br>",strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
-									<td><b><?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?></b></td>
-                                    
-                                    <td><b><?php echo $row4['addresss'],"(h)<br>",$row4['place'],"<br>Phone: ",$row4['phone']; ?></b></td>
-                                    <td><b><button type="button" value="" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
-    VIEW
-  </button></b></td>
-                                    <td><b><?php echo "From: ",$row['book_date'],"<br>To: ",$row['drop_date']; ?></b></td>
-                                    <td><b><?php if($row['stat']==0){
-                                        echo "<font color='red'>Rejected</font>";
-                                    } 
-                                    else if($row['stat']==1){
-                                        echo "<font color='green'>Accepted</font>";
-                                    }
-                                    else if($row['stat']==2){
-                                        echo "<font color='blue'>Pending</font>";
-                                    }
-                                    else if($row['stat']==3){
-                                      echo "<font color='blue'>waiting for payment</font>";
-                                  }
-                                    ?></b></td>
-									<td>
-                                   
-                        <button id="bt2"  onclick="getid2(<?php echo $row['book_id']; ?>);">Delete</button>
-                      </a>
-                    </td>
-<td><?php
+                                    <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"><?php echo "<br>",strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b>
+                                <br>
+                                <?php
 $bid=$row['book_id'];
 $sqlo = "SELECT * FROM `tbl_feedback` WHERE book_id='$bid'";
 $resulto = mysqli_query($conn, $sqlo);
 
 
-if($resulto->num_rows ==0 && $row['stat']==4){
+if($resulto->num_rows ==0 && $row['stat']==5){
   ?>
 <div id="feedback-form-wrapper">
   <div id="floating-icon">
@@ -254,6 +232,39 @@ if($resulto->num_rows ==0 && $row['stat']==4){
   <?php
 }
 ?>
+</td>
+									<td><b><?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?><br>
+                                    
+                                    <?php echo $row4['addresss'],"(h)<br>",$row4['place'],"<br>Phone: ",$row4['phone']; ?></b></td>
+                                    <td><b><button type="button" value="" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
+    VIEW
+  </button></b></td>
+                                    <td><b><?php echo "From: ",$row['book_date'],"<br>To: ",$row['drop_date']; ?></b></td>
+                                   
+                    <td>
+                        <?php
+                        if($row['start_km']>0){
+                    echo "Starting KM: ".$row['start_km']."Km <br>";
+                        }
+                        if($row['end_km']>0){
+                        echo "Ending KM: ".$row['end_km']."Km <br>";
+                        echo "Total KM travelled : ".$row['end_km']-$row['start_km']."Km";
+                        }
+                        if($row['amount']>0){   
+                        ?>
+                    <form action="cuscarpaypdf.php" method="POST">
+        <input type="hidden" name="dbid" value="<?php echo $row['book_id'];?>">
+        <button type="submit" class="btn btn-primary hidden-print" name="payid"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+</svg></button>
+</form>
+                               </td>
+                            </tbody>
+											<?php	
+                        }
+                        ?>
+<td>
   <div id="feedback-form-modal">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -380,6 +391,8 @@ $('.modal-body #bs').val(bs);
       });
         }
         </script>
+
+
 
 <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
         <p class="mb-2 text-center text-body">&copy; <a href="#">CAR RENTAL SYSTEM</a></p>

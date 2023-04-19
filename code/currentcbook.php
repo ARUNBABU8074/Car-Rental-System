@@ -62,6 +62,8 @@ if(isset($_POST['submit'])){
    
  
   <head>
+  <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -119,7 +121,8 @@ if(isset($_POST['submit'])){
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                            <a href="view-book.php" class="dropdown-item">My Bookings</a>
+                              
+                                <a href="view-book.php" class="dropdown-item">My Bookings</a>
                                 <a href="currentcbook.php" class="dropdown-item">Ongoing booking</a>
                                 <a href="carpaid.php" class="dropdown-item">Payment Done</a>
                             </div>
@@ -161,10 +164,10 @@ if(isset($_POST['submit'])){
 									<th scope="col">Renter</th>
                                     
                                     
-                                    <th scope="col">ADDRESS</th>
+                                    <!-- <th scope="col">ADDRESS</th> -->
                                     <th scope="col">Car Papers</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Km details</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -194,7 +197,7 @@ $result3 = $conn->query($sql2);
 					
 					
 				
-						if($row['stat'] != 3 && $row['stat'] != 5){
+						if($row['stat'] != 3 && $row['stat'] != 5 && $row['start_km']>0){
 					$car_id=$row['car_id'];
                     $sql1 = "SELECT * FROM `car` WHERE car_id='$car_id'";
 $result = mysqli_query($conn, $sql1);
@@ -210,33 +213,9 @@ $renter_id=$row2['renter_id'];
 		?>
                                 <tr>
                                    
-                                    <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"><?php echo "<br>",strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
-									<td><b><?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?></b></td>
-                                    
-                                    <td><b><?php echo $row4['addresss'],"(h)<br>",$row4['place'],"<br>Phone: ",$row4['phone']; ?></b></td>
-                                    <td><b><button type="button" value="" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
-    VIEW
-  </button></b></td>
-                                    <td><b><?php echo "From: ",$row['book_date'],"<br>To: ",$row['drop_date']; ?></b></td>
-                                    <td><b><?php if($row['stat']==0){
-                                        echo "<font color='red'>Rejected</font>";
-                                    } 
-                                    else if($row['stat']==1){
-                                        echo "<font color='green'>Accepted</font>";
-                                    }
-                                    else if($row['stat']==2){
-                                        echo "<font color='blue'>Pending</font>";
-                                    }
-                                    else if($row['stat']==3){
-                                      echo "<font color='blue'>waiting for payment</font>";
-                                  }
-                                    ?></b></td>
-									<td>
-                                   
-                        <button id="bt2"  onclick="getid2(<?php echo $row['book_id']; ?>);">Delete</button>
-                      </a>
-                    </td>
-<td><?php
+                                    <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"><?php echo "<br>",strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b>
+                                <br>
+                                <?php
 $bid=$row['book_id'];
 $sqlo = "SELECT * FROM `tbl_feedback` WHERE book_id='$bid'";
 $resulto = mysqli_query($conn, $sqlo);
@@ -254,6 +233,36 @@ if($resulto->num_rows ==0 && $row['stat']==4){
   <?php
 }
 ?>
+</td>
+									<td><b><?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?><br>
+                                    
+                                    <?php echo $row4['addresss'],"(h)<br>",$row4['place'],"<br>Phone: ",$row4['phone']; ?></b></td>
+                                    <td><b><button type="button" value="" onclick="getId(<?php echo $row['car_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
+    VIEW
+  </button></b></td>
+                                    <td><b><?php echo "From: ",$row['book_date'],"<br>To: ",$row['drop_date']; ?></b></td>
+                                   
+                    <td>
+                        <?php
+                        if($row['start_km']>0){
+                    echo "Starting KM: ".$row['start_km']."Km <br>";
+                        }
+                        if($row['end_km']>0){
+                        echo "Ending KM: ".$row['end_km']."Km <br>";
+                        echo "Total KM travelled : ".$row['end_km']-$row['start_km']."Km";
+                        }
+                        if($row['amount']>0){   
+                        ?>
+                    <input type="button" class="btn btn-primary" name="Pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
+                           <input type="hidden" value="<?php echo  $row['amount']+$row['damount'];?>" id="amt" name="amt">    
+                           <input type="hidden" value="<?php echo  $row['book_id'];?>" id="bid" name="bid">   
+                           <input type="hidden" value="<?php echo  $row4['fname'];?>" id="dname" name="dname">
+                               </td>
+                            </tbody>
+											<?php	
+                        }
+                        ?>
+<td>
   <div id="feedback-form-modal">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -380,6 +389,49 @@ $('.modal-body #bs').val(bs);
       });
         }
         </script>
+
+<script>
+    function pay_now(){
+// alert("k");
+    // var name=jQuery('#name').val();
+    var amt=document.getElementById('amt').value;
+    var bid=document.getElementById('bid').value;
+    var name=document.getElementById('dname').value;
+    var options = {
+    "key": "rzp_test_sTxnog5fKY3bok",
+    "amount": amt*100, 
+    "currency": "INR",
+    "name": name,
+    "description": "Test Transaction",
+    // "image": "https://drive.google.com/file/d/1FJCNPPMhML96z3s4IrR8-yGU4A6HLm2X/view?usp=share_link",
+    "handler":function(response){
+        console.log(response);
+        jQuery.ajax({
+            type:'POST',
+            url:'carpay.php',
+            data:"payment_id="+response.razorpay_payment_id+"&amt="+amt+"&bid="+bid,
+            success:function(result){
+                alert("payment success");
+                window.location.reload;
+            }
+
+        })
+        // if(response){
+        //     window.location.href="/adsol/index.php";
+        // }
+       
+
+    }
+};
+
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+
+}
+</script>
 
 <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
         <p class="mb-2 text-center text-body">&copy; <a href="#">CAR RENTAL SYSTEM</a></p>

@@ -65,6 +65,8 @@ if(isset($_POST['substart'])){
 <html lang="en">
    
   <head>
+  <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -228,7 +230,7 @@ $('#endModal').modal('show');
 									<th scope="col">Customer</th>
                                     
                                     
-                                    <th scope="col">ADDRESS</th>
+                                    <!-- <th scope="col">ADDRESS</th> -->
                                     <th scope="col">Driving Licence </th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Driver</th>
@@ -262,7 +264,7 @@ $result3 = $conn->query($sql2);
 					
 					
 				
-						if($row['stat'] == 1){
+						if($row['stat'] == 5){
 					$cus_id=$row['cus_id'];
                             $sql4 = "SELECT * FROM `customer` WHERE cus_id='$cus_id'";
                             $result4 = mysqli_query($conn, $sql4);
@@ -274,9 +276,9 @@ $result3 = $conn->query($sql2);
                                 <tr>
                                    
                                     <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"><?php echo "<br>",strtoupper($row2['company']),"<br>",strtoupper($row2['name']); ?></b></td>
-									<td><b><?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?></b></td>
+									<td><b><?php echo strtoupper($row4['fname'])," ",strtoupper($row4['lname']);  ?><br>
                                     
-                                    <td><b><?php echo $row4['addresss'],"(h)<br>",$row4['place'],"<br>Phone: ",$row4['phone']; ?></b></td>
+                                    <?php echo $row4['addresss'],"(h)<br>",$row4['place'],"<br>Phone: ",$row4['phone']; ?></b></td>
                                     <td><b><button type="button" value="" onclick="getId(<?php echo $row4['cus_id'];?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
     VIEW
   </button></b></td>
@@ -290,7 +292,13 @@ $result3 = $conn->query($sql2);
                         if($check_result->num_rows > 0){
                             $m= $check_result->fetch_assoc();
                             echo $m['fname']," ",$m['lname'];
-
+?>
+<br>
+  <input type="button" class="btn btn-primary" name="Pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
+                           <input type="hidden" value="<?php echo $row['damount'];?>" id="amt" name="amt">    
+                           <input type="hidden" value="<?php echo  $row['book_id'];?>" id="bid" name="bid">   
+                           <input type="hidden" value="<?php echo  $m['fname'];?>" id="dname" name="dname">
+<?php
                             
                         }
  
@@ -331,7 +339,8 @@ if($row['start_km'] == 0 && $row['end_km'] == 0 && $row['book_date']==$day){
                       else if($row['start_km'] != 0 && $row['end_km'] != 0){
                         echo "Starting KM: ".$row['start_km']."Km <br>";
                         echo "Ending KM: ".$row['end_km']."Km <br>";
-                        echo "Total KM travelled : ".$row['end_km']-$row['start_km']."Km";
+                        echo "Total KM travelled : ".$row['end_km']-$row['start_km']."Km <br>";
+                        echo "Total Amount paid : ".$row['amount']+$row['damount']."₹";
                       }
 
                       else { echo "Enter the details in the booking start date";
@@ -447,6 +456,49 @@ echo "Total Amount : ₹".$row['amount']+$row['damount'];
       });
         }
         </script>
+
+<script>
+    function pay_now(){
+// alert("k");
+    // var name=jQuery('#name').val();
+    var amt=document.getElementById('amt').value;
+    var bid=document.getElementById('bid').value;
+    var name=document.getElementById('dname').value;
+    var options = {
+    "key": "rzp_test_sTxnog5fKY3bok",
+    "amount": amt*100, 
+    "currency": "INR",
+    "name": name,
+    "description": "Test Transaction",
+    // "image": "https://drive.google.com/file/d/1FJCNPPMhML96z3s4IrR8-yGU4A6HLm2X/view?usp=share_link",
+    "handler":function(response){
+        console.log(response);
+        jQuery.ajax({
+            type:'POST',
+            url:'driverpay.php',
+            data:"payment_id="+response.razorpay_payment_id+"&amt="+amt+"&bid="+bid,
+            success:function(result){
+                alert("payment success");
+                window.location.reload;
+            }
+
+        })
+        // if(response){
+        //     window.location.href="/adsol/index.php";
+        // }
+       
+
+    }
+};
+
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+
+}
+</script>
 
 <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
         <p class="mb-2 text-center text-body">&copy; <a href="#">CAR RENTAL SYSTEM</a></p>

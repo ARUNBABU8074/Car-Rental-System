@@ -11,7 +11,7 @@ $row34 = $result34->fetch_assoc();
 $day=date("Y-m-d");
 $sqlup = "UPDATE `tbl_booking` SET `stat`='3' WHERE `drop_date`<'$day' and `stat`='1';";
 $resultup = $conn->query($sqlup);
-$sqlup2 = "UPDATE `tbl_booking` SET `stat`='0' WHERE `book_date`>='$day' and `stat`='2';";
+$sqlup2 = "UPDATE `tbl_booking` SET `stat`='0' WHERE `book_date`>'$day' and `stat`='2';";
 $resultup2 = $conn->query($sqlup2);
 ?>
 
@@ -86,13 +86,13 @@ $resultup2 = $conn->query($sqlup2);
                     <div class="navbar-nav ml-auto py-0">
                         <a href="#" class="nav-item nav-link active">Home</a>
                         <a href="#" class="nav-item nav-link">Cars</a>
-                        <a href="cus-driv.php" class="nav-item nav-link">Drivers</a>
+                        <!-- <a href="cus-driv.php" class="nav-item nav-link">Drivers</a> -->
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="view-book.php" class="dropdown-item">Car Bookings</a>
-                                <a href="viewd-book.php" class="dropdown-item">Drivers Bookings</a>
-                                <!-- <a href="booking.html" class="dropdown-item">Car Booking</a> -->
+                                <a href="view-book.php" class="dropdown-item">My Bookings</a>
+                                <a href="currentcbook.php" class="dropdown-item">Ongoing booking</a>
+                                <a href="carpaid.php" class="dropdown-item">Payment Done</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">

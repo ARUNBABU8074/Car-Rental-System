@@ -16,18 +16,18 @@ $cus_id=$row34['cus_id'];
 	 $pdate=$_POST['pdate'];
          $ddate=$_POST['ddate']; 
         $stat=2;
-		
-		$selectd="SELECT * FROM `car`,`driver` WHERE car_id='$car_id' AND car.renter_id=driver.renter_id and driver.availability=1";
-		$sqdc=$conn->query($selectd);
-		if($sqdc->num_rows>0){
+	
+		// $selectd="SELECT * FROM `car`,`driver` WHERE car_id='$car_id' AND car.renter_id=driver.renter_id and driver.availability=1";
+		// $sqdc=$conn->query($selectd);
+		// if($sqdc->num_rows>0){
 
-			$did=$_POST['driver'];
-		}
-		else{
-			$did=0;
-		}
+		// 	$did=$_POST['driver'];
+		// }
+		// else{
+		// 	$did=0;
+		// }
 
-        $sql1 = "INSERT INTO `tbl_booking`(`cus_id`, `car_id`,`driver_id`, `book_date`, `drop_date`, `stat`, `drive_stat`) VALUES('$cus_id','$car_id','0','$pdate','$ddate','$stat','$did')";
+        $sql1 = "INSERT INTO `tbl_booking`(`cus_id`, `car_id`, `driver_id`, `book_date`, `drop_date`, `stat`, `drive_stat`) VALUES ('$cus_id','$car_id','0','$pdate','$ddate','2','1')";
         	
 	if($conn->query($sql1) === TRUE){
 		?>
