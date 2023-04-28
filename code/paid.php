@@ -292,15 +292,24 @@ $result3 = $conn->query($sql2);
                         if($check_result->num_rows > 0){
                             $m= $check_result->fetch_assoc();
                             echo $m['fname']," ",$m['lname'];
+$did=$row['book_id'];
+                            $sqldb = "SELECT * FROM `dbook` WHERE carbook_id='$did'";
+
+
+                            $resultdb = $conn->query($sqldb);
+                            $rowdb = $resultdb->fetch_assoc();
+                            if($rowdb['stat'] != 5){
 ?>
 <br>
   <input type="button" class="btn btn-primary" name="Pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
                            <input type="hidden" value="<?php echo $row['damount'];?>" id="amt" name="amt">    
-                           <input type="hidden" value="<?php echo  $row['book_id'];?>" id="bid" name="bid">   
+                           <input type="hidden" value="<?php echo  $rowdb['book_id'];?>" id="bid" name="bid">    
+
                            <input type="hidden" value="<?php echo  $m['fname'];?>" id="dname" name="dname">
 <?php
                             
                         }
+                      }
  
                                     }
                                     else{
@@ -340,7 +349,8 @@ if($row['start_km'] == 0 && $row['end_km'] == 0 && $row['book_date']==$day){
                         echo "Starting KM: ".$row['start_km']."Km <br>";
                         echo "Ending KM: ".$row['end_km']."Km <br>";
                         echo "Total KM travelled : ".$row['end_km']-$row['start_km']."Km <br>";
-                        echo "Total Amount paid : ".$row['amount']+$row['damount']."₹";
+                        echo "Total Amount received
+                         : ".$row['amount']+$row['damount']."₹";
                       }
 
                       else { echo "Enter the details in the booking start date";

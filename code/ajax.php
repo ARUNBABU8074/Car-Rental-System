@@ -213,13 +213,18 @@ if(!empty($_POST['book-id'])){
 
 	$result = $conn->query($sql);
 
+    $sql56="INSERT INTO `dbook`(`carbook_id`, `driver_id`, `stat`) VALUES ('$book_id','$drv','1')";
+
+	$result56 = $conn->query($sql56);
+
+
     $sql1="SELECT `car_id` FROM `tbl_booking` WHERE `book_id`='$book_id'";
     $result = $conn->query($sql1);
 $car=$result->fetch_assoc();
 $car_id=$car['car_id'];
 
-$sql3="UPDATE `tbl_booking` SET `stat`=0 WHERE `book_id`!='$book_id' AND `car_id`='$car_id';";
-$result3 = $conn->query($sql3);
+// $sql3="UPDATE `tbl_booking` SET `stat`=0 WHERE `book_id`!='$book_id' AND `car_id`='$car_id';";
+// $result3 = $conn->query($sql3);
 // $sql2="UPDATE `car` SET `c_stat`=3 WHERE `car_id`='$car_id'";
 
 // 	$result2 = $conn->query($sql2);
