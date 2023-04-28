@@ -159,7 +159,19 @@ $renter_id=$row1['renter_id'];
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="book-accept.php" class="dropdown-item">Requests</a>
-                                <!-- <a href="dacp-view.php" class="dropdown-item">Accepted Bookings</a> -->
+                                <a href="#" class="dropdown-item">Upcoming</a>
+                                <!-- <a href="" class="dropdown-item">Paid</a> -->
+                                
+                            </div>
+                        </div>
+
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Payments</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="received.php" class="dropdown-item">Received</a>
+                                <a href="paid.php" class="dropdown-item">Pending Driver Payment</a>
+                                <a href="paiddone.php" class="dropdown-item"> Driver Paid</a>
+
                                 
                             </div>
                         </div>

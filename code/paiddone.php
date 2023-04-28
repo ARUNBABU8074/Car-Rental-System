@@ -61,6 +61,8 @@ if (isset($_POST['subend'])) {
 <html lang="en">
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -178,7 +180,6 @@ if (isset($_POST['subend'])) {
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle " data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
-
                                 <a href="book-accept.php" class="dropdown-item">Requests</a>
                                 <a href="upcoming.php" class="dropdown-item">Upcoming</a>
                                 <!-- <a href="" class="dropdown-item">Paid</a> -->
@@ -236,11 +237,11 @@ if (isset($_POST['subend'])) {
 
                             <th scope="col">Car</th>
 
+                            <th scope="col">Customer</th>
 
 
-
-                            <th scope="col">ADDRESS</th>
-
+                            <!-- <th scope="col">ADDRESS</th> -->
+                            <!-- <th scope="col">Driving Licence </th> -->
                             <th scope="col">Date</th>
                             <th scope="col">Driver</th>
                             <th scope="col">Action</th>
@@ -273,10 +274,14 @@ if (isset($_POST['subend'])) {
 
 
 
-                        ?>
-                                        <td>
-                                            <?php
-                                            if ($row['stat'] == 5) {
+                                        if ($row['stat'] == 5) {
+                                            $did = $row['book_id'];
+                                            $sqldb = "SELECT * FROM `dbook` WHERE carbook_id='$did'";
+
+
+                                            $resultdb = $conn->query($sqldb);
+                                            $rowdb = $resultdb->fetch_assoc();
+                                            if ($rowdb['stat'] == 5) {
                                                 $cus_id = $row['cus_id'];
                                                 $sql4 = "SELECT * FROM `customer` WHERE cus_id='$cus_id'";
                                                 $result4 = mysqli_query($conn, $sql4);
@@ -284,15 +289,14 @@ if (isset($_POST['subend'])) {
                                                 $row4 = mysqli_fetch_array($result4);
 
 
-                                            ?>
+                        ?>
                                                 <tr>
 
                                                     <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"><?php echo "<br>", strtoupper($row2['company']), "<br>", strtoupper($row2['name']); ?></b></td>
-                                                    <td><b><?php echo strtoupper($row4['fname']), " ", strtoupper($row4['lname']);  ?>
-                                                            <br><?php echo $row4['addresss'], "(h)<br>", $row4['place'], "<br>Phone: ", $row4['phone']; ?></b></td>
-                                                    <!-- <td><b><button type="button" value="" onclick="getId(<?php echo $row4['cus_id']; ?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
-VIEW
-</button></b></td> -->
+                                                    <td><b><?php echo strtoupper($row4['fname']), " ", strtoupper($row4['lname']);  ?><br>
+
+                                                            <?php echo $row4['addresss'], "(h)<br>", $row4['place'], "<br>Phone: ", $row4['phone']; ?></b></td>
+
                                                     <td><b><?php echo "From: ", $row['book_date'], "<br>To: ", $row['drop_date']; ?></b></td>
                                                     <td><b><?php
                                                             if ($row['drive_stat'] == 1) {
@@ -303,6 +307,12 @@ VIEW
                                                                 if ($check_result->num_rows > 0) {
                                                                     $m = $check_result->fetch_assoc();
                                                                     echo $m['fname'], " ", $m['lname'];
+
+                                                            ?>
+
+                                                            <?php
+
+
                                                                 }
                                                             } else {
                                                                 echo "No";
@@ -310,31 +320,72 @@ VIEW
                                                             ?></b></td>
                                                     <td>
 
-                                                    <?php
+                                                        <?php
+                                                        if ($row['start_km'] == 0 && $row['end_km'] == 0 && $row['book_date'] == $day) {
+                                                        ?>
 
-                                                    echo "Waiting for payment <br>";
-                                                    echo "Starting KM: " . $row['start_km'] . "Km <br>";
-                                                    echo "Ending KM: " . $row['end_km'] . "Km <br>";
-                                                    echo "Total KM travelled : " . $row['end_km'] - $row['start_km'] . "Km <br>";
-                                                    echo "Total Amount : ₹" . $row['amount'] + $row['damount'];
-                                                }
-                                                    ?>
+                                                            Starting KM:
+                                                            <button type="button" class="btn" onclick="go('<?php echo $row['book_id']; ?>')">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
+                                                                    <path d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                                                </svg>
+                                                            </button>
+
+
+                                                            <?php
+                                                        } else if ($row['start_km'] != 0 && $row['end_km'] == 0) {
+                                                            echo "Starting KM: " . $row['start_km'] . "KM";
+                                                            if ($row['drop_date'] == $day) {
+                                                            ?>
+                                                                <br> KM Afeter drive:
+                                                                <button type="button" class="btn" onclick="go1('<?php echo $row['book_id']; ?>')">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
+                                                                        <path d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                                                    </svg>
+                                                                </button>
+                                                        <?php
+                                                            }
+                                                        } else if ($row['start_km'] != 0 && $row['end_km'] != 0) {
+                                                            echo "Starting KM: " . $row['start_km'] . "Km <br>";
+                                                            echo "Ending KM: " . $row['end_km'] . "Km <br>";
+                                                            echo "Total KM travelled : " . $row['end_km'] - $row['start_km'] . "Km <br>";
+                                                            echo "Total Amount received: " . $row['amount'] + $row['damount'] . "₹ <br>";
+                                                            echo "Total Amount paid: " . $row['damount'] . "₹";
+                                                        } else {
+                                                            echo "Enter the details in the booking start date";
+                                                        }
+                                                        $b1_id = $row['book_id'];
+                                                        $checkdf = "SELECT * FROM dbook where carbook_id='$b1_id'";
+                                                        $check_resultdf = $conn->query($checkdf);
+                                                        if ($check_resultdf->num_rows > 0) {
+                                                            $mdf = $check_resultdf->fetch_assoc();
+                                                           
+                                                        }
+                                                        ?>
                                                     </td>
                                                     <td>
-                                                        <form action="cuscarpaypdf.php" method="post">
-                                                            <input type="hidden" value="<?php echo $row['book_id'] ?>" name="dbid">
+                                                        <form action="rentdrivpay.php" method="post">
+                                                            <input type="hidden" value="<?php echo $mdf['book_id'] ?>" name="dbid">
                                                             <button type="submit" name="carpay"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
                                                                     <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
                                                                     <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
                                                                 </svg></button>
                                                         </form>
                                                     </td>
-                                    <?php
+
+
+                    </tbody>
+            <?php
+                                            }
+                                        }
+            ?>
+
+<?php
                                     }
                                 }
                             }
                         }
-                                    ?>
+?>
                 </table>
 
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -376,6 +427,8 @@ VIEW
             });
         }
     </script>
+
+
 
     <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
         <p class="mb-2 text-center text-body">&copy; <a href="#">CAR RENTAL SYSTEM</a></p>
