@@ -59,8 +59,8 @@ $resul = $conn->query($sq);
     </div>
     <!-- Topbar End -->
 
-      <!-- Navbar Start -->
-      <div class="container-fluid position-relative nav-bar p-0">
+        <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0">
         <div class="position-relative px-lg-6" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
                 <a href="" class="navbar-brand">
@@ -72,12 +72,26 @@ $resul = $conn->query($sq);
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="#" class="nav-item nav-link active">Home</a>
-						<a href="my-cars.php" class="nav-item nav-link active">My Cars</a>
+						<a href="my-cars.php" class="nav-item nav-link">My Cars</a>
+                        <a href="my-driver.php" class="nav-item nav-link">My Drivers</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
+                           
                                 <a href="book-accept.php" class="dropdown-item">Requests</a>
-                                <!-- <a href="dacp-view.php" class="dropdown-item">Accepted Bookings</a> -->
+                                <a href="upcoming.php" class="dropdown-item">Upcoming</a>
+                                <!-- <a href="" class="dropdown-item">Paid</a> -->
+                                
+                            </div>
+                        </div>
+
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Payments</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="received.php" class="dropdown-item">Received</a>
+                                <a href="paid.php" class="dropdown-item">Pending Driver Payment</a>
+                                <a href="paiddone.php" class="dropdown-item"> Driver Paid</a>
+
                                 
                             </div>
                         </div>
@@ -89,6 +103,7 @@ $resul = $conn->query($sq);
 </svg> <?php echo strtoupper($u); ?> </a>
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="update-rent.php" class="dropdown-item">My profile</a>
+                                
                                 <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
                         <!-- </div>
@@ -98,7 +113,6 @@ $resul = $conn->query($sq);
             </nav>
         </div>
     </div>
-
 
 
 

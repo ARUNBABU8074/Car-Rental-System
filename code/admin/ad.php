@@ -1,16 +1,6 @@
 <?php
-include '../session.php';
-// error_reporting(E_ERROR | E_PARSE);
-// include("../config.php");
-// $sql = "SELECT * FROM customer";
-// $result = $conn->query($sql);
-
-
-// $sql2 = "SELECT * FROM renter";
-// $result2 = $conn->query($sql2);
-
-// $sql3 = "SELECT * FROM car";
-// $result3 = $conn->query($sql3);
+include("../config.php");
+include("../session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +52,7 @@ include '../session.php';
             <a class="logo" href="index.php">
               <img src="images/icon/logo.png" alt="FUEL" />
             </a>
-            <button class="hamburger hamburger--slider" type="button">  
+            <button class="hamburger hamburger--slider" type="button">
               <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
               </span>
@@ -104,7 +94,7 @@ include '../session.php';
           </ul>
         </div>
       </nav>
-      
+
     </header>
     <!-- END HEADER MOBILE-->
 
@@ -116,7 +106,7 @@ include '../session.php';
         </a> -->
         <img src="../images/logo.png" alt="" width="100px" height="100px">&ensp;
         <h1>
-         RENTAL
+          RENTAL
         </h1>
       </div>
       <div class="menu-sidebar__content js-scrollbar1">
@@ -148,7 +138,7 @@ include '../session.php';
             </li> -->
             <li class="has-sub">
               <a class="js-arrow" href="#">
-              <i class="fas fa-users"></i>checker</a>
+                <i class="fas fa-users"></i>checker</a>
               <ul class="list-unstyled navbar__sub-list js-sub-list">
                 <li>
                   <a href="checker.php">Add Checker</a>
@@ -162,11 +152,11 @@ include '../session.php';
               </ul>
             </li>
             <li class="has-sub">
-              <a class="js-arrow" href="#">
+              <a class="js-arrow" href="#" id="cars">
                 <i class="fas bi-car-front-fill"></i>Cars</a>
               <ul class="list-unstyled navbar__sub-list js-sub-list">
                 <li>
-                  <a href="assign.php">Assign Car</a>
+                  <a href="assign.php" id="acar">Assign Car</a>
                 </li>
                 <li>
                   <a href="review.php">Review of Car</a>
@@ -175,7 +165,8 @@ include '../session.php';
                   <a href="car.php">Approved Cars</a>
                 </li>
               </ul>
-            </li>
+                         
+            </li>
           </ul>
         </nav>
       </div>
@@ -230,14 +221,14 @@ include '../session.php';
                         <i class="zmdi zmdi-account-o"></i>
                       </div>
                       <?php
-                      require '../config.php';
-                      $count_users ="SELECT count(*) as `count` FROM `login` where `usertype`='1' AND `statuss`='1'";
-                      $count_users_run=mysqli_query($conn,$count_users);
-                      $count_users_count=mysqli_fetch_array($count_users_run);
+                      // require '../config.php';
+                      $count_users = "SELECT count(*) as `count` FROM `login` where `usertype`='1' AND `statuss`='1'";
+                      $count_users_run = mysqli_query($conn, $count_users);
+                      $count_users_count = mysqli_fetch_array($count_users_run);
                       ?>
                       <div class="text">
                         <h2><?php echo $count_users_count['count'];
-                        ?>
+                            ?>
                         </h2>
                         <span>CUSTOMERS</span>
                       </div>
@@ -248,7 +239,7 @@ include '../session.php';
                   </div>
                 </div>
               </div>
-              
+
               <div class="col-sm-6 col-lg-3">
                 <div class="overview-item overview-item--c2">
                   <div class="overview__inner">
@@ -256,27 +247,27 @@ include '../session.php';
                       <!-- <div class="icon">
                         <i> <img src="https://icons8.com/icon/8712/gas-station" alt=""></i>
                       </div> -->
-                        <!-- <img src="https://icons8.com/icon/8712/gas-station" alt=""> -->
+                      <!-- <img src="https://icons8.com/icon/8712/gas-station" alt=""> -->
                       <div class="icon"> <i class="zmdi zmdi-account-o"></i>
-                      <!-- <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-fuel-pump" viewBox="0 0 16 16">
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-fuel-pump" viewBox="0 0 16 16">
   <path d="M3 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5v-5Z"/>
   <path d="M1 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v8a2 2 0 0 1 2 2v.5a.5.5 0 0 0 1 0V8h-.5a.5.5 0 0 1-.5-.5V4.375a.5.5 0 0 1 .5-.5h1.495c-.011-.476-.053-.894-.201-1.222a.97.97 0 0 0-.394-.458c-.184-.11-.464-.195-.9-.195a.5.5 0 0 1 0-1c.564 0 1.034.11 1.412.336.383.228.634.551.794.907.295.655.294 1.465.294 2.081v3.175a.5.5 0 0 1-.5.501H15v4.5a1.5 1.5 0 0 1-3 0V12a1 1 0 0 0-1-1v4h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V2Zm9 0a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v13h8V2Z"/>
 </svg> -->
                       </div>
                       <?php
                       require '../config.php';
-                      $count_user ="SELECT count(*) as `count` FROM `login` where `usertype`='2' AND statuss='1'";
-                      $count_user_run=mysqli_query($conn,$count_user);
-                      $count_user_count=mysqli_fetch_array($count_user_run);
+                      $count_user = "SELECT count(*) as `count` FROM `login` where `usertype`='2' AND statuss='1'";
+                      $count_user_run = mysqli_query($conn, $count_user);
+                      $count_user_count = mysqli_fetch_array($count_user_run);
                       ?>
                       <div class="text">
                         <h2><?php echo $count_user_count['count'];
-                        ?></h2>
+                            ?></h2>
                         <span>RENTERS</span>
                       </div>
                     </div>
-                
-              <div class="overview-chart">
+
+                    <div class="overview-chart">
                       <canvas id="widgetChart2"></canvas>
                     </div>
                   </div>
@@ -287,20 +278,20 @@ include '../session.php';
                   <div class="overview__inner">
                     <div class="overview-box clearfix">
                       <div class="icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
-  <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
-</svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+                          <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z" />
+                        </svg>
                       </div>
                       <div class="text">
-                      
+
                         <?php
-                      require '../config.php';
-                      $count_user ="SELECT count(*) as `count` FROM `car` where `c_stat`='1'";
-                      $count_user_run=mysqli_query($conn,$count_user);
-                      $count_user_count=mysqli_fetch_array($count_user_run);
-                      ?>
-                      <h2><?php echo $count_user_count['count'];?><h2>
-                        <span>Total Cars</span>
+                        require '../config.php';
+                        $count_user = "SELECT count(*) as `count` FROM `car` where `c_stat`='1'";
+                        $count_user_run = mysqli_query($conn, $count_user);
+                        $count_user_count = mysqli_fetch_array($count_user_run);
+                        ?>
+                        <h2><?php echo $count_user_count['count']; ?><h2>
+                            <span>Total Cars</span>
                       </div>
                     </div>
                     <div class="overview-chart">
@@ -328,7 +319,7 @@ include '../session.php';
                 </div>
               </div> -->
             </div>
-               <!-- <div class="col-sm-6 col-lg-3">
+            <!-- <div class="col-sm-6 col-lg-3">
                 <div class="overview-item overview-item--c3">
                   <div class="overview__inner">
                     <div class="overview-box clearfix">
@@ -340,7 +331,7 @@ include '../session.php';
                         <span>Today's Price</span>
                       </div>
                     </div> -->
-                    <!-- <div class="overview-chart">
+            <!-- <div class="overview-chart">
                       <canvas id="widgetChart3"></canvas>
                     </div>
                   </div>
@@ -430,35 +421,35 @@ include '../session.php';
           </div>
         </div>
       </div> -->
-      <!-- END MAIN CONTENT -->
-      <!-- END PAGE CONTAINER
+            <!-- END MAIN CONTENT -->
+            <!-- END PAGE CONTAINER
     </div>
 
   </div> 
 
   <!-- Jquery JS-->
-  <script src="vendor/jquery-3.2.1.min.js"></script>
-  <!-- Bootstrap JS-->
-  <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-  <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-  <!-- Vendor JS       -->
-  <script src="vendor/slick/slick.min.js">
-  </script>
-  <script src="vendor/wow/wow.min.js"></script>
-  <script src="vendor/animsition/animsition.min.js"></script>
-  <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-  </script>
-  <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-  <script src="vendor/counter-up/jquery.counterup.min.js">
-  </script>
-  <script src="vendor/circle-progress/circle-progress.min.js"></script>
-  <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-  <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-  <script src="vendor/select2/select2.min.js">
-  </script>
+            <script src="vendor/jquery-3.2.1.min.js"></script>
+            <!-- Bootstrap JS-->
+            <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+            <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+            <!-- Vendor JS       -->
+            <script src="vendor/slick/slick.min.js">
+            </script>
+            <script src="vendor/wow/wow.min.js"></script>
+            <script src="vendor/animsition/animsition.min.js"></script>
+            <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+            </script>
+            <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+            <script src="vendor/counter-up/jquery.counterup.min.js">
+            </script>
+            <script src="vendor/circle-progress/circle-progress.min.js"></script>
+            <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+            <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+            <script src="vendor/select2/select2.min.js">
+            </script>
 
-  <!-- Main JS-->
-  <script src="js/main.js"></script>
+            <!-- Main JS-->
+            <script src="js/main.js"></script>
 
 </body>
 

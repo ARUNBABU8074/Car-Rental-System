@@ -28,11 +28,11 @@ if($conn->query($sql2) === TRUE){
 
 $s=$conn->query($sql22);
     ?>
-    <!-- <script>
-        if(window.confirm('your car will confirm after checking'))
+    <script>
+        if(window.confirm('checker assigned'))
         {
-            window.location.href='my-cars.php';
-        };</script> -->
+            location.reload();
+        };</script>
     <?php
 }
 else{

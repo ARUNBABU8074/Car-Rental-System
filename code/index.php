@@ -116,7 +116,7 @@ $license=$_POST['cimage'];
         echo '<button type="button" onclick="history.back();">Back</button>';
     } 
    
- //  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+ 
 }
    
 ?>
@@ -731,13 +731,14 @@ function checkuser(){
 			<form action="login.php" method="post" class="wow fadeInUp" data-wow-delay="0.6s">
 				
 				<div class="col-md-4 col-sm-6">
-					<input type="text" class="form-control" placeholder="User name" name="username" required>
+					<input type="text" class="form-control" placeholder="User name" name="username" id="username" required>
 			<br>
-					<input type="password" class="form-control" placeholder="password" name="passwd" required>
+					<input type="password" class="form-control" placeholder="password" name="passwd" id="password" required>
 
 
 					<br>
 				
+                    
 				
 				
 					<input type="submit" class="form-control" value="login" name="login">

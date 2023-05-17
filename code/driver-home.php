@@ -9,10 +9,10 @@ $result34 = $conn->query($sql34);
 $row34 = $result34->fetch_assoc();
 
 $day=date("Y-m-d");
-$sqlup = "UPDATE `dbook` SET `stat`='3' WHERE `drop_date`<'$day' and `stat`='1';";
-$resultup = $conn->query($sqlup);
-$sqlup2 = "UPDATE `dbook` SET `stat`='0' WHERE `book_date`<'$day' and `stat`='2';";
-$resultup2 = $conn->query($sqlup2);
+// $sqlup = "UPDATE `dbook` SET `stat`='3' WHERE `drop_date`<'$day' and `stat`='1';";
+// $resultup = $conn->query($sqlup);
+// $sqlup2 = "UPDATE `dbook` SET `stat`='0' WHERE `book_date`<'$day' and `stat`='2';";
+// $resultup2 = $conn->query($sqlup2);
 
 
 ?>

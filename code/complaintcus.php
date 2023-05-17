@@ -5,73 +5,6 @@ $log_id = $_SESSION['log_id'];
 $sql34 = "SELECT * FROM customer where log_id='$log_id'";
 $result34 = $conn->query($sql34);
 $row34 = $result34->fetch_assoc();
-if (isset($_POST['csubmit'])) {
-  $cmp = $_POST["cmp"];
-  $toid = $_POST["car_id1"];
-  $fm = $_POST["cus_id1"];
-  $bcs = $_POST["book_id1"];
-  $to=$_POST["to"];
-  $sql2c = "INSERT INTO `tbl_complaint`(`from`, `from_id` , `to` , `to_id`, `book_id`,  `complaint`) VALUES ('customer','$fm','$to','$toid','$bcs','$cmp')";
-  if ($conn->query($sql2c) === TRUE) {
-
-?>
-    <script>
-      window.confirm('complaint registered');
-
-      window.location.href = 'carpaid.php';
-    </script>
-  <?php
-  }
-}
-if (isset($_POST['submit'])) {
-  $feedback = $_POST["feed"];
-  $car = $_POST["car_id"];
-  $cus = $_POST["cus_id"];
-  $bs = $_POST["book_id"];
-
-
-  $feedback_escaped = escapeshellarg($feedback);
-  $command = "python get_sentiment_score.py $feedback_escaped";
-  $sentiment_score = shell_exec($command);
-
-
-
-  $sql2 = "INSERT INTO `tbl_feedback`(`cus_id`, `car_id` , `book_id` , `feedback`, `score`) VALUES ('$cus','$car','$bs','$feedback','$sentiment_score')";
-
-  if ($conn->query($sql2) === TRUE) {
-    $sn = 0;
-    $sqlf = "SELECT *,count(*) as count FROM `tbl_feedback` where `car_id`='$car'";
-    $resultf = $conn->query($sqlf);
-    while ($rowf = $resultf->fetch_assoc()) {
-      $sn = $sn + $rowf['score'];
-    }
-    if ($resultf->num_rows == 1) {
-      $count = 1;
-    } else {
-      $count = $rowf['count'];
-    }
-    $fscore = $sn / $count;
-    $sql34f = "UPDATE `car` SET `sntscore`='$fscore' WHERE `car_id`=' $car'";
-    $result34f = $conn->query($sql34f);
-  ?>
-    <script>
-      if (window.confirm('feedback added')) {
-        window.location.href = 'carpaid.php';
-      };
-    </script>
-  <?php
-  } else {
-  ?>
-    <script>
-      if (window.confirm('Oops!!!!!    failed ')) {
-        window.location.href = 'carpaid.php';
-      };
-    </script>
-<?php
-  }
-}
-
-
 
 ?>
 
@@ -179,34 +112,19 @@ if (isset($_POST['submit'])) {
           <thead>
             <tr>
 
-              <th scope="col">Car</th>
-
-              <th scope="col">Renter</th>
-
-
-              <!-- <th scope="col">ADDRESS</th> -->
-              <th scope="col">Car Papers</th>
-              <th scope="col">Date</th>
-              <th scope="col">Driver</th>
-              <th scope="col">Km details</th>
+              <th scope="col">From</th>
+              <th scope="col">Complaint</th>
+              <th scope="col">Booking details</th>
+              <th scope="col">Booking Date</th>
             </tr>
           </thead>
           <tbody>
             <?php
 
+            $cus_id = $row34['cus_id'];
 
-            $sql = "SELECT * FROM `customer` WHERE log_id='$log_id'";
-            $sql_result = mysqli_query($conn, $sql);
-
-            $row1 = mysqli_fetch_array($sql_result);
-            $cus_id = $row1['cus_id'];
-
-            // $sql1 = "SELECT * FROM `car` WHERE renter_id='$renter_id'";
-            // $sql_result1 = mysqli_query($conn, $sql1);
-            // if ($sql_result1->num_rows > 0) {
-            // while ($row2 = $sql_result1->fetch_assoc()) {
-            // $car_id=$row2['car_id'];
-            $sql2 = "SELECT * FROM `tbl_booking` WHERE cus_id='$cus_id' ORDER BY book_id DESC";
+           
+            $sql2 = "SELECT * FROM `tbl_complaint` WHERE 'to'='customer' and to_id='$cus_id' ORDER BY book_id DESC";
 
 
             $result3 = $conn->query($sql2);
@@ -216,64 +134,27 @@ if (isset($_POST['submit'])) {
 
               while ($row = $result3->fetch_assoc()) {
 
+                $from = $row['from'];
+                $from_id = $row['from_id'];
+if($from == 'renter'){
+    
+                  $sql1 = "SELECT * FROM `renter` WHERE renter_id='$from_id'";
+}
+else{
+    $sql1 = "SELECT * FROM `driver` WHERE driver_id='$from_id'";
+}
+$result = mysqli_query($conn, $sql1);
 
+$row2 = mysqli_fetch_array($result);
 
-                if ($row['stat'] == 5) {
-                  $car_id = $row['car_id'];
-                  $sql1 = "SELECT * FROM `car` WHERE car_id='$car_id'";
-                  $result = mysqli_query($conn, $sql1);
-
-                  $row2 = mysqli_fetch_array($result);
-                  $renter_id = $row2['renter_id'];
-                  $sql4 = "SELECT * FROM `renter` WHERE renter_id='$renter_id'";
-                  $result4 = mysqli_query($conn, $sql4);
-
-                  $row4 = mysqli_fetch_array($result4);
+               
 
 
             ?>
                   <tr>
 
-                    <td><b><img src="images/<?php echo $row2['image']; ?>" style="width: 200px; height: 200px;"><?php echo "<br>", strtoupper($row2['company']), "<br>", strtoupper($row2['name']); ?></b>
-                      <br>
-                      <?php
-                      $bid = $row['book_id'];
-                      $sqlo = "SELECT * FROM `tbl_feedback` WHERE book_id='$bid'";
-                      $resulto = mysqli_query($conn, $sqlo);
-
-
-                      if ($resulto->num_rows == 0 && $row['stat'] == 5) {
-                      ?>
-                        <div id="feedback-form-wrapper">
-                          <div id="floating-icon">
-                            <button type="button" class="btn btn-primary btn-sm rounded-0" onclick="go('<?php echo $row['car_id']; ?>','<?php echo $row['cus_id']; ?>','<?php echo $row['book_id']; ?>')">
-                              Feedback
-                            </button>
-
-
-
-                          <?php
-                        }
-                        $sqloc = "SELECT * FROM `tbl_complaint` WHERE book_id='$bid' and `to`='renter'";
-                        $resultoc = mysqli_query($conn, $sqloc);
-                        if ($resultoc->num_rows == 0 && $row['stat'] == 5) {
-                          $cid=$row['car_id'];
-                          $sqlocr = "SELECT * FROM `car` WHERE car_id='$cid'";
-                        $resultocr = mysqli_query($conn, $sqlocr);
-                        $rowr = mysqli_fetch_array($resultocr);
-                       
-                          ?>
- 
-                            <button type="button" onclick="goc('<?php echo $rowr['renter_id']; ?>','<?php echo $row['cus_id']; ?>','<?php echo $row['book_id']; ?>')">
-                              <img src="images/angry.jpg" style="width: 20px; height: 20px;">
-                            </button>
-
-                          </div>
-                        <?php
-                        }
-                        ?>
-                    </td>
-                    <td><b><?php echo strtoupper($row4['fname']), " ", strtoupper($row4['lname']);  ?><br>
+                    
+                    <td><b><?php echo strtoupper($row2['fname']), " ", strtoupper($row2['lname']);  ?><br>
 
                         <?php echo $row4['addresss'], "(h)<br>", $row4['place'], "<br>Phone: ", $row4['phone']; ?></b></td>
                     <td><b><button type="button" value="" onclick="getId(<?php echo $row['car_id']; ?>)" name="v" id="v" class="btn btn-primary" data-toggle="modal">
@@ -391,7 +272,7 @@ if (isset($_POST['submit'])) {
     </tbody>
 <?php    }
               }
-            }
+            
 ?>
 </table>
 

@@ -179,7 +179,7 @@ $u=$_SESSION['username'];
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="carmodal">
         <i class="fa fa-plus"></i>&nbsp; Add Car
 </button>
 <!-- Modal -->
@@ -610,16 +610,16 @@ else{?>
 					else{
 						document.getElementById('cms').style.display = "none";
 					}
-					if(can!="" && sn.test(can)==false){
+					// if(can!="" && sn.test(can)==false){
 						
-						document.getElementById('cms1').style.display = "block";
-						document.getElementById('cms1').innerHTML = "Invalid Lname. It must be alphabet";
-						return false;
-					}
-					else{
+					// 	document.getElementById('cms1').style.display = "block";
+					// 	document.getElementById('cms1').innerHTML = "Invalid Lname. It must be alphabet";
+					// 	return false;
+					// }
+					// else{
 
-						document.getElementById('cms1').style.display = "none";
-					}
+					// 	document.getElementById('cms1').style.display = "none";
+					// }
 
 
 					var f=document.getElementById("reg").value;

@@ -1,6 +1,10 @@
 <?php
 include("config.php");
 include("session.php");
+$log_id=$_SESSION['log_id'];
+$sql34 = "SELECT * FROM customer where log_id='$log_id'";
+$result34 = $conn->query($sql34);
+$row34 = $result34->fetch_assoc();
 if(isset($_POST['submit'])){
 $car_id=$_POST['cid'];
 
@@ -58,8 +62,8 @@ $resul = $conn->query($sq);
     </div>
     <!-- Topbar End -->
 
-    <!-- Navbar Start -->
-    <div class="container-fluid position-relative nav-bar p-0">
+      <!-- Navbar Start -->
+      <div class="container-fluid position-relative nav-bar p-0">
         <div class="position-relative px-lg-6" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
                 <a href="" class="navbar-brand">
@@ -70,27 +74,26 @@ $resul = $conn->query($sq);
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                    <a href="c-h.php" class="nav-item nav-link active">Home</a>
+                        <a href="c-h.php" class="nav-item nav-link">Home</a>
                         <a href="c-h.php" class="nav-item nav-link">Cars</a>
-                        <a href="cus-driv.php" class="nav-item nav-link">Drivers</a>
+                        <!-- <a href="cus-driv.php" class="nav-item nav-link">Drivers</a> -->
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Bookings</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                            <a href="view-book.php" class="dropdown-item">Car Bookings</a>
-                                <a href="viewd-book.php" class="dropdown-item">Drivers Bookings</a>
-                                <!-- <a href="booking.html" class="dropdown-item">Car Booking</a> -->
+                                <a href="view-book.php" class="dropdown-item">My Bookings</a>
+                                <a href="currentcbook.php" class="dropdown-item">Ongoing booking</a>
+                                <a href="carpaid.php" class="dropdown-item">Payment Done</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-</svg> arun</a>
+</svg> <?php echo strtoupper($row34['fname']); ?> </a>
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="update-cus.php" class="dropdown-item">My profile</a>
                                 <a href="logout.php" class="dropdown-item">Logout</a>
                             </div>
-                      
                 </div>
             </nav>
         </div>

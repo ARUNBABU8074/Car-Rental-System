@@ -281,6 +281,7 @@ if (isset($_POST['subend'])) {
 
                       $resultdb = $conn->query($sqldb);
                       $rowdb = $resultdb->fetch_assoc();
+                    
                       if ($rowdb['stat'] != 5) {
                         $cus_id = $row['cus_id'];
                         $sql4 = "SELECT * FROM `customer` WHERE cus_id='$cus_id'";

@@ -9,8 +9,8 @@ $log_id= $_SESSION['log_id'];
 $u= $_SESSION['username'];
 $day=date("Y-m-d");
 
-$sqlup2 = "UPDATE `dbook` SET `stat`='0' WHERE `book_date`<'$day' and `stat`='2';";
-$resultup2 = $conn->query($sqlup2);
+// $sqlup2 = "UPDATE `dbook` SET `stat`='0' WHERE `book_date`<'$day' and `stat`='2';";
+// $resultup2 = $conn->query($sqlup2);
 ?>
 
 <!DOCTYPE html>
